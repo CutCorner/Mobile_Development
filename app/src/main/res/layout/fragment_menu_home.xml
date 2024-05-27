@@ -50,11 +50,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_arrow_drop_down"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:text="@string/your_location"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawableEndCompat="@drawable/ic_arrow_drop_down" />
 
             <TextView
                 android:id="@+id/TVLocation"
@@ -66,6 +66,27 @@
                 android:textSize="15sp" />
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintTop_toBottomOf="@+id/LLLocation"
+            tools:layout_editor_absoluteX="1dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RVBarber"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:fitsSystemWindows="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_barber" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

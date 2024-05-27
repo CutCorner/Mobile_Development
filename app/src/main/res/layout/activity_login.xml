@@ -166,11 +166,12 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_width="132dp"
+        android:layout_width="0dp"
         android:layout_height="3dp"
-        android:layout_marginStart="13dp"
+        android:layout_marginHorizontal="20dp"
         android:background="@drawable/bg_divider"
         app:layout_constraintBottom_toBottomOf="@+id/TVAnotherLogin"
+        app:layout_constraintEnd_toStartOf="@+id/TVAnotherLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/TVAnotherLogin"
         tools:layout_editor_absoluteX="1dp" />
@@ -179,9 +180,10 @@
         android:id="@+id/divider2"
         android:layout_width="132dp"
         android:layout_height="3dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginHorizontal="20dp"
         android:background="@drawable/bg_divider"
         android:rotationY="180"
+        app:layout_constraintStart_toEndOf="@+id/TVAnotherLogin"
         app:layout_constraintBottom_toBottomOf="@+id/TVAnotherLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/TVAnotherLogin" />

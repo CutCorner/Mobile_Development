@@ -1,0 +1,208 @@
+<resources>
+    <string name="app_name" translatable="false">Cepstun</string>
+
+    <!-- Xml -->
+    <string name="logo2">Logo lain</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="term_service">Dengan masuk atau mendaftar, Anda menyetujui Ketentuan Layanan dan Kebijakan Privasi kami.</string>
+
+
+    <!--  activity_choose_user.xml  -->
+    <string name="customerTittle" translatable="false">CUSTOMER</string>
+    <string name="barberTittle" translatable="false">BARBER</string>
+    <string name="customer" translatable="false">customer</string>
+    <string name="barber" translatable="false">barber</string>
+    <string name="button_choose">Memilih</string>
+
+
+    <!--  activity_login.xml  -->
+    <string name="login">Masuk ke Akun Anda</string>
+    <string name="email">Surel</string> <!--  activity_sign_up.xml  -->
+    <string name="hint_email">misalnya nama\@gmail.com</string> <!--  activity_sign_up.xml  -->
+    <string name="password">Kata sandi</string> <!--  activity_sign_up.xml  -->
+    <string name="resend_email">Kirim Ulang Verifikasi Email</string>
+    <string name="or_login_with">Atau Masuk Dengan</string> <!--  activity_sign_up.xml  -->
+    <string name="forgot_password">Tidak ingat kata sandi</string>
+    <string name="button_login">Gabung</string>  <!--  activity_on_boarding.xml  -->
+    <string name="google_logo">google_logo</string> <!--  activity_sign_up.xml  -->
+    <string name="facebook_logo">facebook_logo</string> <!--  activity_sign_up.xml  -->
+    <string name="apple_logo">apple_logo</string> <!--  activity_sign_up.xml  -->
+    <string name="dont_have_account">Belum punya akun\?</string>
+    <string name="sign_here">Daftar disini</string>
+
+
+    <!--  activity_on_boarding.xml  -->
+    <string name="onboardingImage">Pada Gambar Asrama</string>
+    <string name="onboarding1">Selamat datang di CutCorner!</string>
+    <string name="onboardingDesc1">Rasakan penjadwalan tanpa kerumitan dengan sistem kami yang efisien, memastikan janji temu Anda selalu tepat waktu.</string>
+    <string name="onboarding2">Fleksibel</string>
+    <string name="onboardingDesc2">Kelola dan pesan kebutuhan potong rambut Anda dengan mudah di mana saja</string>
+    <string name="onboarding3">Hemat waktu</string>
+    <string name="onboardingDesc3">Amankan janji temu Anda dalam beberapa ketukan dan manfaatkan hari Anda sebaik-baiknya</string>
+    <string name="button_sign_up">Mendaftar</string>
+
+
+    <!--  activity_register_barber.xml  -->
+    <string name="register_barber">Daftarkan Akun Tukang Cukur Anda</string>
+    <string name="name">Nama</string>
+    <string name="hint_name">Nama Tukang Cukur Anda</string>
+    <string name="category">Kategori</string>
+    <string name="address">Alamat</string>
+    <string name="hint_address">Jalan. XXX</string>
+    <string name="coordinate">Koordinat Lokasi</string>
+    <string name="hint_coordinate">Dapatkan koordinat dari Maps</string>
+    <string name="telephone">Nomor telepon</string>
+    <string name="hint_telephone" translatable="false">+62XXXXXXXXX</string>
+    <string name="photo_barber">Foto Tempat Potong Rambut/Salon</string>
+    <string name="hint_photo_barber">Unggah Gambar Anda</string>
+    <string name="button_continue">Melanjutkan</string>
+
+
+    <!--  activity_sign_up.xml  -->
+    <string name="sign_up">Daftarkan akun anda</string>
+    <string name="confirm_password">konfirmasi sandi</string>
+    <string name="button_register">Daftar</string>
+    <string name="have_account">Sudah memiliki akun\?</string>
+    <string name="login_here">Masuk disini</string>
+
+
+    <!--  activity_splash_screen.xml  -->
+    <string name="start_logo">mulai_logo</string>
+
+
+    <!--  fragment_menu_home.xml  -->
+    <string name="find_barbershop">Temukan tempat pangkas rambut</string>
+    <string name="your_location">Lokasimu</string>
+    <string name="current_location">Lokasi saat ini</string>
+
+    <!--  fragment_menu_notification.xml  -->
+    <string name="button_logout">Keluar</string>
+    <string name="permission_request_granted">Permintaan izin dikabulkan</string>
+    <string name="permission_request_denied">Permintaan izin ditolak</string>
+
+
+    <!--  bottom_menu.xml  -->
+    <string name="menu_home">Rumah</string>
+    <string name="menu_history">Sejarah</string>
+    <string name="menu_notification">Pemberitahuan</string>
+
+
+    <!--  Leku Map Picker  -->
+    <string name="leku_title_activity_location_picker">Pemilih Lokasi</string>
+    <string name="leku_load_location_error">Ada yang salah. Silakan coba lagi.</string>
+    <string name="leku_no_search_results">Tidak ada hasil untuk pencarian Anda</string>
+    <string name="leku_unknown_location">lokasi yang tidak diketahui</string>
+    <string name="leku_voice_search_promp">Telusuri dengan suara…</string>
+    <string name="leku_voice_search_extra_language">satu satu</string>
+    <string name="leku_toolbar_action_voice_title">Suara</string>
+    <string name="leku_search_hint">Mencari</string>
+
+
+    <!--  CustomEditText.kt  -->
+    <string name="email_format_invalid">Format Email Tidak Valid</string>
+    <string name="name_format_invalid">Format Nama Tidak Valid</string>
+    <string name="address_format_invalid">Format Alamat Tidak Valid</string>
+    <string name="number_format_invalid">Format Angka Tidak Valid</string>
+
+
+    <!--  LoginActivity.kt  -->
+    <string name="comingsoon">Segera hadir</string>
+    <string name="tittle_dialog_Loading">Memuat</string>
+    <string name="desc_dialog_Login">Gabung. Harap tunggu...</string>
+    <string name="tittle_dialogErr_Login">Kesalahan</string>
+    <string name="desc_dialogErr_Login">Anda telah diblokir sementara oleh Google karena terlalu banyak upaya login yang dibatalkan. Silakan coba lagi nanti.</string>
+    <string name="button_dialogErr_Login">OKE</string>
+    <string name="error_with">Kesalahan dengan :%1$s</string>
+
+
+    <!--  MainActivity.kt  -->
+    <string name="onBack">Tekan lagi untuk keluar</string>
+
+
+    <!--  RegisterBarberActivity.kt  -->
+    <string name="error_map">Peta Kesalahan %1$s</string>
+    <string name="desc_dialog_RegisterBarber">Mempersiapkan Peta, Harap tunggu...</string>
+    <string name="desc_dialog_SignUp">Daftar. Harap tunggu...</string>
+    <string-array name="category_barberRegister">
+        <item>Tukang cukur</item>
+        <item>Salon</item>
+    </string-array>
+
+
+    <!--  MenuHomeFragmentActivity.kt  -->
+    <string name="permission_agree">Izin Setuju</string>
+    <string name="permission_denied">Izin Ditolak, periksa pengaturan aplikasi yang akan diubah</string>
+    <string name="gps_off">Silakan aktifkan lokasi (GPS) terlebih dahulu</string>
+    <string name="remote_place">Lokasinya terlalu jauh dari pemukiman warga</string>
+    <string name="district">%1$s, %2$s</string>
+    <string name="error_location_MenuHome">Kesalahan dengan jaringan: %1$s</string>
+    <string name="error_location2_MenuHome">Gagal mendapatkan lokasi. Silakan periksa GPS atau koneksi internet Anda</string>
+
+
+    <!--  ChooseUserViewModel.kt  -->
+    <string name="saved">Disimpan ke basis data</string>
+    <string name="fail_save">Gagal mengunggah ke database</string>
+    <string name="fail_connect">Gagal menyambungkan basis data</string>
+
+
+    <!--  LoginViewModel.kt  -->
+    <string name="login_success">Masuk Berhasil</string>
+    <string name="not_verified">Harap Verifikasi email Anda! Cek di email</string>
+    <string name="fail_connect_data">Gagal menghubungkan Pengguna Data</string>
+    <string name="password_email_empty">Isi Email dan Password terlebih dahulu</string>
+    <string name="send_email_verif">Email verifikasi dikirim!</string>
+    <string name="verified_email">Email Anda telah diverifikasi! Anda dapat Masuk sekarang</string>
+    <string name="fail_send_email">Gagal Kirim Email Verifikasi: %1$s</string>
+    <string name="email_empty">Isi email terlebih dahulu</string>
+    <string name="email_reset_password">Periksa Email Anda untuk mengatur ulang kata sandi!</string>
+    <string name="fail_to_login">Gagal untuk masuk</string>
+    <string name="login_failed_with_message">Gagal Masuk, email atau kata sandi salah, klik Lupa Kata Sandi jika lupa \n %1$s</string>
+
+
+
+
+    <!--  SignUpViewModel.kt  -->
+    <string name="success_create_account">Periksa Email Anda dan Verifikasi Akun Anda!</string>
+    <string name="fail_save_data">Gagal menyimpan data ke Realtime Database: %1$s</string>
+    <string name="fail_send_verif">Gagal mengirim email verifikasi: %1$s</string>
+    <string name="fail_create_account">Gagal membuat akun: %1$s</string>
+    <string name="already_have_an_account">Anda sudah memiliki akun, masuk ke aplikasi</string>
+    <string name="register_success">Daftar Sukses</string>
+
+
+    <!--  activity_camera.xml  -->
+    <string name="get_the_picture_button">Dapatkan Tombol Gambar</string>
+
+    <!--  CameraActivity.kt  -->
+    <string name="fail_to_show_camera">Gagal Menampilkan Kamera</string>
+    <string name="fail_to_take_picture">Gagal mengambil gambar.</string>
+    <string name="straight">Lurus</string>
+    <string name="curly">Keriting</string>
+    <string name="wavy">Gelombang</string>
+    <string name="please_select_hair_model_first">Silakan pilih model rambut terlebih dahulu</string>
+    <string name="no_media_selected">Tidak Ada Media yang Dipilih</string>
+
+    <!--  activity_airecomendation.xml  -->
+    <string name="cut_recommendation">Rekomendasi Gaya Rambut</string>
+    <string name="your_face_shape_type">Tipe bentuk wajah Anda:</string>
+    <string name="example_oval">Contoh Oval</string>
+    <string name="button_back">Kembali</string>
+    <string name="ai_tittle">Tidak bisa memutuskan\? \nAI CutCorner membantu Anda memilih gaya rambut sesuai bentuk wajah Anda</string>
+    <string name="button_use_ai">Gunakan AI</string>
+    <string name="title_activity_barbershop">Aktivitas Barbershop</string>
+
+    <!--  adapter  -->
+    <string name="rate">(%1$s / 5)</string>
+
+
+    <!--  activity_barbershop.xml  -->
+    <string name="image_of_barber">Gambar Tukang Cukur</string>
+    <string name="maps">Peta</string>
+    <string name="queue_now">Antrian Sekarang</string>
+    <string name="button_order">Memesan</string>
+    <string name="reviews">Ulasan</string>
+
+    <!--  ImageClassifierHelper  -->
+    <string name="image_classifier_failed">gagal untuk mengklasifikasikan</string>
+
+</resources>

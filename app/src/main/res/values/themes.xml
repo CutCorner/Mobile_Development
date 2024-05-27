@@ -47,5 +47,16 @@
         <item name="android:color">@color/brown</item>
     </style>
 
+    <style name="TopBar">
+        <item name="titleTextAppearance">@style/TextAppearance.Toolbar.Title</item>
+    </style>
+
+    <!-- TextAppearance style for Toolbar Title -->
+    <style name="TextAppearance.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="fontFamily">@font/montserrat_bold</item> <!-- Font resource -->
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">20sp</item> <!-- Optional: Customize text size -->
+        <item name="android:textColor">@android:color/black</item> <!-- Optional: Customize text color -->
+    </style>
 </resources>
 

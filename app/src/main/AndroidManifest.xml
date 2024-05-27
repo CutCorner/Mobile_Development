@@ -7,8 +7,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-feature android:name="android.hardware.location.network" android:required="false" />
-    <uses-feature android:name="android.hardware.location.gps" android:required="false"  />
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -21,16 +32,39 @@
         android:theme="@style/Theme.Cepstun"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.ChooseModelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.RatingActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
+        <activity
+            android:name=".ui.activity.BarbershopActivity"
+            android:exported="false"
+            android:label="@string/title_activity_barbershop" />
+        <activity
+            android:name=".ui.activity.AIRecomendationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.CameraActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.OnBoardingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.RegisterBarberActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
@@ -53,19 +87,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name="com.adevinta.leku.LocationPickerActivity"
+            android:exported="true"
             android:label="@string/leku_title_activity_location_picker"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan"
             android:parentActivityName=".ui.activity.RegisterBarberActivity"
-            android:exported="true">
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
+
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/leku_searchable" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -75,9 +109,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}"/>
     </application>
 
 </manifest>

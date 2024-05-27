@@ -23,7 +23,8 @@ android {
 //        buildConfigField("String", "MAPS_API_KEY", "\"${System.getenv("MAPS_API_KEY") ?: ""}\"")
 //        val mapsApiKey = localProperties.getProperty("MAPS_API_KEY") ?: ""
 //        buildConfigField("String", "MAPS_API_KEY", "\"$mapsApiKey\"")
-
+        buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-sr07ofrp9v95uek9u5md1dcr3qudto1c.apps.googleusercontent.com\"")
+        buildConfigField("String", "BASE_URL_CURRENCY", "\"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/\"")
     }
 
     buildTypes {
@@ -35,8 +36,7 @@ android {
             )
             isShrinkResources = true
             isDebuggable = false
-            buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-sr07ofrp9v95uek9u5md1dcr3qudto1c.apps.googleusercontent.com\"")
-            buildConfigField("String", "BASE_URL_CURRENCY", "\"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/\"")
+
 //            buildConfigField("String", "CURRENCY_API_KEY", "\"cur_live_UxgQfhhwri7VJYT0Vm2cIs1HC7uiIzSMwFeRBHnz\"")
 //            buildConfigField("String", "MAPS_API_KEY", "\"AIzaSyCJAIEnEeP4SZVeaO0vdyj68CgBtkL_FD8\"")
 //            buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-oe53ii5e6ee0ggmjo5kjgn2poassuo4b.apps.googleusercontent.com\"") sesat njir
@@ -45,8 +45,8 @@ android {
         debug {
             isMinifyEnabled = false
             isDebuggable = true
-            buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-sr07ofrp9v95uek9u5md1dcr3qudto1c.apps.googleusercontent.com\"")
-            buildConfigField("String", "BASE_URL_CURRENCY", "\"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/\"")
+//            buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-sr07ofrp9v95uek9u5md1dcr3qudto1c.apps.googleusercontent.com\"")
+//            buildConfigField("String", "BASE_URL_CURRENCY", "\"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/\"")
 //            buildConfigField("String", "CURRENCY_API_KEY", "\"cur_live_UxgQfhhwri7VJYT0Vm2cIs1HC7uiIzSMwFeRBHnz\"")
 //            buildConfigField("String", "MAPS_API_KEY", "\"AIzaSyCJAIEnEeP4SZVeaO0vdyj68CgBtkL_FD8\"")
 //            buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-oe53ii5e6ee0ggmjo5kjgn2poassuo4b.apps.googleusercontent.com\"") sesat njir
@@ -62,6 +62,7 @@ android {
     buildFeatures{
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
 }
 
@@ -77,7 +78,17 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //SplashScreen
-    implementation(libs.androidx.core.splashscreen)
+//    implementation(libs.androidx.core.splashscreen)
+
+    // Library TensorFlow Lite
+    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.metadata)
+//    implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
+//    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+
+    // for implementation ucrop
+    implementation("com.github.yalantis:ucrop:2.2.9")
 
     // Custom Permission
     implementation (libs.dexter)
@@ -106,7 +117,7 @@ dependencies {
     // image circle
     implementation (libs.circleimageview)
 
-    // glide for image froim url
+    // glide for image from url
     implementation (libs.glide)
 
     // location now
@@ -124,19 +135,25 @@ dependencies {
     implementation ("com.google.firebase:firebase-storage-ktx:20.3.0")
 
     implementation("com.google.firebase:firebase-analytics")
-    implementation ("androidx.databinding:library:3.2.0-alpha11")
+    implementation("androidx.databinding:library:3.2.0-alpha11")
 
     // for dropdown
     implementation(libs.powerspinner)
 
     // location picker
-//    implementation ("com.github.shivpujan12:LocationPicker:2.1")
-////    implementation ("com.google.android.libraries.places:places:3.4.0")
-//    implementation ("com.android.volley:volley:1.2.0")
     implementation(libs.play.services.maps)
+    implementation ("com.google.maps.android:android-maps-utils:3.8.2")
     implementation("com.adevinta.android:leku:11.1.4")
 
 
     // for retrofit support coroutine out of the box
 //    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+
+    // for camera x
+    implementation("androidx.camera:camera-camera2:1.3.3")
+    implementation("androidx.camera:camera-lifecycle:1.3.3")
+    implementation("androidx.camera:camera-view:1.3.3")
+
+    // for loading animation
+    implementation("com.airbnb.android:lottie:6.4.0")
 }

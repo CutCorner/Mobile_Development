@@ -14,10 +14,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.cepstun.R
+import com.example.cepstun.data.local.BarberDataList
 import com.example.cepstun.databinding.FragmentMenuHomeBinding
+import com.example.cepstun.ui.adapter.BarberAdapter
 import com.example.cepstun.utils.showToast
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.Firebase
@@ -37,6 +41,10 @@ class MenuHomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
+
+    private lateinit var recyclerView: RecyclerView
+
+    private lateinit var adapter: BarberAdapter
 
     private fun allPermissionsGranted() =
         ContextCompat.checkSelfPermission(
@@ -76,6 +84,18 @@ class MenuHomeFragment : Fragment() {
         binding.LLLocation.setOnClickListener {
             checkLocationSettingsAndRetrieveLocation()
         }
+
+        recyclerView = binding.RVBarber
+
+        // sementara ngambil data dari object dulu sambil nunggu model ML dan data CC
+        adapter = BarberAdapter(BarberDataList.barberDataValue)
+
+        showRecyclerList()
+    }
+
+    private fun showRecyclerList() {
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.adapter = adapter
     }
 
     private fun requestPermissionWithDexter() {
@@ -123,38 +143,40 @@ class MenuHomeFragment : Fragment() {
             ) {
                 fusedLocationClient.lastLocation
                     .addOnSuccessListener { location: Location? ->
-                        location?.let {
-                            val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                            try {
-                                val addressList =
-                                    geocoder.getFromLocation(it.latitude, it.longitude, 1)
-                                if (addressList != null && addressList.size > 0) {
-                                    val subLocality = addressList[0].subLocality
-                                    val locality = addressList[0].locality
-                                    if (subLocality != null && locality != null) {
-                                        binding.TVLocation.text = (getString(
-                                            R.string.district,
-                                            subLocality,
-                                            locality
-                                        ))
-                                    } else {
-                                        binding.TVLocation.text = getString(R.string.remote_place)
+                        if (isAdded) { // Check if fragment is currently added to its activity
+                            location?.let {
+                                val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                                try {
+                                    val addressList =
+                                        geocoder.getFromLocation(it.latitude, it.longitude, 1)
+                                    if (addressList != null && addressList.size > 0) {
+                                        val subLocality = addressList[0].subLocality
+                                        val locality = addressList[0].locality
+                                        if (subLocality != null && locality != null) {
+                                            binding.TVLocation.text = (getString(
+                                                R.string.district,
+                                                subLocality,
+                                                locality
+                                            ))
+                                        } else {
+                                            binding.TVLocation.text = getString(R.string.remote_place)
+                                        }
                                     }
+                                } catch (e: IOException) {
+                                    e.printStackTrace()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        getString(R.string.error_location_MenuHome, e.printStackTrace()),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
-                            } catch (e: IOException) {
-                                e.printStackTrace()
+                            } ?: run {
                                 Toast.makeText(
                                     requireContext(),
-                                    getString(R.string.error_location_MenuHome, e.printStackTrace()),
+                                    getString(R.string.error_location2_MenuHome),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
-                        } ?: run {
-                            Toast.makeText(
-                                requireContext(),
-                                getString(R.string.error_location2_MenuHome),
-                                Toast.LENGTH_SHORT
-                            ).show()
                         }
                     }
             }

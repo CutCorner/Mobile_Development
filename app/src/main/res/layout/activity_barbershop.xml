@@ -1,9 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.BarbershopActivity" />
+    tools:context=".ui.activity.BarbershopActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/MVmap"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-15dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/maps"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/CLInformation" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CLInformation"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:background="@drawable/bg_top"
+            map:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/TVTittleBarber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                map:layout_constraintTop_toTopOf="parent"
+                tools:text="Broadway Barbershop" />
+
+            <TextView
+                android:id="@+id/TVLocationBarber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                map:layout_constraintEnd_toEndOf="parent"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toBottomOf="@+id/TVTittleBarber"
+                tools:text="Jl Tunjungan No. 09 Surabaya" />
+
+
+            <LinearLayout
+                android:id="@+id/LLRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                map:layout_constraintBottom_toTopOf="@+id/cardView3"
+                map:layout_constraintEnd_toEndOf="@+id/TVLocationBarber"
+                map:layout_constraintStart_toStartOf="@+id/TVLocationBarber"
+                map:layout_constraintTop_toBottomOf="@+id/TVLocationBarber">
+
+                <RatingBar
+                    android:id="@+id/RBRate"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:progressBackgroundTint="@color/gray5"
+                    android:progressTint="@color/golden"
+                    android:rating="1.8" />
+
+
+                <TextView
+                    android:id="@+id/TVRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    map:layout_constraintBottom_toBottomOf="@+id/GLAnotherLogin"
+                    map:layout_constraintEnd_toEndOf="parent"
+                    map:layout_constraintStart_toEndOf="@+id/GLAnotherLogin"
+                    map:layout_constraintTop_toBottomOf="@+id/TVLocationBarber"
+                    tools:text="(4.5 / 5)" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                map:cardCornerRadius="20dp"
+                map:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/IVImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/image_of_barber"
+                    android:outlineProvider="bounds"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/example_barber" />
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CLQueue"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/bg_bottom"
+        android:elevation="10dp"
+        map:behavior_hideable="false"
+        map:behavior_peekHeight="35dp"
+        map:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        map:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/BOrder"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/bg_login"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:gravity="center"
+            android:text="@string/button_order"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:transitionName="button"
+            map:backgroundTint="@null"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.497"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TVTittleQueue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/queue_now"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            map:layout_constraintTop_toBottomOf="@+id/BOrder"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/CVQueue"
+            android:layout_width="85dp"
+            android:layout_height="88dp"
+            android:foregroundGravity="center"
+            map:cardBackgroundColor="@color/white"
+            map:cardCornerRadius="20dp"
+            map:cardElevation="10dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/TVTittleQueue">
+
+            <TextView
+                android:id="@+id/TVQueue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="48sp"
+                tools:text="4" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="50dp"
+            android:layout_height="3.5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/brown"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="1dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

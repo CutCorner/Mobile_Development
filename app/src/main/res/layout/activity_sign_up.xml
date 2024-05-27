@@ -17,7 +17,6 @@
         android:src="@drawable/logo"
         android:transitionName="logo2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -142,7 +141,6 @@
         app:layout_constraintTop_toBottomOf="@+id/TVTittlePassword2"
         tools:alpha="100" />
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/BRegister"
         android:layout_width="355dp"
@@ -150,6 +148,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_login"
         android:enabled="false"
+        android:gravity="center"
         android:fontFamily="@font/plus_jakarta_sans_bold"
         android:text="@string/button_register"
         android:textColor="@color/white"
@@ -174,21 +173,23 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_width="132dp"
+        android:layout_width="0dp"
         android:layout_height="3dp"
-        android:layout_marginStart="13dp"
+        android:layout_marginHorizontal="20dp"
         android:background="@drawable/bg_divider"
         app:layout_constraintBottom_toBottomOf="@+id/TVAnotherLogin"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/TVAnotherLogin"
         app:layout_constraintTop_toTopOf="@+id/TVAnotherLogin"
         tools:layout_editor_absoluteX="1dp" />
 
     <View
         android:id="@+id/divider2"
-        android:layout_width="132dp"
+        android:layout_width="0dp"
         android:layout_height="3dp"
-        android:layout_marginEnd="13dp"
+        app:layout_constraintStart_toEndOf="@+id/TVAnotherLogin"
         android:background="@drawable/bg_divider"
+        android:layout_marginHorizontal="20dp"
         android:rotationY="180"
         app:layout_constraintBottom_toBottomOf="@+id/TVAnotherLogin"
         app:layout_constraintEnd_toEndOf="parent"

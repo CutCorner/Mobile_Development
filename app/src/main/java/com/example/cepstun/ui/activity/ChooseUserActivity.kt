@@ -2,8 +2,10 @@ package com.example.cepstun.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
@@ -67,11 +69,17 @@ class ChooseUserActivity : AppCompatActivity() {
                     Intent(this@ChooseUserActivity, SignUpActivity::class.java).also { intent ->
                         intent.putExtra(SignUpActivity.USER_LEVEL, userType)
                         startActivity(intent, optionsCompat.toBundle())
+
+                        ActivityCompat.finishAfterTransition(this@ChooseUserActivity)
                     }
                 } else{
-                    viewModel.uploadToDatabase(userType, this@ChooseUserActivity, idToken)
+                    viewModel.uploadToDatabase(userType)
                 }
             }
+        }
+
+        viewModel.showToast.observe(this){
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
 
     }

@@ -1,4 +1,4 @@
-package com.example.cepstun
+package com.example.cepstun.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

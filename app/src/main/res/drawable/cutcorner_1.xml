@@ -6,7 +6,7 @@
     android:viewportHeight="982">
 
     <path
-        android:fillColor="#000000"
+        android:fillColor="@android:color/transparent"
         android:strokeWidth="1"
         android:pathData="M0 0L0 982L2200 982L2200 0L0 0z" />
     <path
@@ -5530,7 +5530,7 @@
         android:strokeWidth="1"
         android:pathData="M1849 460L1850 461L1849 460z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/brown"
         android:strokeWidth="1"
         android:pathData="M1827 482C1842.39 482 1857.68 482.209 1873 481C1873.89 478.48 1875.56 475.734 1875.51 473C1875.28 460.633 1859.06 458.756 1850 460.468C1838.74 462.595 1830.93 471.85 1827 482z" />
     <path
@@ -5794,7 +5794,7 @@
         android:strokeWidth="1"
         android:pathData="M1341 464L1342 465L1341 464z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/brown"
         android:strokeWidth="1"
         android:pathData="M1342.42 464.711C1333.95 467.142 1326.13 469.029 1320.97 477.004C1313.64 488.335 1315.4 506.44 1326.29 515.095C1334.11 521.305 1345.61 522.387 1355 519.699C1370.98 515.125 1378.84 493.564 1371.28 479C1367.48 471.682 1360.8 467.869 1353.04 466.046C1349.3 465.166 1346.32 463.595 1342.42 464.711z" />
     <path
@@ -5874,7 +5874,7 @@
         android:strokeWidth="1"
         android:pathData="M210 465L211 466L210 465z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/brown"
         android:strokeWidth="1"
         android:pathData="M211 465.514C200.129 467.69 189.492 471.333 182.015 480.093C161.554 504.067 171.817 546.09 202 557.161C209.245 559.818 222.452 558.861 230 557.536C244.853 554.929 258.77 544.539 263.871 530C271.255 508.954 261.912 480.551 242 469.557C236.51 466.526 231.024 466.406 225 465.83C220.257 465.377 215.76 464.561 211 465.514z" />
     <path
@@ -13870,7 +13870,7 @@
         android:strokeWidth="1"
         android:pathData="M377 647C378.769 647.779 380.036 647.912 382 648C380.231 647.221 378.964 647.088 377 647z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/brown"
         android:strokeWidth="1"
         android:pathData="M382 647.424C375.426 648.288 369.802 648.425 364 652.093C335.485 670.12 329.833 713.177 358.015 734.65C363.987 739.2 370.768 741.524 378 743.115C384.117 744.461 390.745 745.525 397 744.711C424.019 741.193 441.948 712.14 437.675 686C435.43 672.267 424.85 658.251 412.826 651.374C403.689 646.149 392.198 646.085 382 647.424z" />
     <path

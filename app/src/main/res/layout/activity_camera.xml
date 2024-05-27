@@ -7,4 +7,202 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.CameraActivity">
 
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageButton
+        android:id="@+id/IBClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/back_from_camera"
+        android:src="@drawable/ic_close"
+        app:backgroundTint="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <ImageButton
+        android:id="@+id/IBFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/flashlight"
+        android:src="@drawable/ic_flash_off"
+        app:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/IBClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/IBClose"
+        app:tint="@color/white" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/PBLoad"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="logo_load.json"
+        app:lottie_loop="true" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="#70636363"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/IBCaptureImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/get_the_picture_button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_capture"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/IBGallery"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="40dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_menu_gallery"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/IBSwitchCamera"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_switch_camera"
+            app:layout_constraintBottom_toBottomOf="@+id/IBGallery"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/IBGallery" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <GridLayout
+        android:id="@+id/GLAnotherLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:columnCount="3"
+        android:rowCount="1"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/CVStraight"
+            android:layout_width="105dp"
+            android:layout_height="145dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/gray"
+            app:cardCornerRadius="20dp">
+
+            <TextView
+                android:id="@+id/TVStraight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/straight"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="53dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/hair_model" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/CVCurly"
+            android:layout_width="105dp"
+            android:layout_height="145dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/gray"
+            app:cardCornerRadius="20dp">
+
+            <TextView
+                android:id="@+id/TVCurly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/curly"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="53dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/hair_model" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/CVWavy"
+            android:layout_width="105dp"
+            android:layout_height="145dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/gray"
+            app:cardCornerRadius="20dp">
+
+            <TextView
+                android:id="@+id/TVWavy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/wavy"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="53dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/hair_model" />
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

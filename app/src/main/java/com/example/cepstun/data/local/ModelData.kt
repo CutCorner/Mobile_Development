@@ -2,5 +2,5 @@ package com.example.cepstun.data.local
 
 data class ModelData (
     val name: String,
-    val image: Int
+    val image: String
 )

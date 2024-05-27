@@ -2,8 +2,12 @@ package com.example.cepstun.ui.activity
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,18 +15,26 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
+import com.example.cepstun.BuildConfig
 import com.example.cepstun.R
 import com.example.cepstun.databinding.ActivitySignUpBinding
 import com.example.cepstun.viewModel.SignUpViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -33,6 +45,10 @@ class SignUpActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
+    @Suppress("DEPRECATION")
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var gso: GoogleSignInOptions
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -40,7 +56,22 @@ class SignUpActivity : AppCompatActivity() {
 
         playAnimation()
 
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.tittle_dialog_Loading))
+        builder.setMessage(getString(R.string.desc_dialog_SignUp))
+        builder.setCancelable(false)
+        val dialog = builder.create()
+
         level = intent.getStringExtra(USER_LEVEL) ?: "Customer"
+
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+//            .requestIdToken(BuildConfig.DEFAULT_WEB_CLIENT_ID)
+            .requestEmail()
+            .build()
+
+        @Suppress("DEPRECATION")
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         with(binding){
             BRegister.backgroundTintList = ContextCompat.getColorStateList(this@SignUpActivity, R.color.gray2)
@@ -64,32 +95,34 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             BRegister.setOnClickListener {
-                viewModel.registerEmailPassword(ETEmail.text.toString().trim(), ETPassword.text.toString().trim(), this@SignUpActivity, level)
+                dialog.show()
+                lifecycleScope.launch {
+                    if (!isInternetAvailable()) {
+                        showNoInternetDialog()
+                        dialog.dismiss()
+                    } else {
+                        viewModel.registerEmailPassword(ETEmail.text.toString().trim(), ETPassword.text.toString().trim(), level)
+                    }
+                }
             }
 
             MCVLoginGoogle.setOnClickListener{
-                CoroutineScope(Dispatchers.Main).launch {
-                    val intentSenderRequest = viewModel.signingGoogle()
-                    activityResultLauncher.launch(intentSenderRequest)
+                dialog.show()
+                lifecycleScope.launch {
+                    if (!isInternetAvailable()) {
+                        showNoInternetDialog()
+                        dialog.dismiss()
+                    } else {
+                        resultLauncher.launch(googleSignInClient.signInIntent)
+                    }
                 }
             }
 
             TVLogin.setOnClickListener {
                 moveToLogin()
             }
-
-            onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    moveToLogin()
-                }
-            })
         }
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.tittle_dialog_Loading))
-        builder.setMessage(getString(R.string.desc_dialog_SignUp))
-        builder.setCancelable(false)
-        val dialog = builder.create()
 
         viewModel.showProgressDialog.observe(this){
             if (!it){
@@ -102,6 +135,32 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.showToast.observe(this){
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
+    }
+
+    suspend fun isInternetAvailable(): Boolean = withContext(Dispatchers.IO) {
+        val runtime = Runtime.getRuntime()
+        return@withContext try {
+            val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
+            val exitValue = ipProcess.waitFor()
+            exitValue == 0
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    private fun showNoInternetDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Tidak Terhubung ke Internet")
+            .setMessage("Aplikasi ini memerlukan koneksi internet untuk berfungsi. Silakan cek koneksi internet Anda.")
+            .setPositiveButton("Oke") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
     }
 
     private fun playAnimation() {
@@ -138,33 +197,24 @@ class SignUpActivity : AppCompatActivity() {
 
         Intent(this@SignUpActivity , LoginActivity::class.java).also { intent ->
             startActivity(intent, optionsCompat.toBundle())
+
+            ActivityCompat.finishAfterTransition(this)
         }
     }
 
-    private val activityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartIntentSenderForResult()
-    ){ result ->
-        if (result.resultCode == RESULT_OK){
-            CoroutineScope(Dispatchers.Main).launch {
-                try{
-                    viewModel.loginWithGoogle(this@SignUpActivity, result, level)
-                } catch (e: ApiException){
-                    if (e.statusCode == 16) {
-                        // User has been temporarily blocked due to too many canceled sign-in prompts
-                        AlertDialog.Builder(this@SignUpActivity)
-                            .setTitle(getString(R.string.tittle_dialogErr_Login))
-                            .setMessage(getString(R.string.desc_dialogErr_Login))
-                            .setPositiveButton(getString(R.string.button_dialogErr_Login), null)
-                            .show()
-                    } else {
-                        Toast.makeText(this@SignUpActivity,
-                            getString(R.string.error_with, e.printStackTrace()), Toast.LENGTH_SHORT).show()
-                    }
-                }
+    @Suppress("DEPRECATION")
+    private var resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                GoogleSignIn.getClient(this, gso).signOut()
+                val account = task.getResult(ApiException::class.java)!!
+                viewModel.loginWithGoogle(account, level)
+            } catch (e: ApiException) {
+                Toast.makeText(this, "Login Failed with : ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
-        } else if (result.resultCode == RESULT_CANCELED) {
-            // Handle the case where the user cancelled the operation
-            viewModel.showProgressDialog.value = false
         }
     }
 

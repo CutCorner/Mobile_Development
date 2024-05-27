@@ -1,11 +1,16 @@
 package com.example.cepstun.helper
 
+import android.content.Context
+import android.graphics.Color
+import android.util.DisplayMetrics
 import com.example.cepstun.data.remote.retrofit.ApiConfigCurrency
+import java.io.File
 import java.text.DateFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.math.roundToInt
 
 fun String.withNumberingFormat(): String {
     return NumberFormat.getNumberInstance().format(this.toDouble())
@@ -45,3 +50,20 @@ suspend fun getRupiahExchangeRate(): Float {
 //    val formattedCurrency = exampleStringPriceRupiah.withCurrencyFormat()
 //    binding.TVPrice.text = formattedCurrency
 //}
+
+private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
+private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
+fun createCustomTempFile(context: Context): File {
+    val filesDir = context.externalCacheDir
+    return File.createTempFile(timeStamp, ".jpg", filesDir)
+}
+
+fun Int.convertColorToHue(): Float {
+    val hsv = FloatArray(3)
+    Color.colorToHSV(this, hsv)
+    return hsv[0]
+}
+
+fun convertDpToPixel(dp: Float, context: Context): Int {
+    return (dp * (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
+}

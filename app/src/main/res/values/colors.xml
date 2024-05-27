@@ -5,8 +5,13 @@
     <color name="gray">#D9D9D9</color>
     <color name="gray2">#BDBDBD</color>
     <color name="gray3">#ECE9EC</color>
+    <color name="gray4">#757575</color>
+    <color name="gray5">#ACACAC</color>
     <color name="pink">#F89AEE</color>
     <color name="yellow">#F7CE45</color>
+    <color name="golden">#EA830A</color>
+
+
 
 <!--  leku color  -->
     <color name="leku_ic_close">#000000</color>

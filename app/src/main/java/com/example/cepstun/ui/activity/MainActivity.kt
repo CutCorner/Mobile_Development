@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(MenuHomeFragment())
 
+        settingStatusBar()
+
         binding.BNMenu.setOnItemSelectedListener { menuItem->
             when(menuItem.itemId){
                 R.id.nav_home -> {
@@ -57,5 +59,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.FLContainer, fragment).commit()
+    }
+
+    @Suppress("DEPRECATION")
+    private fun settingStatusBar() {
+        window.statusBarColor = getColor(R.color.brown)
+        window.decorView.systemUiVisibility = 0
     }
 }

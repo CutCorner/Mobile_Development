@@ -1,91 +1,93 @@
 <resources>
     <string name="app_name" translatable="false">Cepstun</string>
 
-<!-- Xml -->
-    <string name="logo2" translatable="false">Another Logo</string>
+    <!-- Xml -->
+    <string name="logo2">Another Logo</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="term_service" translatable="false">By logging in or registering, you agree to our Terms of service and Privacy policy.</string>
+    <string name="term_service">By logging in or registering, you agree to our Terms of service and Privacy policy.</string>
 
 
-<!--  activity_choose_user.xml  -->
+    <!--  activity_choose_user.xml  -->
     <string name="customerTittle" translatable="false">CUSTOMER</string>
     <string name="barberTittle" translatable="false">BARBER</string>
     <string name="customer" translatable="false">customer</string>
     <string name="barber" translatable="false">barber</string>
-    <string name="button_choose" translatable="false">Choose</string>
+    <string name="button_choose">Choose</string>
 
 
-<!--  activity_login.xml  -->
-    <string name="login" translatable="false">Login Your Account</string>
-    <string name="email" translatable="false">Email</string> <!--  activity_sign_up.xml  -->
-    <string name="hint_email" translatable="false">e.g. name@gmail.com</string> <!--  activity_sign_up.xml  -->
-    <string name="password" translatable="false">Password</string> <!--  activity_sign_up.xml  -->
-    <string name="resend_email" translatable="false">Resend Email Verification</string>
-    <string name="or_login_with" translatable="false">Or Login With</string> <!--  activity_sign_up.xml  -->
-    <string name="forgot_password" translatable="false">Forgot Password</string>
-    <string name="button_login" translatable="false">Login</string>  <!--  activity_on_boarding.xml  -->
-    <string name="google_logo" translatable="false">google_logo</string> <!--  activity_sign_up.xml  -->
-    <string name="facebook_logo" translatable="false">facebook_logo</string> <!--  activity_sign_up.xml  -->
-    <string name="apple_logo" translatable="false">apple_logo</string> <!--  activity_sign_up.xml  -->
-    <string name="dont_have_account" translatable="false">Don’t have an account?</string>
-    <string name="sign_here" translatable="false">Sign up here</string>
+    <!--  activity_login.xml  -->
+    <string name="login">Login Your Account</string>
+    <string name="email">Email</string> <!--  activity_sign_up.xml  -->
+    <string name="hint_email">e.g. name@gmail.com</string> <!--  activity_sign_up.xml  -->
+    <string name="password">Password</string> <!--  activity_sign_up.xml  -->
+    <string name="resend_email">Resend Email Verification</string>
+    <string name="or_login_with">Or Login With</string> <!--  activity_sign_up.xml  -->
+    <string name="forgot_password">Forgot Password</string>
+    <string name="button_login">Login</string>  <!--  activity_on_boarding.xml  -->
+    <string name="google_logo">google_logo</string> <!--  activity_sign_up.xml  -->
+    <string name="facebook_logo">facebook_logo</string> <!--  activity_sign_up.xml  -->
+    <string name="apple_logo">apple_logo</string> <!--  activity_sign_up.xml  -->
+    <string name="dont_have_account">Don’t have an account?</string>
+    <string name="sign_here">Sign up here</string>
 
 
-<!--  activity_on_boarding.xml  -->
-    <string name="onboardingImage" translatable="false">On Boarding Image</string>
-    <string name="onboarding1" translatable="false">Welcome to Barbering!</string>
-    <string name="onboardingDesc1" translatable="false">Experience hassle-free scheduling with our streamlined system, ensuring your appointments are always on time.</string>
-    <string name="onboarding2" translatable="false">Flexible</string>
-    <string name="onboardingDesc2" translatable="false">Manage and book your haircut needs easily anywhere</string>
-    <string name="onboarding3" translatable="false">Time Saving</string>
-    <string name="onboardingDesc3" translatable="false">Secure your appointment in a few taps and make the most of your day</string>
-    <string name="button_sign_up" translatable="false">Sign Up</string>
+    <!--  activity_on_boarding.xml  -->
+    <string name="onboardingImage">On Boarding Image</string>
+    <string name="onboarding1">Welcome to CutCorner!</string>
+    <string name="onboardingDesc1">Experience hassle-free scheduling with our streamlined system, ensuring your appointments are always on time.</string>
+    <string name="onboarding2">Flexible</string>
+    <string name="onboardingDesc2">Manage and book your haircut needs easily anywhere</string>
+    <string name="onboarding3">Time Saving</string>
+    <string name="onboardingDesc3">Secure your appointment in a few taps and make the most of your day</string>
+    <string name="button_sign_up">Sign Up</string>
 
 
-<!--  activity_register_barber.xml  -->
-    <string name="register_barber" translatable="false">Register Your Barber Account</string>
-    <string name="name" translatable="false">Name</string>
-    <string name="hint_name" translatable="false">Your Barber\'s Name</string>
-    <string name="category" translatable="false">Category</string>
-    <string name="address" translatable="false">Adress</string>
-    <string name="hint_address" translatable="false">Street. XXX</string>
-    <string name="coordinate" translatable="false">Coordinate Location</string>
-    <string name="hint_coordinate" translatable="false">Get coordinate from Maps</string>
-    <string name="telephone" translatable="false">Telephone Number</string>
+    <!--  activity_register_barber.xml  -->
+    <string name="register_barber">Register Your Barber Account</string>
+    <string name="name">Name</string>
+    <string name="hint_name">Your Barber\'s Name</string>
+    <string name="category">Category</string>
+    <string name="address">Adress</string>
+    <string name="hint_address">Street. XXX</string>
+    <string name="coordinate">Coordinate Location</string>
+    <string name="hint_coordinate">Get coordinate from Maps</string>
+    <string name="telephone">Telephone Number</string>
     <string name="hint_telephone" translatable="false">+62XXXXXXXXX</string>
-    <string name="photo_barber" translatable="false">Photo of Barber Shop/Salon</string>
-    <string name="hint_photo_barber" translatable="false">Upload Your Image</string>
-    <string name="button_continue" translatable="false">Continue</string>
+    <string name="photo_barber">Photo of Barber Shop/Salon</string>
+    <string name="hint_photo_barber">Upload Your Image</string>
+    <string name="button_continue">Continue</string>
 
 
-<!--  activity_sign_up.xml  -->
-    <string name="sign_up" translatable="false">Register Your Account</string>
-    <string name="confirm_password" translatable="false">Confirm Password</string>
-    <string name="button_register" translatable="false">Register</string>
-    <string name="have_account" translatable="false">Already have an account?</string>
-    <string name="login_here" translatable="false">Login here</string>
+    <!--  activity_sign_up.xml  -->
+    <string name="sign_up">Register Your Account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="button_register">Register</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="login_here">Login here</string>
 
 
-<!--  activity_splash_screen.xml  -->
+    <!--  activity_splash_screen.xml  -->
     <string name="start_logo">start_logo</string>
 
 
-<!--  fragment_menu_home.xml  -->
-    <string name="find_barbershop" translatable="false">Find barbershop</string>
-    <string name="your_location" translatable="false">Your Location</string>
-    <string name="current_location" translatable="false">Current Location</string>
+    <!--  fragment_menu_home.xml  -->
+    <string name="find_barbershop">Find barbershop</string>
+    <string name="your_location">Your Location</string>
+    <string name="current_location">Current Location</string>
 
-<!--  fragment_menu_notification.xml  -->
-    <string name="button_logout" translatable="false">Logout</string>
-
-
-<!--  bottom_menu.xml  -->
-    <string name="menu_home" translatable="false">Home</string>
-    <string name="menu_history" translatable="false">History</string>
-    <string name="menu_notification" translatable="false">Notifications</string>
+    <!--  fragment_menu_notification.xml  -->
+    <string name="button_logout">Logout</string>
+    <string name="permission_request_granted">Permission request granted</string>
+    <string name="permission_request_denied">Permission request denied</string>
 
 
-<!--  Leku Map Picker  -->
+    <!--  bottom_menu.xml  -->
+    <string name="menu_home">Home</string>
+    <string name="menu_history">History</string>
+    <string name="menu_notification">Notifications</string>
+
+
+    <!--  Leku Map Picker  -->
     <string name="leku_title_activity_location_picker">Location Picker</string>
     <string name="leku_load_location_error">Something went wrong. Please try again.</string>
     <string name="leku_no_search_results">There are no results for your search</string>
@@ -96,14 +98,14 @@
     <string name="leku_search_hint">Search</string>
 
 
-<!--  CustomEditText.kt  -->
+    <!--  CustomEditText.kt  -->
     <string name="email_format_invalid">Email Format Invalid</string>
     <string name="name_format_invalid">Name Format Invalid</string>
     <string name="address_format_invalid">Address Format Invalid</string>
     <string name="number_format_invalid">Number Format Invalid</string>
 
 
-<!--  LoginActivity.kt  -->
+    <!--  LoginActivity.kt  -->
     <string name="comingsoon">ComingSoon</string>
     <string name="tittle_dialog_Loading">Loading</string>
     <string name="desc_dialog_Login">Login. Please wait...</string>
@@ -113,11 +115,11 @@
     <string name="error_with">Error with :%1$s</string>
 
 
-<!--  MainActivity.kt  -->
+    <!--  MainActivity.kt  -->
     <string name="onBack">Press again to exit</string>
 
 
-<!--  RegisterBarberActivity.kt  -->
+    <!--  RegisterBarberActivity.kt  -->
     <string name="error_map">Error Map %1$s</string>
     <string name="desc_dialog_RegisterBarber">Preparing Map, Please wait...</string>
     <string name="desc_dialog_SignUp">Register. Please wait...</string>
@@ -127,23 +129,23 @@
     </string-array>
 
 
-<!--  MenuHomeFragmentActivity.kt  -->
+    <!--  MenuHomeFragmentActivity.kt  -->
     <string name="permission_agree">Permission Agree</string>
     <string name="permission_denied">Permission Denied, cek on setting app to change</string>
     <string name="gps_off">Please activate the location (GPS) first</string>
     <string name="remote_place">The location is too far from residents</string>
     <string name="district">%1$s, %2$s</string>
-    <string name="error_location_MenuHome">Error with : %1$s</string>
+    <string name="error_location_MenuHome">Error with network: %1$s</string>
     <string name="error_location2_MenuHome">Failed to get location. Please check your GPS or internet connection</string>
 
 
-<!--  ChooseUserViewModel.kt  -->
+    <!--  ChooseUserViewModel.kt  -->
     <string name="saved">Saved to database</string>
     <string name="fail_save">Failed to upload on database</string>
     <string name="fail_connect">Failed to connect database</string>
 
 
-<!--  LoginViewModel.kt  -->
+    <!--  LoginViewModel.kt  -->
     <string name="login_success">Login Success</string>
     <string name="not_verified">Please Verified your email! Cek on email</string>
     <string name="fail_connect_data">Failed to connect Data User</string>
@@ -153,15 +155,60 @@
     <string name="fail_send_email">Send Verification Email Failed: %1$s</string>
     <string name="email_empty">Fill in email first</string>
     <string name="email_reset_password">Check your Email to reset the password!</string>
+    <string name="fail_to_login">Failed to Login</string>
+    <string name="login_failed_with_message">Login Failed, wrong email or password, click Forgot Password if forgotten \n %1$s</string>
 
 
 
-<!--  SignUpViewModel.kt  -->
+
+    <!--  SignUpViewModel.kt  -->
     <string name="success_create_account">Check your Email and Verify your Account!</string>
     <string name="fail_save_data">Failed to save data to Realtime Database: %1$s</string>
     <string name="fail_send_verif">Failed to send verification email: %1$s</string>
     <string name="fail_create_account">Failed to create an account: %1$s</string>
     <string name="already_have_an_account">You already have an account, log in to the app</string>
+    <string name="register_success">Register Success</string>
 
+
+    <!--  activity_camera.xml  -->
+    <string name="get_the_picture_button">Get the Picture Button</string>
+    <string name="back_from_camera">Back From Camera</string>
+    <string name="flashlight">Flashlight</string>
+
+
+
+    <!--  CameraActivity.kt  -->
+    <string name="fail_to_show_camera">Fail to Show Camera</string>
+    <string name="fail_to_take_picture">Failed to take a picture.</string>
+    <string name="straight">Straight</string>
+    <string name="curly">Curly</string>
+    <string name="wavy">Wavy</string>
+    <string name="please_select_hair_model_first">Please select hair model first</string>
+    <string name="no_media_selected">No Media Selected</string>
+
+    <!--  activity_airecomendation.xml  -->
+    <string name="cut_recommendation">Hair Style Recommendation</string>
+    <string name="your_face_shape_type">Your face shape type:</string>
+    <string name="example_oval">Example Oval</string>
+    <string name="button_back">Back</string>
+    <string name="ai_tittle">Can\'t decide? \nAI CutCorner helps you choose a hairstyle according to your face shape</string>
+    <string name="button_use_ai">Use AI</string>
+    <string name="title_activity_barbershop">BarbershopActivity</string>
+    <string name="your_image">Your Image</string>
+
+
+    <!--  adapter  -->
+    <string name="rate">(%1$s / 5)</string>
+
+
+    <!--  activity_barbershop.xml  -->
+    <string name="image_of_barber">Image Of Barber</string>
+    <string name="maps">Maps</string>
+    <string name="queue_now">Queue Now</string>
+    <string name="button_order">Order</string>
+    <string name="reviews">Reviews</string>
+
+    <!--  ImageClassifierHelper  -->
+    <string name="image_classifier_failed">fail to classifier</string>
 
 </resources>

@@ -9,13 +9,13 @@
 
     <ImageView
         android:id="@+id/IVLogo2"
+        style="@style/logo_onboarding"
         android:layout_width="0dp"
         android:layout_height="143dp"
         android:layout_marginTop="23dp"
         android:contentDescription="@string/logo2"
         android:src="@drawable/logo"
         android:transitionName="logo2"
-        style="@style/logo_onboarding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,8 +47,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="50dp"
-            app:cardElevation="1dp"
-            >
+            app:cardElevation="1dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -100,14 +99,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/BChoose"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_login"
         android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:gravity="center"
         android:text="@string/button_choose"
         android:textAlignment="center"
-        android:transitionName="button"
         android:textColor="@color/white"
+        android:transitionName="button"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
