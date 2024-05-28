@@ -81,14 +81,14 @@ dependencies {
 //    implementation(libs.androidx.core.splashscreen)
 
     // Library TensorFlow Lite
-    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
+    implementation(libs.tensorflow.lite.task.vision)
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.lite.metadata)
 //    implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
 //    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
 
     // for implementation ucrop
-    implementation("com.github.yalantis:ucrop:2.2.9")
+    implementation(libs.ucrop)
 
     // Custom Permission
     implementation (libs.dexter)
@@ -126,34 +126,38 @@ dependencies {
 
     // firebase
     implementation(platform(libs.firebase.bom))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
-    implementation("com.google.firebase:firebase-auth")
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
     implementation(libs.firebase.firestore.ktx)
-    implementation("com.google.firebase:firebase-database:20.3.1")
-    implementation ("com.google.firebase:firebase-storage-ktx:20.3.0")
+    implementation(libs.firebase.database)
+    // Facebook Auth
+    implementation(libs.facebook.android.sdk)
 
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("androidx.databinding:library:3.2.0-alpha11")
+    implementation(libs.androidx.library)
 
     // for dropdown
     implementation(libs.powerspinner)
 
     // location picker
     implementation(libs.play.services.maps)
-    implementation ("com.google.maps.android:android-maps-utils:3.8.2")
-    implementation("com.adevinta.android:leku:11.1.4")
+    implementation (libs.android.maps.utils)
+    implementation(libs.leku)
 
 
     // for retrofit support coroutine out of the box
 //    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // for camera x
-    implementation("androidx.camera:camera-camera2:1.3.3")
-    implementation("androidx.camera:camera-lifecycle:1.3.3")
-    implementation("androidx.camera:camera-view:1.3.3")
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+
+    // for implementation room
+    implementation("androidx.room:room-runtime:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
 
     // for loading animation
-    implementation("com.airbnb.android:lottie:6.4.0")
+    implementation(libs.lottie)
 }

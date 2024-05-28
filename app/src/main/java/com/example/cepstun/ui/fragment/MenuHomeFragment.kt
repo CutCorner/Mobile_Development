@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,10 +24,9 @@ import com.example.cepstun.data.local.BarberDataList
 import com.example.cepstun.databinding.FragmentMenuHomeBinding
 import com.example.cepstun.ui.adapter.BarberAdapter
 import com.example.cepstun.utils.showToast
+import com.example.cepstun.viewModel.MenuHomeViewModel
+import com.example.cepstun.viewModel.ViewModelFactory
 import com.google.android.gms.location.LocationServices
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -40,11 +40,13 @@ class MenuHomeFragment : Fragment() {
     private var _binding: FragmentMenuHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var auth: FirebaseAuth
-
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var adapter: BarberAdapter
+
+    private val viewModel: MenuHomeViewModel by viewModels {
+        ViewModelFactory.getInstance(this.requireContext())
+    }
 
     private fun allPermissionsGranted() =
         ContextCompat.checkSelfPermission(
@@ -67,17 +69,20 @@ class MenuHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = Firebase.auth
-        val user = auth.currentUser
-
         if (!allPermissionsGranted()) {
             requestPermissionWithDexter()
         } else {
             checkLocationSettingsAndRetrieveLocation()
         }
 
-        if (user?.photoUrl != null){
-            Glide.with(requireContext()).load(user.photoUrl).apply(RequestOptions().override(250, 250))
+        viewModel.database.observe(viewLifecycleOwner) { userDatabase ->
+            Glide.with(requireContext())
+                .load(userDatabase?.photo)
+                .apply(
+                    RequestOptions()
+                        .circleCrop()
+                        .override(250, 250)
+                )
                 .into(binding.civProfileImage)
         }
 

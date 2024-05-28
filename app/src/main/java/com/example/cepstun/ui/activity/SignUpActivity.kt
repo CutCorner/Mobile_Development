@@ -26,6 +26,12 @@ import com.example.cepstun.R
 import com.example.cepstun.databinding.ActivitySignUpBinding
 import com.example.cepstun.viewModel.SignUpViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -48,6 +54,8 @@ class SignUpActivity : AppCompatActivity() {
     @Suppress("DEPRECATION")
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var gso: GoogleSignInOptions
+
+    private lateinit var callbackManager: CallbackManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +114,11 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
 
+            TVLogin.setOnClickListener {
+                moveToLogin()
+            }
+
+
             MCVLoginGoogle.setOnClickListener{
                 dialog.show()
                 lifecycleScope.launch {
@@ -118,9 +131,45 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
 
-            TVLogin.setOnClickListener {
-                moveToLogin()
+            MCVLoginFacebook.setOnClickListener {
+                lifecycleScope.launch {
+                    if (!isInternetAvailable()) {
+                        showNoInternetDialog()
+                    } else {
+                        LoginFacebook.performClick()
+                    }
+                }
             }
+
+            arrayOf<String?>("email", "public_profile")
+            LoginFacebook.registerCallback(
+                callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(result: LoginResult) {
+                        dialog.dismiss()
+                        handleFacebookAccessToken(result.accessToken)
+                    }
+
+                    override fun onCancel() {
+                        dialog.dismiss()
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            "Login Facebook Canceled",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        dialog.dismiss()
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            "Login Facebook Failed: ${error.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                },
+            )
+
         }
 
 
@@ -137,7 +186,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    suspend fun isInternetAvailable(): Boolean = withContext(Dispatchers.IO) {
+    private suspend fun isInternetAvailable(): Boolean = withContext(Dispatchers.IO) {
         val runtime = Runtime.getRuntime()
         return@withContext try {
             val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
@@ -216,6 +265,17 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Login Failed with : ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    @Deprecated("DEPRECATION")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        LoginManager.getInstance().logOut()
+        viewModel.loginWithFacebook(token, level)
     }
 
     companion object{

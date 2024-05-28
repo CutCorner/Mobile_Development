@@ -16,6 +16,7 @@ import com.example.cepstun.data.RepositoryDatabase
 import com.example.cepstun.ui.activity.LoginActivity
 import com.example.cepstun.ui.activity.MainActivity
 import com.example.cepstun.ui.activity.RegisterBarberActivity
+import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.launch
 
@@ -88,41 +89,51 @@ class SignUpViewModel(
 
     fun loginWithGoogle(result: GoogleSignInAccount, level: String) {
         viewModelScope.launch {
-            if (repositoryAuth.loginWithGoogle(result).first) {
-                val user = repositoryAuth.auth.currentUser
-                if (user != null) {
-                    val isNewUser = !repositoryDatabase.checkUserExists(user.uid)
-                    if (isNewUser) {
-                        if (repositoryDatabase.addUserToDatabase(user.uid, user.displayName.toString(), level, user.photoUrl.toString())) {
-                            _showProgressDialog.value = false
-                            _showToast.value = context.getString(R.string.saved)
-                            _showToast.value = context.getString(R.string.register_success)
-                            // Handle navigation here
-                            if (level == "Customer"){
-                                Intent(context, MainActivity::class.java).also { intent ->
-                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                    context.startActivity(intent)
-                                }
-                            } else {
-                                Intent(context, RegisterBarberActivity::class.java).also { intent ->
-                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                    context.startActivity(intent)
-                                }
+            val credential = repositoryAuth.loginWithGoogle(result)
+            moveActivity(credential, level)
+        }
+    }
+
+    fun loginWithFacebook(token: AccessToken, level: String) {
+        viewModelScope.launch {
+            val credential = repositoryAuth.loginWithFacebook(token, context.getString(R.string.failed_to_link_accounts))
+            moveActivity(credential, level)
+        }
+    }
+
+    private suspend fun moveActivity(credential: Pair<Boolean, String>, level: String) {
+        if (credential.first) {
+            val user = repositoryAuth.auth.currentUser
+            if (user != null) {
+                val isNewUser = !repositoryDatabase.checkUserExists(user.uid)
+                if (isNewUser) {
+                    if (repositoryDatabase.addUserToDatabase(user.uid, user.displayName.toString(), level, user.photoUrl.toString())) {
+                        _showProgressDialog.value = false
+                        _showToast.value = context.getString(R.string.register_success)
+                        if (level == "Customer"){
+                            Intent(context, MainActivity::class.java).also { intent ->
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                context.startActivity(intent)
                             }
                         } else {
-                            _showToast.value = context.getString(R.string.fail_save_data)
-                            _showProgressDialog.value = false
+                            Intent(context, RegisterBarberActivity::class.java).also { intent ->
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                context.startActivity(intent)
+                            }
                         }
                     } else {
-                        _showToast.value = context.getString(R.string.already_have_an_account)
+                        _showToast.value = context.getString(R.string.fail_save_data)
                         _showProgressDialog.value = false
                     }
                 } else {
-                    _showToast.value = context.getString(R.string.fail_connect_data)
+                    _showToast.value = context.getString(R.string.already_have_an_account)
+                    _showProgressDialog.value = false
                 }
             } else {
                 _showToast.value = context.getString(R.string.fail_connect_data)
             }
+        } else {
+            _showToast.value = credential.second
         }
     }
 }

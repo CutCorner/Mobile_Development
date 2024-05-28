@@ -1,9 +1,11 @@
 package com.example.cepstun.data
 
 
-import com.example.cepstun.R
+import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.tasks.await
@@ -31,13 +33,29 @@ class RepositoryAuth private constructor(
     }
 
     suspend fun loginWithGoogle(account: GoogleSignInAccount): Pair<Boolean, String> {
-        val idToken = account.idToken
-        if (idToken != null) {
-            val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-            val task = auth.signInWithCredential(firebaseCredential).await()
+        val idToken = account.idToken ?: return Pair(false, "")
+        val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+        val task = auth.signInWithCredential(firebaseCredential).await()
+        return Pair(task.user != null, idToken)
+    }
+
+    suspend fun loginWithFacebook(token: AccessToken, failedToLinkAccounts: String): Pair<Boolean, String> {
+        val idToken = token.token
+        try {
+            val credential = FacebookAuthProvider.getCredential(idToken)
+            val task = auth.signInWithCredential(credential).await()
             return Pair(task.user != null, idToken)
+        } catch (e: FirebaseAuthUserCollisionException) {
+            try {
+                val newCredential = FacebookAuthProvider.getCredential(idToken)
+                val newTask = auth.signInWithCredential(newCredential).await()
+                return Pair(newTask.user != null, idToken)
+            } catch (createException: Exception) {
+                return Pair(false, failedToLinkAccounts + createException.message)
+            }
+        } catch (e: Exception) {
+            return Pair(false, e.message ?: "Unknown error occurred")
         }
-        return Pair(false, "")
     }
 
     suspend fun resendEmail(email: String, password: String, send: String, verified: String, fail: String): String {

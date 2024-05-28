@@ -211,4 +211,13 @@
     <!--  ImageClassifierHelper  -->
     <string name="image_classifier_failed">fail to classifier</string>
 
+    <!--  Facebook Auth  -->
+    <string translatable="false" name="facebook_app_id">3833382843605686</string>
+    <string translatable="false" name="fb_login_protocol_scheme">fb1234</string>
+    <string translatable="false" name="facebook_client_token">ae76bfaf69b78e831023e6f3a3e87e64</string>
+    <string name="email_faceebook_already_used">Please sign in with your email and password before linking with Facebook.</string>
+    <string name="accounts_linked">Accounts linked.</string>
+    <string name="failed_to_link_accounts">Failed to link accounts:</string>
+
+
 </resources>
