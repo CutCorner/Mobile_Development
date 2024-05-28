@@ -222,7 +222,7 @@
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/MCVLoginFacbeook"
+            android:id="@+id/MCVLoginFacebook"
             style="@style/MyCardView"
             android:layout_width="55dp"
             android:layout_height="55dp"
@@ -239,6 +239,12 @@
                 android:contentDescription="@string/facebook_logo"
                 android:padding="10dp"
                 android:src="@drawable/facebook_logo" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/LoginFacebook"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView

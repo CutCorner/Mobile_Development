@@ -32,6 +32,9 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(ChooseUserViewModel::class.java) -> {
                 ChooseUserViewModel(repositoryDatabase, application) as T
             }
+            modelClass.isAssignableFrom(MenuHomeViewModel::class.java) -> {
+                MenuHomeViewModel(repositoryAuth, repositoryDatabase, application) as T
+            }
             modelClass.isAssignableFrom(AIRecomendationViewModel::class.java) -> {
                 AIRecomendationViewModel() as T
             }

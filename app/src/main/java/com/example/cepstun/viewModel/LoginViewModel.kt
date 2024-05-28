@@ -13,7 +13,9 @@ import com.example.cepstun.data.RepositoryAuth
 import com.example.cepstun.data.RepositoryDatabase
 import com.example.cepstun.ui.activity.ChooseUserActivity
 import com.example.cepstun.ui.activity.MainActivity
+import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -52,17 +54,17 @@ class LoginViewModel(
     fun loginEmailPassword(email: String, password: String) {
         _showProgressDialog.value = true
         viewModelScope.launch {
-            val (isSuccessful, message) = repositoryAuth.loginEmailPassword(email, password, context.getString(R.string.login_success), context.getString(R.string.not_verified), context.getString(R.string.login_failed_with_message))
-            if (isSuccessful){
+            val credential = repositoryAuth.loginEmailPassword(email, password, context.getString(R.string.login_success), context.getString(R.string.not_verified), context.getString(R.string.login_failed_with_message))
+            if (credential.first){
                 _showProgressDialog.value = false
-                _showToast.value = message
+                _showToast.value = credential.second
                 Intent(context, MainActivity::class.java).also { intent ->
                     intent.flags =
                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     context.startActivity(intent)
                 }
             } else{
-                _showToast.value = message
+                _showToast.value = credential.second
                 _showProgressDialog.value = false
             }
         }
@@ -71,42 +73,55 @@ class LoginViewModel(
     fun loginWithGoogle(account: GoogleSignInAccount) {
         viewModelScope.launch {
             val credential = repositoryAuth.loginWithGoogle(account)
-            if (credential.first) {
-                val user = repositoryAuth.auth.currentUser
-                if (user != null) {
-                    if (repositoryDatabase.checkUserExists(user.uid)){
-                        _showProgressDialog.value = false
-                        Intent(
-                            context, MainActivity::class.java
-                        ).also { intent ->
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            context.startActivity(intent)
-                        }
-                    } else {
-                        _showProgressDialog.value = false
-                        Intent(
-                            context, ChooseUserActivity::class.java
-                        ).also { intent ->
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            intent.putExtra(
-                                ChooseUserActivity.ID_TOKEN, credential.second
-                            )
-                            context.startActivity(intent)
-                        }
+            moveActivity(credential)
+        }
+    }
+
+    fun loginWithFacebook(token: AccessToken) {
+        viewModelScope.launch {
+            _showProgressDialog.value = true
+            val credential = repositoryAuth.loginWithFacebook(
+                token,
+                context.getString(R.string.failed_to_link_accounts)
+            )
+            moveActivity(credential)
+        }
+    }
+
+    private suspend fun moveActivity(credential: Pair<Boolean, String>) {
+        if (credential.first) {
+            val user = repositoryAuth.auth.currentUser
+            if (user != null) {
+                _showToast.value = context.getString(R.string.login_success)
+                if (repositoryDatabase.checkUserExists(user.uid)) {
+                    _showProgressDialog.value = false
+                    Intent(
+                        context, MainActivity::class.java
+                    ).also { intent ->
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        context.startActivity(intent)
                     }
                 } else {
                     _showProgressDialog.value = false
-                    _showToast.value = context.getString(R.string.fail_connect_data)
+                    Intent(
+                        context, ChooseUserActivity::class.java
+                    ).also { intent ->
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.putExtra(
+                            ChooseUserActivity.ID_TOKEN, credential.second
+                        )
+                        context.startActivity(intent)
+                    }
                 }
             } else {
                 _showProgressDialog.value = false
                 _showToast.value = context.getString(R.string.fail_connect_data)
             }
+        } else {
+            _showProgressDialog.value = false
+            _showToast.value = credential.second
         }
     }
-
 
     fun resendEmail(email: String, password: String) {
 

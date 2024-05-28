@@ -112,7 +112,6 @@ class CameraActivity : AppCompatActivity() {
                     getString(R.string.please_select_hair_model_first), Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     @Suppress("DEPRECATION")

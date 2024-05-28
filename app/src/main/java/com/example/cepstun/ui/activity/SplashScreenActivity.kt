@@ -14,15 +14,11 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.example.cepstun.databinding.ActivitySplashScreenBinding
 import com.example.cepstun.viewModel.SplashScreenViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
+
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashScreenBinding
-
-    private lateinit var auth: FirebaseAuth
 
     private val viewModel: SplashScreenViewModel by viewModels{
         ViewModelFactory.getInstance(this.application)
@@ -34,7 +30,6 @@ class SplashScreenActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        auth = Firebase.auth
 
 
         hideSystemUI()
