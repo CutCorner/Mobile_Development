@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/PBLoad"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        android:background="@drawable/bg_lottie"
+        app:lottie_fileName="logo_test.json"
+        app:lottie_loop="true" />
+
     <FrameLayout
         android:id="@+id/FLContainer"
         android:layout_width="match_parent"
@@ -18,12 +32,15 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/BNMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_menu"
-        app:itemIconTint="@color/brown"
+        app:menu="@menu/bottom_menu_placeholder"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemTextColor="@color/brown"
-        app:itemIconSize="24dp"/>
+        app:itemIconTint="@color/brown"
+        app:itemIconSize="24dp"
+        app:itemTextAppearanceActive="@style/MyActiveBottomNavigation"
+        app:itemTextAppearanceInactive="@style/MyInactiveBottomNavigation"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

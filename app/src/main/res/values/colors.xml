@@ -7,9 +7,11 @@
     <color name="gray3">#ECE9EC</color>
     <color name="gray4">#757575</color>
     <color name="gray5">#ACACAC</color>
+    <color name="gray6">#484C52</color>
     <color name="pink">#F89AEE</color>
     <color name="yellow">#F7CE45</color>
     <color name="golden">#EA830A</color>
+    <color name="red">#CD5C5C</color>
 
 
 
@@ -22,4 +24,5 @@
 
 <!--    Primary on this app-->
     <color name="brown">#483228</color>
+
 </resources>

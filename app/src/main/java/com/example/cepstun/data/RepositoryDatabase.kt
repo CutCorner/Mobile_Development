@@ -1,41 +1,42 @@
 package com.example.cepstun.data
 
 import com.example.cepstun.data.local.UserDatabase
+import com.example.cepstun.data.responseFirebase.DatabaseUpdateResult
 import com.facebook.AccessToken
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 
 class RepositoryDatabase private constructor(private val database: FirebaseDatabase) {
 
-
     suspend fun checkUserExists(uid: String): Boolean {
         val task = database.getReference("users").child(uid).get().await()
         return task.exists()
     }
 
-    suspend fun addUserToDatabase(
-        uid: String,
-        email: String,
-        level: String,
-        photoUrl: String?
-    ): Boolean {
-        val userMap = mapOf(
-            "FName" to email,
-            "Level" to level,
-            "Photo" to photoUrl
-        )
-        return try {
-            database.getReference("users")
-                .child(uid)
-                .setValue(userMap)
-                .await()
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
+//    suspend fun addUserToDatabase(
+//        uid: String,
+//        email: String,
+//        level: String,
+//        photoUrl: String?
+//    ): Boolean {
+//        val userMap = mapOf(
+//            "FName" to email,
+//            "Level" to level,
+//            "Photo" to photoUrl
+//        )
+//        return try {
+//            database.getReference("users")
+//                .child(uid)
+//                .setValue(userMap)
+//                .await()
+//            true
+//        } catch (e: Exception) {
+//            false
+//        }
+//    }
 
 //    suspend fun uploadToDatabase(userType: String): Boolean {
 //        val userMap = mapOf(
@@ -55,26 +56,28 @@ class RepositoryDatabase private constructor(private val database: FirebaseDatab
 //    }
 
     suspend fun uploadToDatabase(userType: String): Boolean {
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = Firebase.auth.currentUser
         if (user != null) {
-            val providerId = user.providerData[1].providerId // Dapatkan penyedia identitas
+            val providerId = user.providerData[1].providerId
             val photoUrl = when (providerId) {
                 "facebook.com" -> {
-                    val accessToken = AccessToken.getCurrentAccessToken() // Dapatkan access token
-                    "${user.photoUrl}?access_token=${accessToken?.token}" // URL gambar profil Facebook dengan access token
+                    val accessToken = AccessToken.getCurrentAccessToken()
+                    "${user.photoUrl}?access_token=${accessToken?.token}"
                 }
                 "google.com" -> {
-                    user.photoUrl.toString() // URL gambar profil dari Firebase Auth untuk Google
+                    user.photoUrl.toString()
                 }
                 else -> {
-                    user.photoUrl.toString() // Jika penyedia identitas lain, gunakan URL gambar profil dari Firebase Auth
+                    user.photoUrl.toString()
                 }
             }
 
             val userMap = UserDatabase(
-                user.displayName.toString(),
-                userType,
-                photoUrl
+                fname = user.displayName.toString(),
+                level = userType,
+                photo = photoUrl,
+                email = user.email.toString(),
+                phone = user.phoneNumber.toString()
             )
             return try {
                 database.getReference("users")
@@ -90,8 +93,31 @@ class RepositoryDatabase private constructor(private val database: FirebaseDatab
         }
     }
 
-    suspend fun getDatabase(): DatabaseReference {
+    fun getDatabase(): DatabaseReference {
         return database.reference
+    }
+
+    suspend fun updateDatabase(fname: String?, no: String?, date: String?, gender: String?, photo: String?): DatabaseUpdateResult {
+        val user = Firebase.auth.currentUser
+        return if (user != null) {
+            val userMap = mutableMapOf<String, Any>()
+            if (fname != null) userMap["fname"] = fname
+            if (no != null) userMap["phone"] = no
+            if (date != null) userMap["dateOfBirth"] = date
+            if (gender != null) userMap["gender"] = gender
+            if (photo != null) userMap["photo"] = photo
+            try {
+                database.getReference("users")
+                    .child(user.uid)
+                    .updateChildren(userMap)
+                    .await()
+                DatabaseUpdateResult.Success
+            } catch (e: Exception) {
+                DatabaseUpdateResult.Error(e)
+            }
+        } else {
+            DatabaseUpdateResult.Error(Exception("User not logged in"))
+        }
     }
 
 

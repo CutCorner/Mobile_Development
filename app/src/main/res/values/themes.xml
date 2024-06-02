@@ -58,5 +58,29 @@
         <item name="android:textSize">20sp</item> <!-- Optional: Customize text size -->
         <item name="android:textColor">@android:color/black</item> <!-- Optional: Customize text color -->
     </style>
+
+    <style name="bottom_sheet">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+    <!--  For Bottom Sheet  -->
+    <style name="BottomsheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="BottomsheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomsheetStyle</item>
+    </style>
+
+    <!--  For Bottom Navigation  -->
+    <style name="MyActiveBottomNavigation" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="MyInactiveBottomNavigation" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+
 </resources>
 

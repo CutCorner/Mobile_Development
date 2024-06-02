@@ -4,17 +4,20 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.cepstun.R
 import com.example.cepstun.databinding.ActivityChooseModelBinding
-import com.example.cepstun.ui.fragment.MenuNotificationFragment
+import com.google.android.material.snackbar.Snackbar
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
+import android.net.Uri
+import android.provider.Settings
 
 class ChooseModelActivity : AppCompatActivity() {
 
@@ -33,16 +36,43 @@ class ChooseModelActivity : AppCompatActivity() {
         settingStatusBar()
 
         idBarber = intent.getStringExtra(ID_BARBER).toString()
-        Log.d("ChooseModel", idBarber)
 
         binding.MBUseAI.setOnClickListener{
             if (!allPermissionsGranted()) {
-                requestPermissionLauncher.launch(REQUIRED_PERMISSION)
-                moveToCamera()
+                requestPermissionWithDexter()
             } else {
                 moveToCamera()
             }
         }
+    }
+
+    private fun requestPermissionWithDexter() {
+        Dexter.withContext(this)
+            .withPermission(REQUIRED_PERMISSION)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                    Toast.makeText(this@ChooseModelActivity, getString(R.string.permission_agree), Toast.LENGTH_LONG).show()
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                    val snackBar = Snackbar.make(
+                        binding.root, // replace with your root view
+                        R.string.permission_denied, // replace with your permission denied message
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.setAction(getString(R.string.settings)) { // replace with your "Settings" string resource
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri = Uri.fromParts("package", packageName, null)
+                        intent.data = uri
+                        startActivity(intent)
+                    }
+                    snackBar.show()
+                }
+
+                override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest, token: PermissionToken) {
+                    token.continuePermissionRequest()
+                }
+            }).check()
     }
 
     @Suppress("DEPRECATION")
@@ -54,16 +84,6 @@ class ChooseModelActivity : AppCompatActivity() {
     private fun moveToCamera() {
         Intent(this, CameraActivity::class.java).also { intent ->
             startActivity(intent)
-        }
-    }
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            Toast.makeText(this, getString(R.string.permission_request_granted), Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(this, getString(R.string.permission_request_denied), Toast.LENGTH_LONG).show()
         }
     }
 

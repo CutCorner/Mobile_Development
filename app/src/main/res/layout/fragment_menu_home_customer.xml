@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.MenuHomeFragment">
+    tools:context=".ui.fragment.MenuHomeCustomerFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,18 +22,35 @@
 
             <com.google.android.material.search.SearchBar
                 style="@style/fontSearchBar"
-                android:layout_width="300dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:hint="@string/find_barbershop" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_profileImage"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/default_profile"
-                app:civ_circle_background_color="@color/gray2" />
+            <ImageButton
+                android:id="@+id/btnFavorite"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/favorite"
+                android:padding="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/menu_favorite"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"/>
+
+            <ImageButton
+                android:id="@+id/btnNotification"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/notification"
+                android:padding="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/menu_notification"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
 

@@ -4,13 +4,21 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
+import com.denzcoskun.imageslider.ImageSlider
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.cepstun.R
 import com.example.cepstun.data.local.BarberData
+import com.example.cepstun.data.local.BarberDataList.barberDataValue
+import com.example.cepstun.data.local.BarberDataList.image
+import com.example.cepstun.data.local.BarberDataList.rating
+import com.example.cepstun.data.local.Image
+import com.example.cepstun.data.local.Rating
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -38,10 +46,16 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
     private var lon: Double? = null
 
     private lateinit var barberData: BarberData
+    private lateinit var barberRating: Rating
+    private lateinit var barberImage: Image
+
+    private lateinit var barberId: String
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var locationBarber: LatLng
+
+    private lateinit var imageSlider: ImageSlider
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -78,28 +92,52 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onStateChanged(bottomSheet: View, newState: Int){}
         })
 
-
-        @Suppress("DEPRECATION")
-        barberData = intent.extras?.getParcelable(DATA_BARBER)!!
+        barberId = intent.extras?.getString(ID_BARBER)!!
 
         binding.apply {
+
+            barberData = barberDataValue.find { it.id == barberId }!!
+
             TVTittleBarber.text = barberData.name
             TVLocationBarber.text = barberData.location
-            RBRate.rating = barberData.rate.toFloat()
-            TVRate.text = getString(R.string.rate, barberData.rate.toString())
-            Glide.with(this@BarbershopActivity.applicationContext)
-                .load(barberData.image)
-                .centerCrop()
-                .into(IVImage)
+
+            barberRating = rating.find { it.id == barberId }!!
+            val averageRating = barberRating.ratingScore.average()
+            val roundedRating = Math.round(averageRating * 10) / 10.0
+            TVRate.text = getString(R.string.rate, roundedRating.toString())
+            RBRate.rating = roundedRating.toFloat()
+
+
+//            RBRate.rating = barberData.rate.toFloat()
+//            TVRate.text = getString(R.string.rate, barberData.rate.toString())
+
+            LLRate.setOnClickListener {
+                Intent(this@BarbershopActivity, RatingActivity::class.java).also { intent ->
+                    intent.putExtra(RatingActivity.ID_BARBER, barberId)
+                    startActivity(intent)
+                }
+            }
+
+            barberImage = image.find { it.id == barberId }!!
+
+            val imageList = ArrayList<SlideModel>() // Create image list
+
+            for (imageUrl in barberImage.picture) {
+                imageList.add(SlideModel(imageUrl, ScaleTypes.CENTER_CROP))
+            }
+
+            imageSlider = ISImage
+            imageSlider.setImageList(imageList)
+
 
             mMapView = MVmap
             mMapView.onCreate(savedInstanceState)
             mMapView.getMapAsync(this@BarbershopActivity)
 
             BOrder.setOnClickListener {
-                Intent(this@BarbershopActivity, ChooseModelActivity::class.java).also {
-                    intent.putExtra(ChooseModelActivity.ID_BARBER, barberData.id)
-                    startActivity(it)
+                Intent(this@BarbershopActivity, ChooseModelActivity::class.java).also {intent->
+                    intent.putExtra(ChooseModelActivity.ID_BARBER, barberId)
+                    startActivity(intent)
                 }
             }
         }
@@ -179,6 +217,6 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     companion object{
-        const val DATA_BARBER = "data_barber"
+        const val ID_BARBER = "id_barber"
     }
 }

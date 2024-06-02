@@ -6,14 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.cepstun.data.RepositoryAuth
 import com.example.cepstun.data.RepositoryDatabase
+import com.example.cepstun.data.RepositoryHistory
+import com.example.cepstun.data.RepositoryStorage
 import com.example.cepstun.data.di.Injection
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 class ViewModelFactory private constructor(
     private val repositoryAuth: RepositoryAuth,
     private val repositoryDatabase: RepositoryDatabase,
+    private val repositoryStorage: RepositoryStorage,
+    private val repositoryHistory: RepositoryHistory,
     private val application: Application
 ) : ViewModelProvider.Factory {
 
@@ -33,7 +34,19 @@ class ViewModelFactory private constructor(
                 ChooseUserViewModel(repositoryDatabase, application) as T
             }
             modelClass.isAssignableFrom(MenuHomeViewModel::class.java) -> {
-                MenuHomeViewModel(repositoryAuth, repositoryDatabase, application) as T
+                MenuHomeViewModel(application) as T
+            }
+            modelClass.isAssignableFrom(MenuProfileViewModel::class.java) -> {
+                MenuProfileViewModel(repositoryAuth, repositoryDatabase, application) as T
+            }
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
+                MainViewModel(repositoryAuth, repositoryDatabase, application) as T
+            }
+            modelClass.isAssignableFrom(PersonalDataViewModel::class.java) -> {
+                PersonalDataViewModel(repositoryAuth, repositoryDatabase, repositoryStorage, application) as T
+            }
+            modelClass.isAssignableFrom(OrderPagerViewModel::class.java) -> {
+                OrderPagerViewModel(repositoryHistory, repositoryDatabase, repositoryAuth, application) as T
             }
             modelClass.isAssignableFrom(AIRecomendationViewModel::class.java) -> {
                 AIRecomendationViewModel() as T
@@ -56,10 +69,13 @@ class ViewModelFactory private constructor(
         fun getInstance(context: Context): ViewModelFactory = INSTANCE ?: synchronized(this) {
             val repositoryAuth = Injection.provideRepositoryAuth()
             val repositoryDatabase = Injection.provideRepositoryDatabase()
+            val repositoryStorage = Injection.provideRepositoryStorage()
+            val history = Injection.provideRepositoryHistory(context)
             INSTANCE ?: ViewModelFactory(
-//                userPreference,
                 repositoryAuth,
                 repositoryDatabase,
+                repositoryStorage,
+                history,
                 context.applicationContext as Application)
         }.also { INSTANCE = it }
 

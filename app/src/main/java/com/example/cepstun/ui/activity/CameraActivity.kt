@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import com.example.cepstun.R
 import com.example.cepstun.databinding.ActivityCameraBinding
 import com.example.cepstun.helper.createCustomTempFile
+import java.io.File
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
@@ -31,13 +32,25 @@ class CameraActivity : AppCompatActivity() {
 
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
 
+    private var fromProfile: Boolean = false
+
+    private var tempFile: File? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        fromProfile = intent.getBooleanExtra(FROM_PROFILE, false)
+
         binding.apply {
+            if (fromProfile){
+                CVStraight.visibility = View.GONE
+                CVCurly.visibility = View.GONE
+                CVWavy.visibility = View.GONE
+            }
+
             CVStraight.setOnClickListener {
                 CVStraight.setCardBackgroundColor(getColor(R.color.brown))
                 TVStraight.setTextColor(getColor(R.color.white))
@@ -69,13 +82,21 @@ class CameraActivity : AppCompatActivity() {
             }
 
             IBCaptureImage.setOnClickListener {
-                if (::selectedModel.isInitialized) {
-                    val load = binding.PBLoad
-                    load.visibility = View.VISIBLE
-                    load.playAnimation()
+                val load = binding.PBLoad
+                load.visibility = View.VISIBLE
+                load.playAnimation()
+                if (fromProfile){
                     takePhoto()
-                } else Toast.makeText(this@CameraActivity,
-                    getString(R.string.please_select_hair_model_first), Toast.LENGTH_SHORT).show()
+                } else {
+                    if (::selectedModel.isInitialized) {
+                        takePhoto()
+                    } else {
+                        Toast.makeText(this@CameraActivity,
+                            getString(R.string.please_select_hair_model_first), Toast.LENGTH_SHORT).show()
+                        load.visibility = View.GONE
+                        load.pauseAnimation()
+                    }
+                }
             }
 
             IBClose.setOnClickListener {
@@ -156,16 +177,29 @@ class CameraActivity : AppCompatActivity() {
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
 
-        val photoFile = createCustomTempFile(application)
+        tempFile?.let {
+            if (it.exists()) {
+                it.delete()
+            }
+        }
 
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+        tempFile = createCustomTempFile(application)
+
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(tempFile!!).build()
 
         imageCapture.takePicture(
             outputOptions,
-            ContextCompat.getMainExecutor(this),
+            ContextCompat.getMainExecutor(this@CameraActivity),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    moveToAIRecommendation(output.savedUri.toString())
+                    if (fromProfile){
+                        val intent = Intent()
+                        intent.putExtra(EXTRA_CAMERAX_IMAGE, output.savedUri.toString())
+                        setResult(CAMERAX_RESULT, intent)
+                        finish()
+                    }else {
+                        moveToAIRecommendation(output.savedUri.toString())
+                    }
                 }
 
                 override fun onError(exc: ImageCaptureException) {
@@ -249,8 +283,22 @@ class CameraActivity : AppCompatActivity() {
         settingStatusBar()
     }
 
+//    override fun onDestroy() {
+//        tempFile?.let {
+//            if (it.exists()) {
+//                it.delete()
+//            }
+//        }
+//        super.onDestroy()
+//    }
+
     companion object {
+        // for ai
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
         const val MODEL_TYPE = "model_type"
+
+        // for take picture to profile
+        const val CAMERAX_RESULT = 200
+        const val FROM_PROFILE = "fromProfile"
     }
 }

@@ -2,53 +2,52 @@ package com.example.cepstun.viewModel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.location.Location
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.cepstun.data.RepositoryAuth
-import com.example.cepstun.data.RepositoryDatabase
-import com.example.cepstun.data.local.UserDatabase
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.launch
+import com.example.cepstun.R
+import com.example.cepstun.helper.getStringAddress
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
+import java.io.IOException
 
 class MenuHomeViewModel(
-    private val auth: RepositoryAuth,
-    private val repositoryDatabase: RepositoryDatabase,
     application: Application
 ) : AndroidViewModel(application) {
 
     @SuppressLint("StaticFieldLeak")
     private val context = getApplication<Application>().applicationContext
 
-    private val _database = MutableLiveData<UserDatabase?>()
-    val database: LiveData<UserDatabase?>
-        get() = _database
+    private val _address = MutableLiveData<String?>()
+    val address: LiveData<String?> = _address
 
-    init {
-        getDatabase()
-    }
+    private val _permissionRequired = MutableLiveData<Boolean>()
+    val permissionRequired: LiveData<Boolean> = _permissionRequired
 
-    private fun getDatabase() {
-        viewModelScope.launch {
-            val user = auth.currentUser
-            val uid = user?.uid
-            val dbRef = repositoryDatabase.getDatabase()
-            val userRef = dbRef.child("users").child(uid!!)
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
 
-            userRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val userDatabase = dataSnapshot.getValue(UserDatabase::class.java)
-                    _database.postValue(userDatabase)
+
+    fun getLastLocation(){
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+
+        try {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    location?.let {
+                        try {
+                            val latLng = LatLng(it.latitude, it.longitude)
+                            _address.value = latLng.getStringAddress(context)
+                        } catch (e: IOException) {
+                            _errorMessage.value = context.getString(R.string.error_location_MenuHome, e.printStackTrace())
+                        }
+                    } ?: run {
+                        _errorMessage.value = context.getString(R.string.error_location2_MenuHome)
+                    }
                 }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle possible errors.
-                }
-            })
+        } catch (e: SecurityException) {
+            _permissionRequired.value = true
         }
     }
 }

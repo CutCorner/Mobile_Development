@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Cepstun</string>
+    <string name="app_name" translatable="false">Cut Corner uhuy</string>
 
     <!-- Xml -->
     <string name="logo2">Another Logo</string>
@@ -69,22 +69,41 @@
     <!--  activity_splash_screen.xml  -->
     <string name="start_logo">start_logo</string>
 
+    <!-- activity_change_language.xml -->
+    <string name="language_page">This is change language page</string>
+
+    <!-- activity_change_themes.xml -->
+    <string name="dark_mode">Dark Mode</string>
+
 
     <!--  fragment_menu_home.xml  -->
     <string name="find_barbershop">Find barbershop</string>
     <string name="your_location">Your Location</string>
     <string name="current_location">Current Location</string>
+    <string name="favorite">Favorite</string>
+    <string name="notification">Notification</string>
 
-    <!--  fragment_menu_notification.xml  -->
+
+    <!--  fragment_menu_profile.xml  -->
     <string name="button_logout">Logout</string>
     <string name="permission_request_granted">Permission request granted</string>
     <string name="permission_request_denied">Permission request denied</string>
+    <string name="customer_name">Username</string>
+    <string name="customer_email">e.g. name@gmail.com</string>
+    <string name="my_account">My Account</string>
+    <string name="customer_number">+62XXXXXXXXX</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="my_orders">My Orders</string>
+    <string name="barbershop_favorite">Barbershop Favorite</string>
+    <string name="change_language">Change Language</string>
+    <string name="themes">Themes</string>
+    <string name="privacy_and_security">Privacy and Security</string>
 
 
     <!--  bottom_menu.xml  -->
     <string name="menu_home">Home</string>
     <string name="menu_history">History</string>
-    <string name="menu_notification">Notifications</string>
+    <string name="menu_profile">My Account</string>
 
 
     <!--  Leku Map Picker  -->
@@ -117,6 +136,7 @@
 
     <!--  MainActivity.kt  -->
     <string name="onBack">Press again to exit</string>
+    <string name="menu_load">Loading..</string>
 
 
     <!--  RegisterBarberActivity.kt  -->
@@ -131,7 +151,7 @@
 
     <!--  MenuHomeFragmentActivity.kt  -->
     <string name="permission_agree">Permission Agree</string>
-    <string name="permission_denied">Permission Denied, cek on setting app to change</string>
+    <string name="permission_denied">Permission Denied, cek on setting-app-CutCorner-permission to change</string>
     <string name="gps_off">Please activate the location (GPS) first</string>
     <string name="remote_place">The location is too far from residents</string>
     <string name="district">%1$s, %2$s</string>
@@ -159,8 +179,6 @@
     <string name="login_failed_with_message">Login Failed, wrong email or password, click Forgot Password if forgotten \n %1$s</string>
 
 
-
-
     <!--  SignUpViewModel.kt  -->
     <string name="success_create_account">Check your Email and Verify your Account!</string>
     <string name="fail_save_data">Failed to save data to Realtime Database: %1$s</string>
@@ -174,7 +192,6 @@
     <string name="get_the_picture_button">Get the Picture Button</string>
     <string name="back_from_camera">Back From Camera</string>
     <string name="flashlight">Flashlight</string>
-
 
 
     <!--  CameraActivity.kt  -->
@@ -212,12 +229,58 @@
     <string name="image_classifier_failed">fail to classifier</string>
 
     <!--  Facebook Auth  -->
-    <string translatable="false" name="facebook_app_id">3833382843605686</string>
-    <string translatable="false" name="fb_login_protocol_scheme">fb1234</string>
-    <string translatable="false" name="facebook_client_token">ae76bfaf69b78e831023e6f3a3e87e64</string>
+    <string name="facebook_app_id" translatable="false">3833382843605686</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1234</string>
+    <string name="facebook_client_token" translatable="false">ae76bfaf69b78e831023e6f3a3e87e64</string>
     <string name="email_faceebook_already_used">Please sign in with your email and password before linking with Facebook.</string>
     <string name="accounts_linked">Accounts linked.</string>
     <string name="failed_to_link_accounts">Failed to link accounts:</string>
+
+
+    <!--  activity_rating.xml  -->
+    <string name="review">Review</string>
+    <string name="back_button">Back Button</string>
+
+    <!--  item_review.xml  -->
+    <string name="model">Model:</string>
+    <string name="addons">Addons:</string>
+
+    <!--  RatingActivity.kt  -->
+    <string name="rating">%1$s+ rating</string>
+
+
+    <!--  activity_personal_data.xml  -->
+    <string name="edit_photo_profile">Edit Photo Profile</string>
+    <string name="full_name">Full Name</string>
+    <string name="hint_name_profile">Your Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email_profile">Email Address</string>
+    <string name="hint_date_profile">DD/MM/YYYY</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="gender">Gender</string>
+    <string name="hint_choose_gender">Choose Gender</string>
+    <string name="button_save">Save</string>
+    <string name="personal_data">Personal Data</string>
+    <string-array name="category_profileGender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="crop_error">Error get Image From uri to UCrop</string>
+
+    <!--  bottom_sheet.xml  -->
+    <string name="take_from">Taking Pictures from</string>
+    <string name="opencamera">Open Camera</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="open_gallery">Open Gallery</string>
+    <string name="menu_orders">Orders</string>
+
+    <!--  ChooseModelActivity  -->
+    <string name="settings">Settings</string>
+
+    <!--  MenuOrdersFragment.kt  -->
+    <string name="history">History</string>
+    <string name="on_going">On Going</string>
 
 
 </resources>

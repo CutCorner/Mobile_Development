@@ -54,13 +54,45 @@ class SignUpViewModel(
         return isEmailValid.value == true && isPasswordValid.value == true && isPasswordValid2.value == true
     }
 
+//    fun registerEmailPassword(email: String, password: String, level: String) {
+//        _showProgressDialog.value = true
+//        viewModelScope.launch {
+//            val (isSuccessful, message) = repositoryAuth.registerEmailPassword(email, password)
+//            if (isSuccessful) {
+//                val user = repositoryAuth.auth.currentUser
+//                if (user != null && repositoryDatabase.addUserToDatabase(user.uid, email, level, "")) {
+//                    _showProgressDialog.value = false
+//                    _showToast.value = context.getString(R.string.success_create_account)
+//                    if (level == "Customer"){
+//                        Intent(context, LoginActivity::class.java).also {
+//                            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                            context.startActivity(it)
+//                            repositoryAuth.auth.signOut()
+//                        }
+//                    } else {
+//                        Intent(context, RegisterBarberActivity::class.java).also {
+//                            context.startActivity(it)
+//                            repositoryAuth.auth.signOut()
+//                        }
+//                    }
+//                } else {
+//                    _showProgressDialog.value = false
+//                    _showToast.value = context.getString(R.string.fail_save_data)
+//                }
+//            } else {
+//                _showProgressDialog.value = false
+//                _showToast.value = context.getString(R.string.fail_create_account, message)
+//            }
+//        }
+//    }
+
     fun registerEmailPassword(email: String, password: String, level: String) {
         _showProgressDialog.value = true
         viewModelScope.launch {
-            val (isSuccessful, message) = repositoryAuth.registerEmailPassword(email, password)
-            if (isSuccessful) {
+            val credential = repositoryAuth.registerEmailPassword(email, password)
+            if (credential.first) {
                 val user = repositoryAuth.auth.currentUser
-                if (user != null && repositoryDatabase.addUserToDatabase(user.uid, email, level, "")) {
+                if (user != null && repositoryDatabase.uploadToDatabase(level)) {
                     _showProgressDialog.value = false
                     _showToast.value = context.getString(R.string.success_create_account)
                     if (level == "Customer"){
@@ -81,7 +113,7 @@ class SignUpViewModel(
                 }
             } else {
                 _showProgressDialog.value = false
-                _showToast.value = context.getString(R.string.fail_create_account, message)
+                _showToast.value = context.getString(R.string.fail_create_account, credential.second)
             }
         }
     }
@@ -107,7 +139,7 @@ class SignUpViewModel(
             if (user != null) {
                 val isNewUser = !repositoryDatabase.checkUserExists(user.uid)
                 if (isNewUser) {
-                    if (repositoryDatabase.addUserToDatabase(user.uid, user.displayName.toString(), level, user.photoUrl.toString())) {
+                    if (repositoryDatabase.uploadToDatabase(level)) {
                         _showProgressDialog.value = false
                         _showToast.value = context.getString(R.string.register_success)
                         if (level == "Customer"){
