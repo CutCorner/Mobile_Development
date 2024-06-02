@@ -84,6 +84,10 @@ class RepositoryAuth private constructor(
         }
     }
 
+    fun logout() {
+        auth.signOut()
+    }
+
 
     suspend fun registerEmailPassword(email: String, password: String): Pair<Boolean, String> {
         return try {

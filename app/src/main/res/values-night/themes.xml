@@ -13,4 +13,8 @@
     <style name="font">
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="bottom_sheet">
+        <item name="android:backgroundTint">@color/gray5</item>
+    </style>
 </resources>

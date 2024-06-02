@@ -20,10 +20,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        buildConfigField("String", "MAPS_API_KEY", "\"${System.getenv("MAPS_API_KEY") ?: ""}\"")
-//        val mapsApiKey = localProperties.getProperty("MAPS_API_KEY") ?: ""
-//        buildConfigField("String", "MAPS_API_KEY", "\"$mapsApiKey\"")
-        buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-sr07ofrp9v95uek9u5md1dcr3qudto1c.apps.googleusercontent.com\"")
+//        buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-sr07ofrp9v95uek9u5md1dcr3qudto1c.apps.googleusercontent.com\"")
         buildConfigField("String", "BASE_URL_CURRENCY", "\"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/\"")
     }
 
@@ -36,20 +33,10 @@ android {
             )
             isShrinkResources = true
             isDebuggable = false
-
-//            buildConfigField("String", "CURRENCY_API_KEY", "\"cur_live_UxgQfhhwri7VJYT0Vm2cIs1HC7uiIzSMwFeRBHnz\"")
-//            buildConfigField("String", "MAPS_API_KEY", "\"AIzaSyCJAIEnEeP4SZVeaO0vdyj68CgBtkL_FD8\"")
-//            buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-oe53ii5e6ee0ggmjo5kjgn2poassuo4b.apps.googleusercontent.com\"") sesat njir
-
         }
         debug {
             isMinifyEnabled = false
             isDebuggable = true
-//            buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-sr07ofrp9v95uek9u5md1dcr3qudto1c.apps.googleusercontent.com\"")
-//            buildConfigField("String", "BASE_URL_CURRENCY", "\"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/\"")
-//            buildConfigField("String", "CURRENCY_API_KEY", "\"cur_live_UxgQfhhwri7VJYT0Vm2cIs1HC7uiIzSMwFeRBHnz\"")
-//            buildConfigField("String", "MAPS_API_KEY", "\"AIzaSyCJAIEnEeP4SZVeaO0vdyj68CgBtkL_FD8\"")
-//            buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-oe53ii5e6ee0ggmjo5kjgn2poassuo4b.apps.googleusercontent.com\"") sesat njir
         }
     }
     compileOptions {
@@ -132,6 +119,7 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.storage.ktx)
     // Facebook Auth
     implementation(libs.facebook.android.sdk)
 
@@ -160,4 +148,7 @@ dependencies {
 
     // for loading animation
     implementation(libs.lottie)
+
+    // for image carousel
+    implementation(libs.imageslideshow)
 }

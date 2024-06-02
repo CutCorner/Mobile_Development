@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.cepstun.R
 import com.example.cepstun.data.local.ModelData
 import com.example.cepstun.databinding.ItemModelBinding
 
@@ -30,6 +31,7 @@ class ModelAdapter(private val modelList: List<ModelData>): RecyclerView.Adapter
         Glide.with(holder.itemView.context)
             .load(data.image)
             .centerCrop()
+            .placeholder(R.drawable.logo_placeholder)
             .into(holder.modelImage)
 
     }

@@ -11,7 +11,7 @@
         android:id="@+id/viewFinder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="-85dp"
         tools:layout_editor_absoluteY="0dp" />
 
     <ImageButton
@@ -51,20 +51,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="logo_load.json"
+        android:background="@drawable/bg_lottie"
+        app:lottie_fileName="logo_test.json"
         app:lottie_loop="true" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="#70636363"
+        android:layout_height="100dp"
+        android:background="#7E636363"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
             android:id="@+id/IBCaptureImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
             android:contentDescription="@string/get_the_picture_button"
@@ -77,8 +78,8 @@
 
         <ImageButton
             android:id="@+id/IBGallery"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginEnd="40dp"
             android:scaleType="centerCrop"
             android:background="@android:color/transparent"
@@ -90,8 +91,8 @@
 
         <ImageButton
             android:id="@+id/IBSwitchCamera"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"

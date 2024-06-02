@@ -46,6 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="10dp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:fontFamily="@font/montserrat_medium"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -102,14 +104,27 @@
                 map:cardCornerRadius="20dp"
                 map:layout_constraintBottom_toBottomOf="parent">
 
-                <ImageView
-                    android:id="@+id/IVImage"
+<!--                <ImageView-->
+<!--                    android:id="@+id/IVImage"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:contentDescription="@string/image_of_barber"-->
+<!--                    android:outlineProvider="bounds"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/example_barber"
+                    map:iss_image_radius="20dp"
+                    map:iss_image_padding="10dp"
+                    map:iss_image_margin="10dp"/>-->
+
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:id="@+id/ISImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:contentDescription="@string/image_of_barber"
-                    android:outlineProvider="bounds"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/example_barber" />
+                    map:iss_auto_cycle="false"
+                    map:iss_placeholder="@drawable/logo_placeholder"
+                    map:iss_selected_dot="@drawable/selected_dot"
+                    map:iss_unselected_dot="@drawable/default_unselected_dot"
+                    />
 
             </androidx.cardview.widget.CardView>
 
