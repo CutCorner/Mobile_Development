@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.cepstun.data.RepositoryAuth
 import com.example.cepstun.data.RepositoryDatabase
 import com.example.cepstun.data.local.UserDatabase
+import com.example.cepstun.ui.activity.LoginActivity
 import com.example.cepstun.ui.activity.OnBoardingActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -58,7 +59,7 @@ class MenuProfileViewModel(
 
     fun signOut() {
         auth.logout()
-        Intent(context, LoginViewModel::class.java).also { intent ->
+        Intent(context, LoginActivity::class.java).also { intent ->
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             context.startActivity(intent)
         }

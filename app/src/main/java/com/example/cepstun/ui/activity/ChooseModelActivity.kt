@@ -18,12 +18,22 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import android.net.Uri
 import android.provider.Settings
+import android.util.Log
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cepstun.data.local.BarberDataList.model
+import com.example.cepstun.data.local.Model
+import com.example.cepstun.ui.adapter.ModelBarberAdapter
 
 class ChooseModelActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChooseModelBinding
 
     private lateinit var idBarber: String
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var modelAdapter: ModelBarberAdapter
 
     private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(
         this, REQUIRED_PERMISSION
@@ -37,6 +47,10 @@ class ChooseModelActivity : AppCompatActivity() {
 
         idBarber = intent.getStringExtra(ID_BARBER).toString()
 
+        recyclerView = binding.RVModelBarber
+        modelAdapter = ModelBarberAdapter(idBarber, model)
+        setRecyclerView()
+
         binding.MBUseAI.setOnClickListener{
             if (!allPermissionsGranted()) {
                 requestPermissionWithDexter()
@@ -44,6 +58,23 @@ class ChooseModelActivity : AppCompatActivity() {
                 moveToCamera()
             }
         }
+    }
+
+    private fun setRecyclerView() {
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = modelAdapter
+
+        modelAdapter.setOnItemClickCallback(object : ModelBarberAdapter.OnItemClickCallback {
+            override fun onItemClicked(model: Model) {
+                Log.d("pindah lokasi", "Ke Checkout")
+                Log.d("datanya", model.toString())
+                Intent(this@ChooseModelActivity, CheckoutActivity::class.java).also { intent ->
+                    intent.putExtra(CheckoutActivity.SELECTED_MODEL, model)
+                    intent.putExtra(CheckoutActivity.SELECTED_BARBER, idBarber)
+                    startActivity(intent)
+                }
+            }
+        })
     }
 
     private fun requestPermissionWithDexter() {

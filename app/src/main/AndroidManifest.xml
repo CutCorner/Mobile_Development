@@ -32,6 +32,9 @@
         android:theme="@style/Theme.Cepstun"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.CheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.PrivacySecurityActivity"
             android:exported="false" />
         <activity
