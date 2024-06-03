@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cepstun.R
 import com.example.cepstun.data.local.ModelData
-import com.example.cepstun.databinding.ItemModelBinding
+import com.example.cepstun.databinding.ItemModelRecommendationBinding
 
-class ModelAdapter(private val modelList: List<ModelData>): RecyclerView.Adapter<ModelAdapter.ModelViewHolder>() {
-    class ModelViewHolder(binding: ItemModelBinding): RecyclerView.ViewHolder(binding.root) {
+class ModelRecommendationAdapter(private val modelList: List<ModelData>): RecyclerView.Adapter<ModelRecommendationAdapter.ModelViewHolder>() {
+    class ModelViewHolder(binding: ItemModelRecommendationBinding): RecyclerView.ViewHolder(binding.root) {
         val modelName = binding.TVModel
         val modelImage = binding.SIVModel
     }
@@ -18,7 +18,7 @@ class ModelAdapter(private val modelList: List<ModelData>): RecyclerView.Adapter
         parent: ViewGroup,
         viewType: Int
     ): ModelViewHolder {
-        val binding = ItemModelBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemModelRecommendationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ModelViewHolder(binding)
     }
 

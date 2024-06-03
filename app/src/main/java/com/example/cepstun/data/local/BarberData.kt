@@ -18,12 +18,13 @@ data class Image (
     val picture: List<String>
 )
 
+@Parcelize
 data class Model (
     val id: String,
     val name: List<String>,
     val image: List<String>,
     val price: List<Double>,
-)
+): Parcelable
 
 data class Rating (
     val id: String,

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cepstun.data.local.ModelDataList
 import com.example.cepstun.databinding.ActivityAirecomendationBinding
 import com.example.cepstun.helper.ImageClassifierHelper
-import com.example.cepstun.ui.adapter.ModelAdapter
+import com.example.cepstun.ui.adapter.ModelRecommendationAdapter
 import com.example.cepstun.viewModel.AIRecomendationViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
 
@@ -19,7 +19,7 @@ class AIRecomendationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAirecomendationBinding
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ModelAdapter
+    private lateinit var adapter: ModelRecommendationAdapter
 
 //    private var currentImageUri: Uri? = null
 
@@ -51,7 +51,7 @@ class AIRecomendationActivity : AppCompatActivity() {
 
 
         // sementara ngambil data dari object dulu sambil nunggu model ML dan data CC
-        adapter = ModelAdapter(ModelDataList.modelDataValue)
+        adapter = ModelRecommendationAdapter(ModelDataList.modelDataValue)
 
         showRecyclerList()
 

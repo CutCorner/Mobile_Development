@@ -169,3 +169,12 @@ fun LatLng.getStringAddress(context: Context): String {
 
     return fullAddress
 }
+
+
+
+// Admin Fee
+fun String.getAdminFee(): String {
+    val subTotal = this.toDouble()
+    val adminFee = subTotal * 0.1
+    return String.format(Locale.getDefault(), "%.2f", adminFee)
+}

@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose Model"
+            android:text="@string/choose_model"
             android:fontFamily="@font/montserrat_semibold"
             android:textSize="20sp"
             android:layout_gravity="bottom"
@@ -30,9 +30,9 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
         android:layout_width="320dp"
         android:layout_height="180dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="15dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="100dp"
@@ -58,8 +58,8 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/bg_login"
             android:enabled="true"
-            android:gravity="center"
             android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:gravity="center"
             android:text="@string/button_use_ai"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -67,5 +67,19 @@
             app:backgroundTint="@null" />
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RVModelBarber"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView5"
+        app:spanCount="2"
+        android:scrollbars="vertical"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/item_model_barber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

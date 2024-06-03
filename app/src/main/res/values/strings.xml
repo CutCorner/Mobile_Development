@@ -278,9 +278,22 @@
     <!--  ChooseModelActivity  -->
     <string name="settings">Settings</string>
 
+    <!--  choose_model.xml  -->
+    <string name="choose_model">Choose Model</string>
+
     <!--  MenuOrdersFragment.kt  -->
     <string name="history">History</string>
     <string name="on_going">On Going</string>
+
+    <!--  item_model_barber.xml  -->
+    <string name="rp">$</string>
+
+    <!--  activity_checkout.xml  -->
+    <string name="subtotal">Subtotal</string>
+    <string name="model_choosed">Model Choosed</string>
+    <string name="admin_and_service_fees">Admin and Service Fees</string>
+    <string name="total">Total</string>
+    <string name="button_book_now">Book Now</string>
 
 
 </resources>
