@@ -12,51 +12,6 @@ import java.io.File
 
 class RepositoryStorage private constructor(private val storage: FirebaseStorage) {
 
-//    fun uploadFile(file: File, uid: String): Task<UploadTask.TaskSnapshot> {
-//        val storageRef = storage.reference
-//        val fileRef = storageRef.child("users/$uid/photo/${file.name}")
-//        return fileRef.putFile(file.toUri())
-//    }
-
-//    fun uploadFile(file: File, uid: String): Task<Uri> {
-//        val storageRef = storage.reference
-//        val fileRef = storageRef.child("users/$uid/photo/${file.name}")
-//        return fileRef.putFile(file.toUri()).continueWithTask { task ->
-//            if (!task.isSuccessful) {
-//                task.exception?.let {
-//                    throw it
-//                }
-//            }
-//            fileRef.downloadUrl
-//        }
-//    }
-
-//    fun uploadFile(file: File, uid: String): Task<Uri> {
-//        val storageRef = storage.reference
-//        val fileRef = storageRef.child("users/$uid/photo/${file.name}")
-//
-//        // Get reference to the 'photo' folder
-//        val photoFolderRef = storageRef.child("users/$uid/photo")
-//
-//        // List all files in the 'photo' folder
-//        photoFolderRef.listAll().addOnSuccessListener { listResult ->
-//            // For each file in the folder, delete it
-//            for (item in listResult.items) {
-//                item.delete()
-//            }
-//        }
-//
-//        // Now upload the new file
-//        return fileRef.putFile(file.toUri()).continueWithTask { task ->
-//            if (!task.isSuccessful) {
-//                task.exception?.let {
-//                    throw it
-//                }
-//            }
-//            fileRef.downloadUrl
-//        }
-//    }
-
     suspend fun uploadFile(file: File, uid: String): StorageResult {
         val storageRef = storage.reference
         val fileRef = storageRef.child("users/$uid/photo/${file.name}")

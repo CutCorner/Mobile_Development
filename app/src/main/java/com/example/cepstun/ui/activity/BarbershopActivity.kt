@@ -4,10 +4,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.example.cepstun.databinding.ActivityBarbershopBinding
 import com.example.cepstun.helper.convertColorToHue
 import com.example.cepstun.helper.convertDpToPixel
+import com.example.cepstun.viewModel.BarbershopViewModel
+import com.example.cepstun.viewModel.ViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.MapView
@@ -56,6 +59,10 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationBarber: LatLng
 
     private lateinit var imageSlider: ImageSlider
+
+    private val viewModel: BarbershopViewModel by viewModels{
+        ViewModelFactory.getInstance(this)
+    }
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -93,6 +100,8 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
         })
 
         barberId = intent.extras?.getString(ID_BARBER)!!
+
+        viewModel.cekBarberQueue(barberId)
 
         binding.apply {
 
@@ -146,6 +155,20 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
 
         lat = barberData.lat
         lon = barberData.lon
+
+        viewModel.allQueue.observe(this) {
+            if (it != null) {
+                binding.TVQueue.text = it.toString()
+            } else {
+                binding.TVQueue.text = "0"
+            }
+        }
+
+        viewModel.message.observe(this) {
+            if (it != null) {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
 
     }
 

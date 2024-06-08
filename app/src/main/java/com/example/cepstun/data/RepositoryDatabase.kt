@@ -16,45 +16,6 @@ class RepositoryDatabase private constructor(private val database: FirebaseDatab
         return task.exists()
     }
 
-//    suspend fun addUserToDatabase(
-//        uid: String,
-//        email: String,
-//        level: String,
-//        photoUrl: String?
-//    ): Boolean {
-//        val userMap = mapOf(
-//            "FName" to email,
-//            "Level" to level,
-//            "Photo" to photoUrl
-//        )
-//        return try {
-//            database.getReference("users")
-//                .child(uid)
-//                .setValue(userMap)
-//                .await()
-//            true
-//        } catch (e: Exception) {
-//            false
-//        }
-//    }
-
-//    suspend fun uploadToDatabase(userType: String): Boolean {
-//        val userMap = mapOf(
-//            "FName" to FirebaseAuth.getInstance().currentUser?.displayName.toString(),
-//            "Level" to userType,
-//            "Photo" to FirebaseAuth.getInstance().currentUser?.photoUrl.toString()
-//        )
-//        return try {
-//            database.getReference("users")
-//                .child(FirebaseAuth.getInstance().currentUser?.uid.toString())
-//                .setValue(userMap)
-//                .await()
-//            true
-//        } catch (e: Exception) {
-//            false
-//        }
-//    }
-
     suspend fun uploadToDatabase(userType: String): Boolean {
         val user = Firebase.auth.currentUser
         if (user != null) {

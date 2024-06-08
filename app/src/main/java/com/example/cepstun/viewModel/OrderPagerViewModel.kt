@@ -6,9 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.cepstun.data.QueueManager
 import com.example.cepstun.data.RepositoryAuth
 import com.example.cepstun.data.RepositoryDatabase
 import com.example.cepstun.data.RepositoryHistory
+import com.example.cepstun.data.local.Booking
 import com.example.cepstun.data.local.UserDatabase
 import com.example.cepstun.data.local.entity.HistoryCustomer
 import com.example.cepstun.data.local.onGoingCustomer
@@ -35,6 +37,9 @@ class OrderPagerViewModel(
     private val _message = MutableLiveData<String>()
     val message : LiveData<String> = _message
 
+    private val _order = MutableLiveData<Booking?>()
+    val order: LiveData<Booking?> = _order
+
     /*
                                                             Customer
      */
@@ -47,30 +52,62 @@ class OrderPagerViewModel(
         }
     }
 
-    fun deleteCusHistory() {
+    fun deleteCusHistory(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            history.deleteCusHistory()
+            history.deleteCusHistoryById(id)
         }
     }
 
-    fun getCusOnGoing(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val dbRef = database.getDatabase()
-            val user = auth.currentUser!!
-            val userRef = dbRef.child("Barber").child(user.uid)
+    fun observeQueue(barberId: String, position: Int) {
+        val dbRef = database.getDatabase()
+        val barberRef = dbRef.child("queue").child(barberId)
 
-            userRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val userDatabase = dataSnapshot.getValue(UserDatabase::class.java)
-                    _onGoing.value = userDatabase?.onGoing
+        barberRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val bookingSnapshot = dataSnapshot.child(position.toString())
+                    if (bookingSnapshot.exists()) {
+                        val booking = Booking(
+                            userId = bookingSnapshot.child("userId").getValue(String::class.java) ?: "",
+                            name = bookingSnapshot.child("name").getValue(String::class.java) ?: "",
+                            model = bookingSnapshot.child("model").getValue(String::class.java) ?: "",
+                            addon = bookingSnapshot.child("addon").getValue(String::class.java) ?: "",
+                            price = bookingSnapshot.child("price").getValue(Double::class.java) ?: 0.0,
+                            proses = bookingSnapshot.child("proses").getValue(String::class.java) ?: ""
+                        )
+                        _order.value = booking
+                    }
+                } else {
+                    _order.value = null
                 }
+            }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    _message.value = databaseError.message
-                }
-            })
-        }
+            override fun onCancelled(databaseError: DatabaseError) {
+                _message.value = databaseError.message
+            }
+        })
     }
+
+    fun getQueue() = QueueManager.getQueue(context)
+
+//    fun getCusOnGoing(){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val dbRef = database.getDatabase()
+//            val user = auth.currentUser!!
+//            val userRef = dbRef.child("Barber").child(user.uid)
+//
+//            userRef.addValueEventListener(object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    val userDatabase = dataSnapshot.getValue(UserDatabase::class.java)
+//                    _onGoing.value = userDatabase?.onGoing
+//                }
+//
+//                override fun onCancelled(databaseError: DatabaseError) {
+//                    _message.value = databaseError.message
+//                }
+//            })
+//        }
+//    }
 
 
     /*

@@ -23,6 +23,10 @@ class RepositoryHistory(
         histCusDao.deleteHistoryCustomer()
     }
 
+    fun deleteCusHistoryById(id: Int) {
+        histCusDao.deleteHistoryCustomerById(id)
+    }
+
 
 
 

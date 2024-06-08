@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Cut Corner uhuy</string>
+    <string name="app_name" translatable="false">Cut Corner</string>
 
     <!-- Xml -->
     <string name="logo2">Another Logo</string>
@@ -221,7 +221,7 @@
     <!--  activity_barbershop.xml  -->
     <string name="image_of_barber">Image Of Barber</string>
     <string name="maps">Maps</string>
-    <string name="queue_now">Queue Now</string>
+    <string name="queue_now">Current Queue</string>
     <string name="button_order">Order</string>
     <string name="reviews">Reviews</string>
 
@@ -294,6 +294,14 @@
     <string name="admin_and_service_fees">Admin and Service Fees</string>
     <string name="total">Total</string>
     <string name="button_book_now">Book Now</string>
+    <string name="title_activity_barber_location">BarberLocationActivity</string>
+    <string name="button_cancel">Cancel Order</string>
+    <string name="your_queue">Your Queue</string>
+    <string name="remaining_queue">Remaining queue</string>
+
+
+    <!--  Service  -->
+    <string name="tittle_foreground_notification">Current Queue</string>
 
 
 </resources>

@@ -13,7 +13,7 @@ import com.example.cepstun.ui.adapter.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-class MenuOrdersFragment : Fragment() {
+class MenuCustomerOrdersFragment : Fragment() {
 
     private var _binding: FragmentMenuOrdersBinding? = null
     private val binding get() = _binding!!

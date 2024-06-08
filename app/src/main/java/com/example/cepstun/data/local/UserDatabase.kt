@@ -22,3 +22,12 @@ data class onGoingCustomer (
     val idBarber: String? = null,
     val logoBarber: String? = null,
 )
+
+data class Booking(
+    val userId: String,
+    val name: String,
+    val model: String,
+    val addon: String,
+    val price: Double,
+    val proses: String
+)

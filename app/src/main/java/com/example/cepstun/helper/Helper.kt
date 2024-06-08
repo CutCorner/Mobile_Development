@@ -37,17 +37,19 @@ fun String.withDateFormat(): String {
 }
 
 suspend fun String.withCurrencyFormat(): String {
-    val rupiahExchangeRate = getRupiahExchangeRate()
-    var priceOnDollar = this.toDouble() / rupiahExchangeRate
-
     var mCurrencyFormat = NumberFormat.getCurrencyInstance()
     val deviceLocale = Locale.getDefault().country
+    var priceOnDollar: Double
+
     when {
         deviceLocale.equals("ID") -> {
-            priceOnDollar *= rupiahExchangeRate
+            return mCurrencyFormat.format(this.toDouble())
         }
         else -> {
+            val rupiahExchangeRate = getRupiahExchangeRate()
+            priceOnDollar = this.replace(",", ".").toDouble() / rupiahExchangeRate
             mCurrencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
+            priceOnDollar *= rupiahExchangeRate
         }
     }
     return mCurrencyFormat.format(priceOnDollar)
@@ -57,6 +59,13 @@ suspend fun getRupiahExchangeRate(): Float {
     val service = ApiConfigCurrency.getApiService()
     val response = service.getLatestCurrency()
     return response.usd?.idr ?: 0.0F
+}
+
+// Admin Fee
+fun String.getAdminFee(): String {
+    val subTotal = this.toDouble()
+    val adminFee = subTotal * 0.1
+    return adminFee.toString()
 }
 
 // use this to convert IDR
@@ -172,9 +181,3 @@ fun LatLng.getStringAddress(context: Context): String {
 
 
 
-// Admin Fee
-fun String.getAdminFee(): String {
-    val subTotal = this.toDouble()
-    val adminFee = subTotal * 0.1
-    return String.format(Locale.getDefault(), "%.2f", adminFee)
-}

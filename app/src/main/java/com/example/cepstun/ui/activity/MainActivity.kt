@@ -1,21 +1,35 @@
 package com.example.cepstun.ui.activity
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.cepstun.R
 import com.example.cepstun.databinding.ActivityMainBinding
 import com.example.cepstun.ui.fragment.MenuHistoryFragment
 import com.example.cepstun.ui.fragment.MenuHomeBarberFragment
 import com.example.cepstun.ui.fragment.MenuHomeCustomerFragment
-import com.example.cepstun.ui.fragment.MenuOrdersFragment
+import com.example.cepstun.ui.fragment.MenuCustomerOrdersFragment
 import com.example.cepstun.ui.fragment.MenuProfileFragment
 import com.example.cepstun.viewModel.MainViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -33,6 +47,12 @@ class MainActivity : AppCompatActivity() {
 
         cekUserLoginAndLevel()
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED)
+                requestPermissionWithDexter()
+        }
+
         viewModel.levelUser.observe(this) { level ->
             when (level) {
                 "Customer" -> {
@@ -45,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                                 true
                             }
                             R.id.nav_orders -> {
-                                replaceFragment(MenuOrdersFragment())
+                                replaceFragment(MenuCustomerOrdersFragment())
                                 true
                             }
                             R.id.nav_profile -> {
@@ -55,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                             else -> false
                         }
                     }
+                    replaceFragment(MenuHomeCustomerFragment())
                 }
                 else -> {
                     binding.BNMenu.menu.clear()
@@ -76,10 +97,10 @@ class MainActivity : AppCompatActivity() {
                             else -> false
                         }
                     }
+                    replaceFragment(MenuHomeBarberFragment())
                 }
             }
             binding.PBLoad.visibility = View.GONE
-            replaceFragment(MenuHomeCustomerFragment())
         }
 
         viewModel.errorMessage.observe(this) {
@@ -107,6 +128,35 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun requestPermissionWithDexter() {
+        Dexter.withContext(this)
+            .withPermission(REQUIRED_PERMISSION)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                    Toast.makeText(this@MainActivity, getString(R.string.permission_agree), Toast.LENGTH_LONG).show()
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                    val snackBar = Snackbar.make(
+                        binding.root, // replace with your root view
+                        R.string.permission_denied, // replace with your permission denied message
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.setAction(getString(R.string.settings)) { // replace with your "Settings" string resource
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri = Uri.fromParts("package", packageName, null)
+                        intent.data = uri
+                        startActivity(intent)
+                    }
+                    snackBar.show()
+                }
+
+                override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest, token: PermissionToken) {
+                    token.continuePermissionRequest()
+                }
+            }).check()
+    }
+
     private fun cekUserLoginAndLevel() {
         viewModel.cekUserLoginAndLevel()
     }
@@ -119,5 +169,9 @@ class MainActivity : AppCompatActivity() {
     private fun settingStatusBar() {
         window.statusBarColor = getColor(R.color.brown)
         window.decorView.systemUiVisibility = 0
+    }
+
+    companion object{
+        private const val REQUIRED_PERMISSION = Manifest.permission.POST_NOTIFICATIONS
     }
 }
