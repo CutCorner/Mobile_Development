@@ -78,10 +78,7 @@ class LoginActivity : AppCompatActivity() {
         @Suppress("DEPRECATION")
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-
-
         callbackManager = CallbackManager.Factory.create()
-
 
         with(binding) {
             BLogin.backgroundTintList =

@@ -21,6 +21,8 @@ import com.example.cepstun.R
 import com.example.cepstun.data.local.BarberDataList.barberDataValue
 import com.example.cepstun.data.local.BarberDataList.rating
 import com.example.cepstun.databinding.FragmentMenuHomeCustomerBinding
+import com.example.cepstun.ui.activity.BarbershopActivity
+import com.example.cepstun.ui.activity.BarbershopActivity.Companion.ID_BARBER
 import com.example.cepstun.ui.adapter.BarberAdapter
 import com.example.cepstun.utils.showToast
 import com.example.cepstun.viewModel.MenuHomeViewModel
@@ -84,6 +86,20 @@ class MenuHomeCustomerFragment : Fragment() {
     private fun showRecyclerList() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
+
+        adapter.setOnItemClickCallback(object : BarberAdapter.OnBarberClickListener {
+            override fun onBarberClick(barberId: String) {
+                val queue = viewModel.getQueue()
+                if (queue.barberID != "" && queue.yourQueue != "") {
+                    Toast.makeText(requireContext(), "Anda sudah memiliki antrian, cek di menu order", Toast.LENGTH_SHORT).show()
+                } else {
+                    Intent(requireContext(), BarbershopActivity::class.java).also { intent ->
+                        intent.putExtra(ID_BARBER, barberId)
+                        startActivity(intent)
+                    }
+                }
+            }
+        })
     }
 
     private fun requestPermissionWithDexter() {

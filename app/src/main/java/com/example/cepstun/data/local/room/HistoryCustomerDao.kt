@@ -18,4 +18,7 @@ interface HistoryCustomerDao {
 
     @Query("DELETE FROM HistoryCustomer")
     fun deleteHistoryCustomer()
+
+    @Query("DELETE FROM HistoryCustomer WHERE id = :id")
+    fun deleteHistoryCustomerById(id: Int)
 }

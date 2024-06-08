@@ -1,6 +1,5 @@
 package com.example.cepstun.ui.adapter
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cepstun.R
 import com.example.cepstun.data.local.BarberData
-import com.example.cepstun.data.local.BarberDataList
 import com.example.cepstun.data.local.Rating
 import com.example.cepstun.databinding.ItemBarberBinding
 import com.example.cepstun.ui.activity.BarbershopActivity
@@ -53,20 +51,24 @@ class BarberAdapter(private var barberData: List<BarberData>, private var rating
             .into(holder.barberLogo)
 
         holder.itemView.setOnClickListener {
-            Intent(holder.itemView.context, BarbershopActivity::class.java).also { intent ->
-                intent.putExtra(ID_BARBER, data.id)
-                holder.itemView.context.startActivity(intent)
-            }
+            onItemClickCallback.onBarberClick(data.id)
+//            Intent(holder.itemView.context, BarbershopActivity::class.java).also { intent ->
+//                intent.putExtra(ID_BARBER, data.id)
+//                holder.itemView.context.startActivity(intent)
+//            }
         }
 
     }
 
-//    @SuppressLint("NotifyDataSetChanged")
-//    fun setData(newBarberData: List<BarberData>, newRatingData: List<Rating>) {
-//        barberData = newBarberData
-//        ratingData = newRatingData
-//        notifyDataSetChanged()
-//    }
+    private lateinit var onItemClickCallback: OnBarberClickListener
+
+    fun setOnItemClickCallback(onItemClickCallback: OnBarberClickListener) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    interface OnBarberClickListener {
+        fun onBarberClick(barberId: String)
+    }
 
     override fun getItemCount() = barberData.size
 

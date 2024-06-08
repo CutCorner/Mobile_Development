@@ -37,6 +37,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="24sp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 map:layout_constraintTop_toTopOf="parent"
                 tools:text="Broadway Barbershop" />
 

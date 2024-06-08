@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.cepstun.R
+import com.example.cepstun.data.QueueManager
 import com.example.cepstun.helper.getStringAddress
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -50,4 +51,7 @@ class MenuHomeViewModel(
             _permissionRequired.value = true
         }
     }
+
+    fun getQueue() = QueueManager.getQueue(context)
+
 }

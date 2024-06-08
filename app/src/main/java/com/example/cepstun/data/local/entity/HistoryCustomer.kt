@@ -1,6 +1,7 @@
 package com.example.cepstun.data.local.entity
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
@@ -9,15 +10,20 @@ import kotlinx.parcelize.Parcelize
 @Entity
 data class HistoryCustomer(
     @PrimaryKey(autoGenerate = true)
-    var idBarber: Int,
+    @ColumnInfo(name = "id")
+    var id: Int = 0,
 
-    var photoBarber: String = "",
+    var idBarber: String = "",
+
+    var logoBarber: String = "",
 
     var nameBarber: String = "",
 
     var modelBarber: String = "",
 
     var addOnBarber: String? = null,
+
+    var status: String = "",
 
     var priceBarber: Int = 0
 ) : Parcelable

@@ -18,9 +18,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import android.net.Uri
 import android.provider.Settings
-import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cepstun.data.local.BarberDataList.model
 import com.example.cepstun.data.local.Model
@@ -66,8 +64,6 @@ class ChooseModelActivity : AppCompatActivity() {
 
         modelAdapter.setOnItemClickCallback(object : ModelBarberAdapter.OnItemClickCallback {
             override fun onItemClicked(model: Model) {
-                Log.d("pindah lokasi", "Ke Checkout")
-                Log.d("datanya", model.toString())
                 Intent(this@ChooseModelActivity, CheckoutActivity::class.java).also { intent ->
                     intent.putExtra(CheckoutActivity.SELECTED_MODEL, model)
                     intent.putExtra(CheckoutActivity.SELECTED_BARBER, idBarber)
