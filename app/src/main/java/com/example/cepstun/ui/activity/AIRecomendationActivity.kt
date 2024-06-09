@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cepstun.data.local.ModelDataList
+import com.example.cepstun.data.local.ModelDataRecommendationList
 import com.example.cepstun.databinding.ActivityAirecomendationBinding
 import com.example.cepstun.helper.ImageClassifierHelper
 import com.example.cepstun.ui.adapter.ModelRecommendationAdapter
@@ -49,14 +49,6 @@ class AIRecomendationActivity : AppCompatActivity() {
         recyclerView = binding.RVModelRecomend
 
 
-        // sementara ngambil data dari object dulu sambil nunggu model ML dan data CC
-        adapter = ModelRecommendationAdapter(ModelDataList.modelDataValue)
-
-        showRecyclerList()
-
-
-
-
         binding.apply {
             TVShape.text = "Processing..."
 
@@ -64,14 +56,39 @@ class AIRecomendationActivity : AppCompatActivity() {
 //                val resultText = result.first?.get(0)
 //                val resultText = result.first?.toString()
                 val resultText = result.first?.get(0)?.split(":")?.get(0)
-//                val inferenceTime = result.second
+
                 binding.TVShape.text = resultText
 
-//                binding.TVInference.text = getString(R.string.inference_time, inferenceTime.toString())
-
-//                val timeNow = updateTimeStamp()
-                // Save to database
-//                viewModel.saveToDatabase(resultText, inferenceTime, imageUri.toString(), timeNow)
+                when(selectedModelType){
+                    "Straight" -> {
+                        when(resultText){
+                            "Heart" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelHeartStraight)
+                            "Oblong" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelOblongStraight)
+                            "Oval" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelOvalStraight)
+                            "Round" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelRoundStraight)
+                            "Square" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelSquareStraight)
+                        }
+                    }
+                    "Curly" -> {
+                        when(resultText){
+                            "Heart" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelHeartCurly)
+                            "Oblong" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelOblongCurly)
+                            "Oval" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelOvalCurly)
+                            "Round" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelRoundCurly)
+                            "Square" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelSquareCurly)
+                        }
+                    }
+                    "Wavy" -> {
+                        when(resultText){
+                            "Heart" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelHeartWavy)
+                            "Oblong" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelOblongWavy)
+                            "Oval" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelOvalWavy)
+                            "Round" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelRoundWavy)
+                            "Square" -> adapter = ModelRecommendationAdapter(ModelDataRecommendationList.modelSquareWavy)
+                        }
+                    }
+                }
+                showRecyclerList()
             }
 
             viewModel.error.observe(this@AIRecomendationActivity) {

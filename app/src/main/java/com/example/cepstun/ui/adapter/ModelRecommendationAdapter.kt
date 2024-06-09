@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cepstun.R
-import com.example.cepstun.data.local.ModelData
+import com.example.cepstun.data.local.ModelDataRecommendation
 import com.example.cepstun.databinding.ItemModelRecommendationBinding
 
-class ModelRecommendationAdapter(private val modelList: List<ModelData>): RecyclerView.Adapter<ModelRecommendationAdapter.ModelViewHolder>() {
+class ModelRecommendationAdapter(private val modelList: List<ModelDataRecommendation>): RecyclerView.Adapter<ModelRecommendationAdapter.ModelViewHolder>() {
     class ModelViewHolder(binding: ItemModelRecommendationBinding): RecyclerView.ViewHolder(binding.root) {
         val modelName = binding.TVModel
         val modelImage = binding.SIVModel

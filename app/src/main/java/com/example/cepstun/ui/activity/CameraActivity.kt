@@ -84,7 +84,7 @@ class CameraActivity : AppCompatActivity() {
             IBCaptureImage.setOnClickListener {
                 val load = binding.PBLoad
                 load.visibility = View.VISIBLE
-                load.playAnimation()
+                binding.LottieAV.playAnimation()
                 if (fromProfile){
                     takePhoto()
                 } else {
@@ -94,7 +94,7 @@ class CameraActivity : AppCompatActivity() {
                         Toast.makeText(this@CameraActivity,
                             getString(R.string.please_select_hair_model_first), Toast.LENGTH_SHORT).show()
                         load.visibility = View.GONE
-                        load.pauseAnimation()
+                        binding.LottieAV.cancelAnimation()
                     }
                 }
             }

@@ -110,7 +110,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) {
             val load = binding.PBLoad
             load.visibility = if (it) View.VISIBLE else View.GONE
-            if (it) load.playAnimation() else load.cancelAnimation()
+            val lottie = binding.LottieAV
+            if (it) lottie.playAnimation() else lottie.cancelAnimation()
         }
 
         settingStatusBar()

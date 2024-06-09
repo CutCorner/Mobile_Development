@@ -8,6 +8,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -52,6 +53,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var callbackManager: CallbackManager
 
+    private lateinit var load: RelativeLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -63,11 +66,11 @@ class LoginActivity : AppCompatActivity() {
 
         playAnimation()
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.tittle_dialog_Loading))
-        builder.setMessage(getString(R.string.desc_dialog_Login))
-        builder.setCancelable(false)
-        val dialog = builder.create()
+//        val builder = AlertDialog.Builder(this)
+//        builder.setTitle(getString(R.string.tittle_dialog_Loading))
+//        builder.setMessage(getString(R.string.desc_dialog_Login))
+//        builder.setCancelable(false)
+//        val dialog = builder.create()
 
 
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -81,6 +84,8 @@ class LoginActivity : AppCompatActivity() {
         callbackManager = CallbackManager.Factory.create()
 
         with(binding) {
+            load = binding.PBLoad
+
             BLogin.backgroundTintList =
                 ContextCompat.getColorStateList(this@LoginActivity, R.color.gray2)
 
@@ -122,11 +127,15 @@ class LoginActivity : AppCompatActivity() {
             }
 
             BLogin.setOnClickListener {
-                dialog.show()
+//                dialog.show()
+                load.visibility = View.VISIBLE
+                binding.LottieAV.playAnimation()
                 lifecycleScope.launch {
                     if (!isInternetAvailable()) {
                         showNoInternetDialog()
-                        dialog.dismiss()
+//                        dialog.dismiss()
+                        load.visibility = View.GONE
+                        binding.LottieAV.cancelAnimation()
                     } else {
                         viewModel.loginEmailPassword(
                             ETEmail.text.toString().trim(), ETPassword.text.toString().trim()
@@ -136,11 +145,15 @@ class LoginActivity : AppCompatActivity() {
             }
 
             MCVLoginGoogle.setOnClickListener {
-                dialog.show()
+//                dialog.show()
+                load.visibility = View.VISIBLE
+                binding.LottieAV.playAnimation()
                 lifecycleScope.launch {
                     if (!isInternetAvailable()) {
                         showNoInternetDialog()
-                        dialog.dismiss()
+//                        dialog.dismiss()
+                        load.visibility = View.GONE
+                        binding.LottieAV.cancelAnimation()
                     } else {
                         resultLauncher.launch(googleSignInClient.signInIntent)
                     }
@@ -162,12 +175,16 @@ class LoginActivity : AppCompatActivity() {
                 callbackManager,
                 object : FacebookCallback<LoginResult> {
                     override fun onSuccess(result: LoginResult) {
-                        dialog.dismiss()
+                        load.visibility = View.GONE
+                        binding.LottieAV.cancelAnimation()
+//                        dialog.dismiss()
                         handleFacebookAccessToken(result.accessToken)
                     }
 
                     override fun onCancel() {
-                        dialog.dismiss()
+                        load.visibility = View.GONE
+                        binding.LottieAV.cancelAnimation()
+//                        dialog.dismiss()
                         Toast.makeText(
                             this@LoginActivity,
                             "Login Facebook Canceled",
@@ -176,7 +193,9 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     override fun onError(error: FacebookException) {
-                        dialog.dismiss()
+                        load.visibility = View.GONE
+                        binding.LottieAV.cancelAnimation()
+//                        dialog.dismiss()
                         Toast.makeText(
                             this@LoginActivity,
                             "Login Facebook Failed: ${error.message}",
@@ -203,9 +222,13 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.showProgressDialog.observe(this) {
             if (!it) {
-                dialog.dismiss()
+//                dialog.dismiss()
+                load.visibility = View.GONE
+                binding.LottieAV.cancelAnimation()
             } else {
-                dialog.show()
+//                dialog.show()
+                load.visibility = View.VISIBLE
+                binding.LottieAV.playAnimation()
             }
         }
 
@@ -214,20 +237,22 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun isInternetAvailable(): Boolean = withContext(Dispatchers.IO) {
-        val runtime = Runtime.getRuntime()
-        return@withContext try {
-            val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
-            val exitValue = ipProcess.waitFor()
-            exitValue == 0
-        } catch (e: IOException) {
-            e.printStackTrace()
-            false
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-            false
-        }
-    }
+//    private suspend fun isInternetAvailable(): Boolean = withContext(Dispatchers.IO) {
+//        val runtime = Runtime.getRuntime()
+//        return@withContext try {
+//            val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
+//            val exitValue = ipProcess.waitFor()
+//            exitValue == 0
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//            false
+//        } catch (e: InterruptedException) {
+//            e.printStackTrace()
+//            false
+//        }
+//    }
+
+    private fun isInternetAvailable() = true
 
     private fun showNoInternetDialog() {
         androidx.appcompat.app.AlertDialog.Builder(this).setTitle("Tidak Terhubung ke Internet")
@@ -252,6 +277,10 @@ class LoginActivity : AppCompatActivity() {
                     this, "Login Failed with : ${task.exception?.message}", Toast.LENGTH_SHORT
                 ).show()
             }
+        } else {
+            // Pengguna membatalkan proses login Google, jadi kita perlu menghentikan animasi dan menyembunyikan indikator loading
+            load.visibility = View.GONE
+            binding.LottieAV.cancelAnimation()
         }
     }
 

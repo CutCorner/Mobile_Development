@@ -59,8 +59,6 @@ class OrderPagerFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
-        recyclerView.addItemDecoration(itemDecoration)
 
 
         // for tab with different data

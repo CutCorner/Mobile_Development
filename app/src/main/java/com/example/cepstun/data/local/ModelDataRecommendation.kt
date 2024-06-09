@@ -1,6 +1,6 @@
 package com.example.cepstun.data.local
 
-data class ModelData (
+data class ModelDataRecommendation (
     val name: String,
     val image: String
 )

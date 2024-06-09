@@ -7,6 +7,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.ContentResolver
 import android.content.ContentResolver.SCHEME_ANDROID_RESOURCE
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.media.AudioAttributes
@@ -41,6 +42,15 @@ class QueueService : LifecycleService() {
 
     var stop : Boolean = false
     private var isReady2: Boolean = false
+
+    companion object {
+        private const val NOTIFICATION_ID = 1
+        private const val CHANNEL_ID = "channel_01"
+        private const val CHANNEL_NAME = "CutCorner Queue"
+
+        const val YOUR_QUEUE = "your_queue"
+        const val BARBER_ID = "barber_id"
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -89,7 +99,6 @@ class QueueService : LifecycleService() {
 
     @SuppressLint("MissingSuperCall")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d("Service", "Service Started onStartCommand terpanggil berapa??")
 
         if (mediaPlayer2?.isPlaying == true){
             stopSoundNextQueue()
@@ -97,10 +106,6 @@ class QueueService : LifecycleService() {
             init()
         }
         viewModel.combinedQueueData.removeObservers(this)
-//        mediaPlayer2?.stop()
-//        mediaPlayer2?.release()
-//        mediaPlayer2 = null
-
 
         if (intent?.extras == null) {
             viewModel.getQueue().also {
@@ -114,8 +119,10 @@ class QueueService : LifecycleService() {
 
         var notification = buildNotification("Masuk Dalam Antrian")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            Log.d("Start Forground", "Untuk Android diatas Upside Down")
             startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
         } else {
+            Log.d("Start Forground", "Untuk Android dibawahnya Upside Down")
             startForeground(NOTIFICATION_ID, notification)
         }
 
@@ -151,13 +158,15 @@ class QueueService : LifecycleService() {
                         stopSoundNextQueue()
                     }
                     notification = buildNotification(
-                        "Sisa Antrian : ${currentQueue}. Antrian anda $yourQueue dan posisi sekarang $remainingQueue. Segera ke tempat pangkas!!"
+                        "Sisa Antrian : ${remainingQueue}. Antrian anda $yourQueue dan posisi sekarang $currentQueue. Segera ke tempat pangkas!!"
                     )
                 }
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                Log.d("Start Forground", "Untuk Android diatas Upside Down")
                 startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
             } else {
+                Log.d("Start Forground", "Untuk Android dibawahnya Upside Down")
                 startForeground(NOTIFICATION_ID, notification)
             }
 
@@ -201,6 +210,51 @@ class QueueService : LifecycleService() {
 //        isReady2 = false
     }
 
+//    private fun buildNotification(message: String): Notification {
+//        val notificationIntent = Intent(this, BarberLocationActivity::class.java)
+//        val pendingFlags: Int = if (Build.VERSION.SDK_INT >= 23) {
+//            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+//        } else {
+//            PendingIntent.FLAG_UPDATE_CURRENT
+//        }
+//        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, pendingFlags)
+//
+////        val customSoundUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.cut_corner_scissors)
+//        val customSoundUri = Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${packageName}/${R.raw.cut_corner_scissors}")
+//
+//        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+//            .setContentTitle(getString(R.string.tittle_foreground_notification))
+//            .setContentText(message)
+////            .setOnlyAlertOnce(true)
+//            .setSound(customSoundUri)
+//            .setSmallIcon(R.drawable.logo_icon)
+//            .setContentIntent(pendingIntent)
+//
+//        val audioAttributes = AudioAttributes.Builder()
+//            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+//            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+//            .build()
+//
+//        val mNotificationManager =
+//            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//            notificationBuilder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
+//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+//            val channel = NotificationChannel(
+//                CHANNEL_ID,
+//                CHANNEL_NAME,
+//                NotificationManager.IMPORTANCE_DEFAULT
+//            )
+//            channel.description = CHANNEL_NAME
+//            channel.enableVibration(true)
+//            channel.setSound(customSoundUri, audioAttributes)
+//            notificationBuilder.setChannelId(CHANNEL_ID)
+//            mNotificationManager.createNotificationChannel(channel)
+//        }
+//
+//        return notificationBuilder.build()
+//    }
+
     private fun buildNotification(message: String): Notification {
         val notificationIntent = Intent(this, BarberLocationActivity::class.java)
         val pendingFlags: Int = if (Build.VERSION.SDK_INT >= 23) {
@@ -210,35 +264,38 @@ class QueueService : LifecycleService() {
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, pendingFlags)
 
-//        val customSoundUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.cut_corner_scissors)
-        val customSoundUri = Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${packageName}/${R.raw.cut_corner_scissors}")
+//        val customSoundUri = Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${packageName}/${R.raw.cut_corner_scissors}")
 
-        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(getString(R.string.tittle_foreground_notification))
-            .setContentText(message)
-//            .setOnlyAlertOnce(true)
-            .setSound(customSoundUri)
-            .setSmallIcon(R.drawable.logo_icon)
-            .setContentIntent(pendingIntent)
-
-        val audioAttributes = AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-            .build()
+        val notificationTitle = resources.getString(R.string.tittle_foreground_notification)
+        val notificationIcon = R.drawable.logo_icon_cir
 
         val mNotificationManager =
-            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle(notificationTitle)
+            .setContentText(message)
+//            .setSound(customSoundUri)
+            .setSmallIcon(notificationIcon)
+            .setContentIntent(pendingIntent)
+
+//        val audioAttributes = AudioAttributes.Builder()
+//            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+//            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+//            .build()
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             notificationBuilder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             channel.description = CHANNEL_NAME
-            channel.enableVibration(true)
-            channel.setSound(customSoundUri, audioAttributes)
+//            channel.enableVibration(true)
+//            channel.setSound(customSoundUri, audioAttributes)
             notificationBuilder.setChannelId(CHANNEL_ID)
             mNotificationManager.createNotificationChannel(channel)
         }
@@ -256,13 +313,4 @@ class QueueService : LifecycleService() {
         super.onDestroy()
     }
 
-    companion object {
-        private const val NOTIFICATION_ID = 1
-        private const val CHANNEL_ID = "channel_01"
-        private const val CHANNEL_NAME = "CutCorner Queue"
-
-        const val YOUR_QUEUE = "your_queue"
-        const val BARBER_ID = "barber_id"
-
-    }
 }

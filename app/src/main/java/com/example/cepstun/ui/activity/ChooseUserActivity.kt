@@ -63,12 +63,13 @@ class ChooseUserActivity : AppCompatActivity() {
                         ActivityOptionsCompat.makeSceneTransitionAnimation(
                             this@ChooseUserActivity,
                             Pair(binding.IVLogo2, "logo2"),
-                            Pair(binding.BChoose, "button")
+//                            Pair(binding.BChoose, "button")
                         )
 
                     Intent(this@ChooseUserActivity, SignUpActivity::class.java).also { intent ->
                         intent.putExtra(SignUpActivity.USER_LEVEL, userType)
                         startActivity(intent, optionsCompat.toBundle())
+//                        startActivity(intent)
 
                         ActivityCompat.finishAfterTransition(this@ChooseUserActivity)
                     }

@@ -38,7 +38,6 @@
         <service
             android:name=".service.QueueService"
             android:enabled="true"
-            android:exported="false"
             android:foregroundServiceType="specialUse"
             android:permission="@string/tittle_foreground_notification">
             <property
