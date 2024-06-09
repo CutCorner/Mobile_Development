@@ -1,8 +1,12 @@
 <resources>
+    <string name="app_name" translatable="false">Cut Corner</string>
+
     <!-- Xml -->
     <string name="logo2">Logo lain</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="term_service">Dengan masuk atau mendaftar, Anda menyetujui Ketentuan Layanan dan Kebijakan Privasi kami.</string>
+    <string name="loading">Memuat...</string>
+
 
 
     <!--  activity_choose_user.xml  -->
@@ -67,22 +71,41 @@
     <!--  activity_splash_screen.xml  -->
     <string name="start_logo">mulai_logo</string>
 
+    <!-- activity_change_language.xml -->
+    <string name="language_page">Ini adalah halaman perubahan bahasa</string>
+
+    <!-- activity_change_themes.xml -->
+    <string name="dark_mode">Mode Gelap</string>
+
 
     <!--  fragment_menu_home.xml  -->
     <string name="find_barbershop">Temukan tempat pangkas rambut</string>
     <string name="your_location">Lokasimu</string>
     <string name="current_location">Lokasi saat ini</string>
+    <string name="favorite">Favorit</string>
+    <string name="notification">Pemberitahuan</string>
 
-    <!--  fragment_menu_notification.xml  -->
+
+    <!--  fragment_menu_profile.xml  -->
     <string name="button_logout">Keluar</string>
     <string name="permission_request_granted">Permintaan izin dikabulkan</string>
     <string name="permission_request_denied">Permintaan izin ditolak</string>
+    <string name="customer_name">Nama belakang</string>
+    <string name="customer_email">misalnya nama\@gmail.com</string>
+    <string name="my_account">Akun saya</string>
+    <string name="customer_number">+62XXXXXXXXX</string>
+    <string name="edit_profile">Sunting profil</string>
+    <string name="my_orders">pesananku</string>
+    <string name="barbershop_favorite">Tempat Pangkas Rambut Favorit</string>
+    <string name="change_language">Ganti BAHASA</string>
+    <string name="themes">Tema</string>
+    <string name="privacy_and_security">Privasi dan Keamanan</string>
 
 
     <!--  bottom_menu.xml  -->
     <string name="menu_home">Rumah</string>
     <string name="menu_history">Sejarah</string>
-    <string name="menu_notification">Pemberitahuan</string>
+    <string name="menu_profile">Akun saya</string>
 
 
     <!--  Leku Map Picker  -->
@@ -115,6 +138,7 @@
 
     <!--  MainActivity.kt  -->
     <string name="onBack">Tekan lagi untuk keluar</string>
+    <string name="menu_load">Memuat..</string>
 
 
     <!--  RegisterBarberActivity.kt  -->
@@ -129,7 +153,7 @@
 
     <!--  MenuHomeFragmentActivity.kt  -->
     <string name="permission_agree">Izin Setuju</string>
-    <string name="permission_denied">Izin Ditolak, periksa pengaturan aplikasi yang akan diubah</string>
+    <string name="permission_denied">Izin Ditolak, centang pada pengaturan-aplikasi-CutCorner-izin untuk mengubahnya</string>
     <string name="gps_off">Silakan aktifkan lokasi (GPS) terlebih dahulu</string>
     <string name="remote_place">Lokasinya terlalu jauh dari pemukiman warga</string>
     <string name="district">%1$s, %2$s</string>
@@ -157,8 +181,6 @@
     <string name="login_failed_with_message">Gagal Masuk, email atau kata sandi salah, klik Lupa Kata Sandi jika lupa \n %1$s</string>
 
 
-
-
     <!--  SignUpViewModel.kt  -->
     <string name="success_create_account">Periksa Email Anda dan Verifikasi Akun Anda!</string>
     <string name="fail_save_data">Gagal menyimpan data ke Realtime Database: %1$s</string>
@@ -170,13 +192,16 @@
 
     <!--  activity_camera.xml  -->
     <string name="get_the_picture_button">Dapatkan Tombol Gambar</string>
+    <string name="back_from_camera">Kembali Dari Kamera</string>
+    <string name="flashlight">Senter</string>
+
 
     <!--  CameraActivity.kt  -->
     <string name="fail_to_show_camera">Gagal Menampilkan Kamera</string>
     <string name="fail_to_take_picture">Gagal mengambil gambar.</string>
     <string name="straight">Lurus</string>
     <string name="curly">Keriting</string>
-    <string name="wavy">Gelombang</string>
+    <string name="wavy">Bergelombang</string>
     <string name="please_select_hair_model_first">Silakan pilih model rambut terlebih dahulu</string>
     <string name="no_media_selected">Tidak Ada Media yang Dipilih</string>
 
@@ -188,6 +213,8 @@
     <string name="ai_tittle">Tidak bisa memutuskan\? \nAI CutCorner membantu Anda memilih gaya rambut sesuai bentuk wajah Anda</string>
     <string name="button_use_ai">Gunakan AI</string>
     <string name="title_activity_barbershop">Aktivitas Barbershop</string>
+    <string name="your_image">Gambar Anda</string>
+
 
     <!--  adapter  -->
     <string name="rate">(%1$s / 5)</string>
@@ -196,14 +223,87 @@
     <!--  activity_barbershop.xml  -->
     <string name="image_of_barber">Gambar Tukang Cukur</string>
     <string name="maps">Peta</string>
-    <string name="queue_now">Antrian Sekarang</string>
+    <string name="queue_now">Antrian Saat Ini</string>
     <string name="button_order">Memesan</string>
     <string name="reviews">Ulasan</string>
 
     <!--  ImageClassifierHelper  -->
     <string name="image_classifier_failed">gagal untuk mengklasifikasikan</string>
 
+    <!--  Facebook Auth  -->
+    <string name="facebook_app_id" translatable="false">3833382843605686</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1234</string>
+    <string name="facebook_client_token" translatable="false">ae76bfaf69b78e831023e6f3a3e87e64</string>
+    <string name="email_faceebook_already_used">Silakan masuk dengan email dan kata sandi Anda sebelum menghubungkan dengan Facebook.</string>
+    <string name="accounts_linked">Akun tertaut.</string>
+    <string name="failed_to_link_accounts">Gagal menautkan akun:</string>
+
+
+    <!--  activity_rating.xml  -->
+    <string name="review">Tinjauan</string>
+    <string name="back_button">Tombol kembali</string>
+
+    <!--  item_review.xml  -->
+    <string name="model">Model:</string>
+    <string name="addons">Tambahan:</string>
+
+    <!--  RatingActivity.kt  -->
+    <string name="rating">Peringkat %1$s+</string>
+
+
+    <!--  activity_personal_data.xml  -->
+    <string name="edit_photo_profile">Edit Profil Foto</string>
+    <string name="full_name">Nama lengkap</string>
+    <string name="hint_name_profile">Nama lengkap Anda</string>
+    <string name="phone_number">Nomor telepon</string>
+    <string name="email_profile">Alamat email</string>
+    <string name="hint_date_profile">HH/MM/YYYY</string>
+    <string name="date_of_birth">Tanggal lahir</string>
+    <string name="gender">Jenis kelamin</string>
+    <string name="hint_choose_gender">Pilih Jenis Kelamin</string>
+    <string name="button_save">Menyimpan</string>
+    <string name="personal_data">Data pribadi</string>
+    <string-array name="category_profileGender">
+        <item>Pria</item>
+        <item>Perempuan</item>
+    </string-array>
+    <string name="crop_error">Kesalahan saat mengambil Gambar Dari uri ke Ucrop</string>
+
+    <!--  bottom_sheet.xml  -->
+    <string name="take_from">Mengambil Gambar dari</string>
+    <string name="opencamera">Buka kamera</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="open_gallery">Buka Galeri</string>
+    <string name="menu_orders">Pesanan</string>
+
+    <!--  ChooseModelActivity  -->
+    <string name="settings">Pengaturan</string>
+
+    <!--  choose_model.xml  -->
+    <string name="choose_model">Pilih Model</string>
+
+    <!--  MenuOrdersFragment.kt  -->
+    <string name="history">Sejarah</string>
+    <string name="on_going">Sedang berlangsung</string>
+
     <!--  item_model_barber.xml  -->
-    <string name="rp">Rp.</string>
+    <string name="rp">$</string>
+
+    <!--  activity_checkout.xml  -->
+    <string name="subtotal">Subtotal</string>
+    <string name="model_choosed">Model Dipilih</string>
+    <string name="admin_and_service_fees">Biaya Admin dan Layanan</string>
+    <string name="total">Total</string>
+    <string name="button_book_now">Pesan sekarang</string>
+    <string name="title_activity_barber_location">Aktivitas Lokasi Tukang Cukur</string>
+    <string name="button_cancel">Batalkan pesanan</string>
+    <string name="your_queue">Antrian Anda</string>
+    <string name="remaining_queue">Antrian yang tersisa</string>
+
+
+    <!--  Service  -->
+    <string name="tittle_foreground_notification">Antrian Saat Ini</string>
+
 
 </resources>

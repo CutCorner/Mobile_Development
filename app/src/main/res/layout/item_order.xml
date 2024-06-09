@@ -1,153 +1,167 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="345dp"
-    android:layout_height="140dp"
-    android:layout_marginVertical="9dp"
-    app:cardBackgroundColor="@color/gray"
-    app:cardCornerRadius="20dp">
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginVertical="9dp"
+        app:cardElevation="5dp"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/CVBarberLogo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/IVLogoBarber"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/example_barber2" />
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CVBarberLogo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/TVName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/montserrat_bold"
-            android:maxLines="2"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/CVBarberLogo"
-            app:layout_constraintTop_toTopOf="@+id/CVBarberLogo"
-            tools:text="Ini Nama Barber" />
+                <ImageView
+                    android:id="@+id/IVLogoBarber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/example_barber2" />
+            </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/TVTitleModel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/model"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@+id/TVName"
-            app:layout_constraintTop_toBottomOf="@+id/TVName" />
+            <TextView
+                android:id="@+id/TVName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_bold"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/CVBarberLogo"
+                app:layout_constraintTop_toTopOf="@+id/CVBarberLogo"
+                tools:text="Ini Nama Barber" />
 
-        <TextView
-            android:id="@+id/TVModel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/poppins_medium"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="@+id/TVAddons"
-            app:layout_constraintStart_toEndOf="@+id/TVTitleModel"
-            app:layout_constraintTop_toBottomOf="@+id/TVName"
-            tools:text="Undercut" />
+            <TextView
+                android:id="@+id/TVTitleModel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/model"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/TVName"
+                app:layout_constraintTop_toBottomOf="@+id/TVName" />
 
-        <TextView
-            android:id="@+id/TVTitleAddons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/addons"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@+id/TVName"
-            app:layout_constraintTop_toBottomOf="@+id/TVTitleModel" />
+            <TextView
+                android:id="@+id/TVModel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/TVAddons"
+                app:layout_constraintStart_toEndOf="@+id/TVTitleModel"
+                app:layout_constraintTop_toBottomOf="@+id/TVName"
+                tools:text="Undercut" />
 
-        <TextView
-            android:id="@+id/TVAddons"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/poppins_medium"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/IBDelete"
-            app:layout_constraintStart_toEndOf="@+id/TVTitleAddons"
-            app:layout_constraintTop_toBottomOf="@+id/TVModel"
-            tools:text="Washing Hair" />
+            <TextView
+                android:id="@+id/TVTitleAddons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/addons"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/TVName"
+                app:layout_constraintTop_toBottomOf="@+id/TVTitleModel" />
 
-        <ImageButton
-            android:id="@+id/IBDelete"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="Delete History"
-            android:src="@drawable/ic_delete"
-            app:layout_constraintBottom_toTopOf="@+id/VDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TVName"
-            app:tint="@color/red" />
+            <TextView
+                android:id="@+id/TVAddons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@+id/IBDelete"
+                app:layout_constraintStart_toEndOf="@+id/TVTitleAddons"
+                app:layout_constraintTop_toBottomOf="@+id/TVModel"
+                tools:text="Washing Hair" />
 
-        <View
-            android:id="@+id/VDivider"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="15dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintTop_toBottomOf="@+id/CVBarberLogo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageButton
+                android:id="@+id/IBDelete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Delete History"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintBottom_toTopOf="@+id/VDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TVName"
+                app:tint="@color/red" />
 
-        <TextView
-            android:id="@+id/TVTotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/total"
-            android:fontFamily="@font/montserrat_bold"
-            android:layout_marginEnd="5dp"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/TVPrice"
-            app:layout_constraintEnd_toStartOf="@+id/TVPrice"
-            app:layout_constraintTop_toTopOf="@+id/TVPrice" />
+            <View
+                android:id="@+id/VDivider"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintTop_toBottomOf="@+id/CVBarberLogo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/TVPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_medium"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/VDivider"
-            tools:text="Rp. 20.000"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                android:id="@+id/TVTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total"
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_marginEnd="5dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/TVPrice"
+                app:layout_constraintEnd_toStartOf="@+id/TVPrice"
+                app:layout_constraintTop_toTopOf="@+id/TVPrice" />
 
-        <TextView
-            android:id="@+id/TVStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/TVPrice"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/TVPrice"
-            tools:text="Di batalkan Barber"
-            android:fontFamily="@font/montserrat_bold"
-            android:textSize="14sp"
-            android:layout_marginStart="20dp"/>
+            <TextView
+                android:id="@+id/TVPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/VDivider"
+                tools:text="Rp. 20.000"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/TVStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/TVPrice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/TVPrice"
+                tools:text="Di batalkan Barber"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="14sp"
+                android:layout_marginStart="20dp"/>
 
-</com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

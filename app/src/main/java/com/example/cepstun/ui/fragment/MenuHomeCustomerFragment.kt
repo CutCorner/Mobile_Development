@@ -6,15 +6,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cepstun.R
@@ -54,6 +58,14 @@ class MenuHomeCustomerFragment : Fragment() {
         REQUIRED_PERMISSION2
     ) == PackageManager.PERMISSION_GRANTED
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        if (permissions.all { it.value }) {
+            Toast.makeText(requireContext(), getString(R.string.permission_agree), Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,6 +83,13 @@ class MenuHomeCustomerFragment : Fragment() {
             checkLocationSettingsAndRetrieveLocation()
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(), Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) requestPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
+        }
+
         binding.LLLocation.setOnClickListener {
             checkLocationSettingsAndRetrieveLocation()
         }
@@ -84,15 +103,31 @@ class MenuHomeCustomerFragment : Fragment() {
     }
 
     private fun showRecyclerList() {
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = layoutManager
+//        val itemDecoration =
+//            DividerItemDecoration(requireContext(), (layoutManager as LinearLayoutManager).orientation)
+//        recyclerView.addItemDecoration(itemDecoration)
+
+
         recyclerView.adapter = adapter
 
+        val load = binding.PBLoad
+        val lottie = binding.LottieAV
+
         adapter.setOnItemClickCallback(object : BarberAdapter.OnBarberClickListener {
+
             override fun onBarberClick(barberId: String) {
+                lottie.playAnimation()
+                load.visibility = View.VISIBLE
                 val queue = viewModel.getQueue()
                 if (queue.barberID != "" && queue.yourQueue != "") {
+                    lottie.cancelAnimation()
+                    load.visibility = View.GONE
                     Toast.makeText(requireContext(), "Anda sudah memiliki antrian, cek di menu order", Toast.LENGTH_SHORT).show()
                 } else {
+                    lottie.cancelAnimation()
+                    load.visibility = View.GONE
                     Intent(requireContext(), BarbershopActivity::class.java).also { intent ->
                         intent.putExtra(ID_BARBER, barberId)
                         startActivity(intent)
@@ -170,5 +205,6 @@ class MenuHomeCustomerFragment : Fragment() {
     companion object {
         private const val REQUIRED_PERMISSION1 = Manifest.permission.ACCESS_COARSE_LOCATION
         private const val REQUIRED_PERMISSION2 = Manifest.permission.ACCESS_FINE_LOCATION
+
     }
 }

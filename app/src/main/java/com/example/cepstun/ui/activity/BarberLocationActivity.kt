@@ -96,7 +96,7 @@ class BarberLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures())
             val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.setMargins(insets.left, 0, insets.right, insets.bottom)
+            layoutParams.setMargins(0, 0, 0, insets.bottom)
             view.layoutParams = layoutParams
             WindowInsetsCompat.CONSUMED
         }
@@ -204,7 +204,7 @@ class BarberLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                         modelBarber = order!!.model,
                         addOnBarber = order.addon,
                         priceBarber = order.price.toInt(),
-                        status = "Anda Batalkan"
+                        status = "Batal"
                     )
 
                     viewModel.insertCusHistory(history)

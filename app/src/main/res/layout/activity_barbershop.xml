@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="-15dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="80dp"
             android:contentDescription="@string/maps"
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintTop_toBottomOf="@+id/CLInformation" />
@@ -142,15 +142,18 @@
         android:background="@drawable/bg_bottom"
         android:elevation="10dp"
         map:behavior_hideable="false"
-        map:behavior_peekHeight="35dp"
+        map:behavior_peekHeight="95dp"
         map:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         map:layout_constraintBottom_toBottomOf="parent">
+
+<!--
+              -->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/BOrder"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="35dp"
             android:background="@drawable/bg_login"
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:gravity="center"

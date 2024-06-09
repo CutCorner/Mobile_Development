@@ -6,7 +6,7 @@
     android:layout_height="170dp"
     android:layout_marginHorizontal="9dp"
     android:layout_marginVertical="3dp"
-    app:cardBackgroundColor="@color/gray"
+    app:cardBackgroundColor="@color/white"
     app:strokeColor="@color/black"
     android:layout_margin="15dp">
 

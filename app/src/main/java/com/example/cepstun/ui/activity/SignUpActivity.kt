@@ -4,14 +4,11 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +18,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
-import com.example.cepstun.BuildConfig
 import com.example.cepstun.R
 import com.example.cepstun.databinding.ActivitySignUpBinding
 import com.example.cepstun.viewModel.SignUpViewModel
@@ -36,7 +32,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -63,6 +58,8 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         playAnimation()
+
+        callbackManager = CallbackManager.Factory.create()
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.tittle_dialog_Loading))
@@ -234,6 +231,7 @@ class SignUpActivity : AppCompatActivity() {
             playSequentially(tittle, together2, together3)
             start()
         }
+
     }
 
     private fun moveToLogin() {
@@ -246,7 +244,6 @@ class SignUpActivity : AppCompatActivity() {
 
         Intent(this@SignUpActivity , LoginActivity::class.java).also { intent ->
             startActivity(intent, optionsCompat.toBundle())
-
             ActivityCompat.finishAfterTransition(this)
         }
     }

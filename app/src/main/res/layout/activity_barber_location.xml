@@ -44,7 +44,7 @@
         map:behavior_hideable="false"
         map:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         map:layout_constraintBottom_toBottomOf="parent">
-<!--        map:behavior_peekHeight="35dp"-->
+<!--        -->
 
 
         <TextView
@@ -112,10 +112,10 @@
             map:cardBackgroundColor="@color/white"
             map:cardCornerRadius="20dp"
             map:cardElevation="10dp"
-            map:layout_constraintBottom_toTopOf="@+id/BCancel"
+            map:layout_constraintBottom_toBottomOf="@+id/CVRemainingQueue"
             map:layout_constraintEnd_toStartOf="@+id/CVRemainingQueue"
             map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/TVTittleYourQueue">
+            map:layout_constraintTop_toTopOf="@+id/CVRemainingQueue">
 
             <TextView
                 android:id="@+id/TVYourQueue"
@@ -154,7 +154,7 @@
             map:layout_constraintBottom_toTopOf="@+id/BCancel"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/TVTittleYourQueue">
+            map:layout_constraintTop_toBottomOf="@+id/TVTittleRemainingQueue">
 
             <TextView
                 android:id="@+id/TVRemainingQueue"
@@ -175,10 +175,10 @@
             map:cardBackgroundColor="@color/white"
             map:cardCornerRadius="20dp"
             map:cardElevation="10dp"
-            map:layout_constraintBottom_toTopOf="@+id/BCancel"
+            map:layout_constraintBottom_toBottomOf="@+id/CVRemainingQueue"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toEndOf="@+id/CVRemainingQueue"
-            map:layout_constraintTop_toBottomOf="@+id/TVTittleCurrentQueue">
+            map:layout_constraintTop_toTopOf="@+id/CVRemainingQueue">
 
             <TextView
                 android:id="@+id/TVCurrentQueue"

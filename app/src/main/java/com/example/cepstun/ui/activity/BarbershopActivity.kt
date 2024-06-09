@@ -90,7 +90,7 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onSlide(bottomSheet: View, slideOffset:Float) {
                 binding.MVmap.alpha = 1 - slideOffset * 0.6f
 
-                val marginBottom = 20f + ((235f - 20f) * slideOffset)
+                val marginBottom = 20f + ((275f - 20f) * slideOffset)
                 val layoutParams = binding.MVmap.layoutParams as ViewGroup.MarginLayoutParams
                 layoutParams.bottomMargin = convertDpToPixel(marginBottom, this@BarbershopActivity)
                 binding.MVmap.layoutParams = layoutParams

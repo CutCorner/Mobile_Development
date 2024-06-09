@@ -155,4 +155,7 @@ dependencies {
 
     // for image carousel
     implementation(libs.imageslideshow)
+
+    // switcher
+    implementation(libs.switcher)
 }

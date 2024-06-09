@@ -5,6 +5,8 @@
     <string name="logo2">Another Logo</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="term_service">By logging in or registering, you agree to our Terms of service and Privacy policy.</string>
+    <string name="loading">Loading...</string>
+
 
 
     <!--  activity_choose_user.xml  -->
