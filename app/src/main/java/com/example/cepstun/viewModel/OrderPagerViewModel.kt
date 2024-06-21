@@ -11,9 +11,9 @@ import com.example.cepstun.data.RepositoryAuth
 import com.example.cepstun.data.RepositoryDatabase
 import com.example.cepstun.data.RepositoryHistory
 import com.example.cepstun.data.local.Booking
-import com.example.cepstun.data.local.UserDatabase
-import com.example.cepstun.data.local.entity.HistoryCustomer
-import com.example.cepstun.data.local.onGoingCustomer
+import com.example.cepstun.data.local.ListOrder
+import com.example.cepstun.data.local.entity.barbershop.HistoryBarbershop
+import com.example.cepstun.data.local.entity.customer.HistoryCustomer
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -31,26 +31,20 @@ class OrderPagerViewModel(
     @SuppressLint("StaticFieldLeak")
     private val context = getApplication<Application>().applicationContext
 
-    private val _onGoing = MutableLiveData<onGoingCustomer?>()
-    val onGoing: LiveData<onGoingCustomer?> = _onGoing
-
     private val _message = MutableLiveData<String>()
     val message : LiveData<String> = _message
 
     private val _order = MutableLiveData<Booking?>()
     val order: LiveData<Booking?> = _order
 
+    private val _listOrder = MutableLiveData<ListOrder?>()
+    val listOrder: LiveData<ListOrder?> = _listOrder
+
     /*
                                                             Customer
      */
     // History
     fun getCusHistory(): LiveData<List<HistoryCustomer>> = history.getCusHistory()
-
-    fun insertCusHistory(historyCus: HistoryCustomer) {
-        viewModelScope.launch(Dispatchers.IO) {
-            history.insertCusHistory(historyCus)
-        }
-    }
 
     fun deleteCusHistory(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -68,6 +62,7 @@ class OrderPagerViewModel(
                     val bookingSnapshot = dataSnapshot.child(position.toString())
                     if (bookingSnapshot.exists()) {
                         val booking = Booking(
+                            idOrder = bookingSnapshot.child("idOrder").getValue(String::class.java) ?: "",
                             userId = bookingSnapshot.child("userId").getValue(String::class.java) ?: "",
                             name = bookingSnapshot.child("name").getValue(String::class.java) ?: "",
                             model = bookingSnapshot.child("model").getValue(String::class.java) ?: "",
@@ -88,34 +83,46 @@ class OrderPagerViewModel(
         })
     }
 
+    // OnGoing
     fun getQueue() = QueueManager.getQueue(context)
-
-//    fun getCusOnGoing(){
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val dbRef = database.getDatabase()
-//            val user = auth.currentUser!!
-//            val userRef = dbRef.child("Barber").child(user.uid)
-//
-//            userRef.addValueEventListener(object : ValueEventListener {
-//                override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    val userDatabase = dataSnapshot.getValue(UserDatabase::class.java)
-//                    _onGoing.value = userDatabase?.onGoing
-//                }
-//
-//                override fun onCancelled(databaseError: DatabaseError) {
-//                    _message.value = databaseError.message
-//                }
-//            })
-//        }
-//    }
 
 
     /*
                                                         Barber
      */
     // History
+    fun getBarHistory(): LiveData<List<HistoryBarbershop>> = history.getBarHistory()
 
     // OnGoing
+    fun getFirstBooked(){
+        val barberId = auth.currentUser?.uid
+        val dbRef = database.getDatabase()
+        val barberRef = dbRef.child("queue").child(barberId!!)
+        barberRef.get().addOnSuccessListener { dataSnapshot ->
+            if (dataSnapshot.hasChildren()) {
+                val firstChildSnapshot = dataSnapshot.children.first()
+                val position = firstChildSnapshot.key?.toInt() ?: 0
+                val userId = firstChildSnapshot.child("userId").getValue(String::class.java) ?: ""
+                val name = firstChildSnapshot.child("name").getValue(String::class.java) ?: ""
+                val model = firstChildSnapshot.child("model").getValue(String::class.java) ?: ""
+                val addon = firstChildSnapshot.child("addon").getValue(String::class.java) ?: ""
+                val price = firstChildSnapshot.child("price").getValue(Double::class.java) ?: 0.0
+                val proses = firstChildSnapshot.child("proses").getValue(String::class.java) ?: ""
 
+                val order = ListOrder(
+                    position = position,
+                    userId = userId,
+                    name = name,
+                    model = model,
+                    addon = addon,
+                    price = price,
+                    proses = proses
+                )
+                _listOrder.value = order
+            } else {
+                _listOrder.value = null
+            }
+        }
+    }
 
 }

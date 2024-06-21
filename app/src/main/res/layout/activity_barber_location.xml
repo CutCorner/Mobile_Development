@@ -3,31 +3,68 @@
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:name="com.google.android.gms.maps.SupportMapFragment"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.BarberLocationActivity">
+    tools:context=".ui.activity.customer.BarberLocationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/PBLoad"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:background="@android:color/transparent"
+            android:elevation="2dp"
+            android:visibility="gone"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/LottieAV"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_lottie"
+                map:lottie_autoPlay="true"
+                map:lottie_fileName="logo_test.json"
+                map:lottie_loop="true" />
+
+            <TextView
+                style="@style/TVLoad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/LottieAV"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:text="@string/loading" />
+        </RelativeLayout>
+
         <com.google.android.gms.maps.MapView
             android:id="@+id/MVmap"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:contentDescription="@string/map"
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/IBBarberFocus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="#A8FFFFFF"
-            android:contentDescription="Barber Focus Location"
-            android:elevation="100dp"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="35dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="80dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/barber_focus_location"
+            android:elevation="100dp"
+            android:padding="4dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/icon_placeholder"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent" />
@@ -36,26 +73,27 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/CLQueue"
+        style="@style/BgDrawable"
         android:layout_width="match_parent"
         android:layout_height="380dp"
         android:background="@drawable/bg_bottom"
         android:elevation="10dp"
-        map:behavior_peekHeight="35dp"
         map:behavior_hideable="false"
+        map:behavior_peekHeight="35dp"
         map:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         map:layout_constraintBottom_toBottomOf="parent">
-<!--        -->
 
 
         <TextView
             android:id="@+id/TVBarberName"
+            style="@style/fontColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:ellipsize="end"
             android:fontFamily="@font/montserrat_bold"
-            android:maxLines="2"
             android:lines="2"
+            android:maxLines="2"
             android:textAlignment="center"
             android:textSize="24sp"
             map:layout_constraintTop_toTopOf="parent"
@@ -63,14 +101,15 @@
 
         <TextView
             android:id="@+id/TVLocationBarber"
+            style="@style/fontColor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="6dp"
             android:ellipsize="end"
             android:fontFamily="@font/montserrat_medium"
-            android:maxLines="2"
             android:lines="2"
+            android:maxLines="2"
             android:textSize="14sp"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
@@ -79,12 +118,12 @@
 
         <TextView
             android:id="@+id/TVTittleCurrentQueue"
+            style="@style/fontColor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/queue_now"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="14sp"
             map:layout_constraintEnd_toEndOf="@+id/CVCurrentQueue"
             map:layout_constraintStart_toStartOf="@+id/CVCurrentQueue"
@@ -92,12 +131,12 @@
 
         <TextView
             android:id="@+id/TVTittleYourQueue"
+            style="@style/fontColor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/your_queue"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="14sp"
             map:layout_constraintEnd_toEndOf="@+id/CVYourQueue"
             map:layout_constraintStart_toStartOf="@+id/CVYourQueue"
@@ -106,19 +145,21 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/CVYourQueue"
+            style="@style/CardView"
             android:layout_width="85dp"
             android:layout_height="88dp"
             android:foregroundGravity="center"
-            map:cardBackgroundColor="@color/white"
             map:cardCornerRadius="20dp"
             map:cardElevation="10dp"
             map:layout_constraintBottom_toBottomOf="@+id/CVRemainingQueue"
             map:layout_constraintEnd_toStartOf="@+id/CVRemainingQueue"
             map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toTopOf="@+id/CVRemainingQueue">
+            map:layout_constraintTop_toTopOf="@+id/CVRemainingQueue"
+            tools:ignore="TextSizeCheck">
 
             <TextView
                 android:id="@+id/TVYourQueue"
+                style="@style/fontColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -130,13 +171,13 @@
 
         <TextView
             android:id="@+id/TVTittleRemainingQueue"
+            style="@style/fontColor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/remaining_queue"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="14sp"
             map:layout_constraintEnd_toEndOf="@+id/CVRemainingQueue"
             map:layout_constraintStart_toStartOf="@+id/CVRemainingQueue"
@@ -145,19 +186,21 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/CVRemainingQueue"
+            style="@style/CardView"
             android:layout_width="85dp"
             android:layout_height="88dp"
             android:foregroundGravity="center"
-            map:cardBackgroundColor="@color/white"
             map:cardCornerRadius="20dp"
             map:cardElevation="10dp"
             map:layout_constraintBottom_toTopOf="@+id/BCancel"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/TVTittleRemainingQueue">
+            map:layout_constraintTop_toBottomOf="@+id/TVTittleRemainingQueue"
+            tools:ignore="TextSizeCheck">
 
             <TextView
                 android:id="@+id/TVRemainingQueue"
+                style="@style/fontColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -169,19 +212,21 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/CVCurrentQueue"
+            style="@style/CardView"
             android:layout_width="85dp"
             android:layout_height="88dp"
             android:foregroundGravity="center"
-            map:cardBackgroundColor="@color/white"
             map:cardCornerRadius="20dp"
             map:cardElevation="10dp"
             map:layout_constraintBottom_toBottomOf="@+id/CVRemainingQueue"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toEndOf="@+id/CVRemainingQueue"
-            map:layout_constraintTop_toTopOf="@+id/CVRemainingQueue">
+            map:layout_constraintTop_toTopOf="@+id/CVRemainingQueue"
+            tools:ignore="TextSizeCheck">
 
             <TextView
                 android:id="@+id/TVCurrentQueue"
+                style="@style/fontColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -210,10 +255,12 @@
             android:layout_marginBottom="25dp"
             android:background="@drawable/bg_logout"
             android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:text="@string/button_cancel"
             android:textAlignment="center"
             android:textColor="@color/white"
+            android:theme="@android:style/ThemeOverlay.Material.Dark"
             android:transitionName="button"
             map:backgroundTint="@null"
             map:layout_constraintBottom_toBottomOf="parent"

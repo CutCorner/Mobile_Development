@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/backgroundViewGroup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.barbershop.HistoryPagerFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RVHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible"
+        tools:listitem="@layout/item_history" />
+
+    <TextView
+        android:id="@+id/TVEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="14sp"
+        android:visibility="gone"
+        tools:text="History" />
+
+</FrameLayout>

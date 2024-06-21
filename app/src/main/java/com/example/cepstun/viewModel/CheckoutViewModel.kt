@@ -2,24 +2,24 @@ package com.example.cepstun.viewModel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Intent
-import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.cepstun.R
 import com.example.cepstun.data.RepositoryAuth
+import com.example.cepstun.data.RepositoryBarberApi
 import com.example.cepstun.data.RepositoryDatabase
+import com.example.cepstun.data.local.AddOn
+import com.example.cepstun.data.local.BarberDataList
 import com.example.cepstun.data.local.Booking
-import com.example.cepstun.ui.activity.BarberLocationActivity
-import com.example.cepstun.ui.activity.ChooseUserActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.example.cepstun.utils.getRandomString
+import kotlinx.coroutines.launch
 
 class CheckoutViewModel (
     private val auth: RepositoryAuth,
     private val database: RepositoryDatabase,
+    private val barberApi: RepositoryBarberApi,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -35,8 +35,18 @@ class CheckoutViewModel (
     private val _startActivityEvent = MutableLiveData<String>()
     val startActivityEvent: LiveData<String> = _startActivityEvent
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _addOns = MutableLiveData<List<AddOn>>()
+    val addOns: LiveData<List<AddOn>> = _addOns
+
+    private val _nameBarber = MutableLiveData<String>()
+    val nameBarber: LiveData<String> = _nameBarber
+
 
     fun bookedBarber(model: String, addOn: String, price: Double, barberId: String){
+        _isLoading.value = true
         val user = auth.currentUser
         val uid = user?.uid
         val dbRef = database.getDatabase()
@@ -54,25 +64,57 @@ class CheckoutViewModel (
                 }
                 val nextQueueNumber = lastQueueNumber + 1
 
-                // Add new booking to database
+                val idOrder = getRandomString()
                 val newBooking = Booking(
+                    idOrder = idOrder,
                     userId = uid,
                     name = name,
                     model = model,
                     addon = addOn,
                     price = price,
-                    proses = "on Queue"
+                    proses = "Dalam Antrian"
                 )
                 barberRef.child(nextQueueNumber.toString()).setValue(newBooking)
                     .addOnSuccessListener {
-                        _message.value = "Booking successfull"
+                        _message.value = context.getString(R.string.booking_successfully)
                         _startActivityEvent.value = nextQueueNumber.toString()
-
+                        _isLoading.value = false
                     }.addOnFailureListener {e->
-                        _message.value = "Booking failed: ${e.message}"
+                        _message.value = context.getString(R.string.booking_failed, e.message)
+                        _isLoading.value = false
                     }
             }
         }
+    }
+
+    fun getAddOn(barberId: String){
+        // get API
+//        viewModelScope.launch {
+//            val response = barberApi.getDetailBarberShop(barberId)
+//            if (!response.result?.addons.isNullOrEmpty()){
+//                _addOns.value = response.result?.addons?.map {
+//                    AddOn(
+//                        name = it.name.toString(),
+//                        price = it.price?.toInt() ?: 0
+//                    )
+//                }
+//            }
+//        }
+
+        // get List dummy
+        val addOnsDummy = listOf(
+            AddOn("AddOn A", 5000),
+            AddOn("AddOn B", 10000),
+            AddOn("AddOn C", 15000),
+            AddOn("AddOn D", 20000),
+            AddOn("AddOn E", 25000)
+        )
+        _addOns.value = addOnsDummy
+
+        BarberDataList.barberDataValue.find { it.id == barberId }?.let {
+            _nameBarber.value = it.name
+        }
+
     }
 
 }

@@ -8,7 +8,6 @@
     <string name="loading">Loading...</string>
 
 
-
     <!--  activity_choose_user.xml  -->
     <string name="customerTittle" translatable="false">CUSTOMER</string>
     <string name="barberTittle" translatable="false">BARBER</string>
@@ -42,6 +41,7 @@
     <string name="onboarding3">Time Saving</string>
     <string name="onboardingDesc3">Secure your appointment in a few taps and make the most of your day</string>
     <string name="button_sign_up">Sign Up</string>
+    <string name="language_button">English</string>
 
 
     <!--  activity_register_barber.xml  -->
@@ -49,13 +49,13 @@
     <string name="name">Name</string>
     <string name="hint_name">Your Barber\'s Name</string>
     <string name="category">Category</string>
-    <string name="address">Adress</string>
+    <string name="address">Address</string>
     <string name="hint_address">Street. XXX</string>
     <string name="coordinate">Coordinate Location</string>
     <string name="hint_coordinate">Get coordinate from Maps</string>
     <string name="telephone">Telephone Number</string>
     <string name="hint_telephone" translatable="false">+62XXXXXXXXX</string>
-    <string name="photo_barber">Photo of Barber Shop/Salon</string>
+    <string name="photo_barber">Photo of Barbershop</string>
     <string name="hint_photo_barber">Upload Your Image</string>
     <string name="button_continue">Continue</string>
 
@@ -81,7 +81,7 @@
     <!--  fragment_menu_home.xml  -->
     <string name="find_barbershop">Find barbershop</string>
     <string name="your_location">Your Location</string>
-    <string name="current_location">Current Location</string>
+    <string name="current_location">Search your current location...</string>
     <string name="favorite">Favorite</string>
     <string name="notification">Notification</string>
 
@@ -90,8 +90,8 @@
     <string name="button_logout">Logout</string>
     <string name="permission_request_granted">Permission request granted</string>
     <string name="permission_request_denied">Permission request denied</string>
-    <string name="customer_name">Username</string>
-    <string name="customer_email">e.g. name@gmail.com</string>
+    <string name="customer_name">Name...</string>
+    <string name="customer_email">Email...</string>
     <string name="my_account">My Account</string>
     <string name="customer_number">+62XXXXXXXXX</string>
     <string name="edit_profile">Edit Profile</string>
@@ -191,7 +191,7 @@
 
 
     <!--  activity_camera.xml  -->
-    <string name="get_the_picture_button">Get the Picture Button</string>
+    <string name="get_the_picture_button">Get the Picture</string>
     <string name="back_from_camera">Back From Camera</string>
     <string name="flashlight">Flashlight</string>
 
@@ -226,6 +226,8 @@
     <string name="queue_now">Current Queue</string>
     <string name="button_order">Order</string>
     <string name="reviews">Reviews</string>
+    <string name="addbarbershoptofavorite">AddBarbershopToFavorite</string>
+
 
     <!--  ImageClassifierHelper  -->
     <string name="image_classifier_failed">fail to classifier</string>
@@ -241,7 +243,7 @@
 
     <!--  activity_rating.xml  -->
     <string name="review">Review</string>
-    <string name="back_button">Back Button</string>
+    <string name="back_button">Back</string>
 
     <!--  item_review.xml  -->
     <string name="model">Model:</string>
@@ -304,6 +306,202 @@
 
     <!--  Service  -->
     <string name="tittle_foreground_notification">Current Queue</string>
+    <string name="exit_queue">You Exit the Queue</string>
+    <string name="remaining_1">Remaining Queue : %1$s. Your queue %2$s and current position %3$s. Get to the barbershop immediately!!!</string>
+    <string name="remaining_0">Remaining Queue : %1$s. Your queue %2$s and current position %3$s. Tell the Barber immediately that you are in place!!!</string>
+    <string name="remaining_all_queue">Remaining Queue : %1$s. Your queue %2$s and current position %3$s</string>
+    <string name="enter_queue">Enter the Queue</string>
+
+    <!--  OrderPagerFragment.kt  -->
+    <string name="ongoing_empty">OnGoing Empty</string>
+    <string name="history_empty">History Empty</string>
+
+    <!--  MenuProfileFragment.kt  -->
+    <string name="logging_alert_title">Logging Out of Account?</string>
+    <string name="logout_alert_message">Your History, Notification and Favorite data will be deleted if you log out.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+
+    <!--  item_favorite_barber  -->
+    <string name="delete_to_favorite">Delete To Favorite</string>
+
+    <!--  activity_favorite.xml  -->
+    <string name="favorite_barbershop_is_empty">Favorite Barbershop is empty</string>
+
+    <!--  activity_change_language  -->
+    <string name="language">Language</string>
+    <string name="select_language">Select Language</string>
+    <string name="indonesia">Indonesian</string>
+    <string name="english">English</string>
+    <string name="save_changes">Save Changes</string>
+
+    <!--  activity_change_themes  -->
+    <string name="select_theme">Select Theme</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+
+    <!-- activity_change_model -->
+    <string name="change_model_title">Change Model</string>
+
+    <!-- activity_change_price -->
+    <string name="change_price_title">Change Add On and Price</string>
+
+    <!--  fragment_menu_profile_barbershop.xml  -->
+    <string name="barbershop_account">Akun Barbershop</string>
+    <string name="edit_profile_barbershop">Edit Profile</string>
+    <string name="change_model">Change Model</string>
+    <string name="change_addon_price">Change Add On</string>
+    <string name="privacy_and_security_barbershop">Privacy and Security</string>
+    <string name="change_language_barbershop">Change Language</string>
+    <string name="themes_barbershop">Themes</string>
+
+    <!-- activity_input_price -->
+    <string name="input_price">Input Add On and Price</string>
+    <string name="service_price">Service Price</string>
+    <string name="hint_service_price">Input Nominal</string>
+    <string name="add_on">Add On</string>
+    <string name="button_save_changes">Save changes</string>
+
+    <!-- activity_edit_data_barbershop -->
+    <string name="personal_data_barbershop">Edit Data</string>
+
+    <!-- activity_edit_model -->
+    <string name="edit_model">Edit Model</string>
+    <string name="hint_model_name">New Model Name</string>
+    <string name="hint_price">Price</string>
+    <string name="price">Price</string>
+    <string name="model_name">Model Name</string>
+    <string name="logo">Logo</string>
+
+    <!--  activity_input_model  -->
+    <string name="input_model">Input Model</string>
+    <string name="model_price">Model Price</string>
+
+    <!--  activity_input_addon  -->
+    <string name="input_addon">Input Add On Service</string>
+
+    <!--  dialog_decline_order  -->
+    <string name="reason">Reason for order cancellation</string>
+    <string name="customer_is_not_on_the_spot">Customer is not on the spot</string>
+    <string name="other">Other</string>
+    <string name="barbershop_wants_to_close">Barbershop wants to close</string>
+    <string name="oke">Oke</string>
+
+
+    <string name="no_one_has_booked_make_sure_you_have_opened_a_barbershop">No one has booked, make sure you have opened a barbershop</string>
+    <string name="please_fill_the_reason">Please fill the reason</string>
+
+    <!--  dialog_review  -->
+    <string name="give_your_ratings">Give Your Review</string>
+    <string name="rate_dialog">Rate</string>
+
+    <!--  MenuHomeCustomerFragment  -->
+    <string name="please_provide_a_rating">Please provide a rating</string>
+
+    <!--  dialog_canceled  -->
+    <string name="you_were_taken_out_of_the_queue_by_barbershop">You were taken out of the queue by Barbershop!!</string>
+    <string name="reason_for_being_removed_from_the_queue">Reason for being removed from the queue:</string>
+
+    <!--  BarbershopActivity  -->
+    <string name="barbershop_is_closed">Barbershop is closed</string>
+    <string name="open">Open</string>
+    <string name="closed">closed</string>
+    <string name="you_cannot_leave_before_completing_the_order">You cannot leave before completing the Order</string>
+    <string name="you_are_currently_in_the_queue_check_the_order_menu_and_cancel_for_another_order">You are currently in the queue, check the order menu and cancel for another order.</string>
+    <string name="please_wait_until_the_price_is_calculated">Please Wait Until the price is calculated</string>
+    <string name="button_add_addon">Button Add AddOn</string>
+    <string name="there_are_no_add_ons_in_this_barbershop">There are no add-ons in this barbershop</string>
+
+
+
+    <string name="booking_successfully">Booking successfully</string>
+    <string name="booking_failed">Booking failed: %1$s</string>
+    <string name="your_haircut_is_starting_now">%1$s, your haircut is starting now.</string>
+    <string name="you_are_next_in_line_for_a_haircut">%1$s, you are next in line for a haircut.</string>
+    <string name="please_fill_in_all_fields">Please fill in all fields</string>
+    <string name="register_a_barbershop">Register a barbershop?</string>
+    <string name="your_barber_will_be_listed_here_soon_check_the_information_you_provide_and_make_sure_it_s_correct_you_cannot_return_to_this_page_after_continuing">Your barber will be listed here soon, check the information you provide and make sure it\'s correct! You cannot return to this page after continuing!</string>
+    <string name="success_register_barber">Success Register Barber</string>
+    <string name="you_have_selected_images">You have selected %1$s images</string>
+    <string name="please_add_at_least_one_model">Please add at least one model</string>
+    <string name="add_model_to_your_barbershop">Add Model to your Barbershop?</string>
+    <string name="types_of_models_will_be_added_to_your_barbershop_make_sure_it_s_appropriate_you_cannot_return_to_this_page_after_continuing">Types of models will be added to your barbershop, make sure it\'s appropriate! You cannot return to this page after continuing!</string>
+    <string name="you_can_only_select_up_to_3_images">You can only select up to 3 images</string>
+    <string name="successfully_register_barber_account">Successfully Register Barber Account</string>
+    <string name="failed_to_register_database_error">Failed to Register, database error: %1$s</string>
+    <string name="failed_to_upload_file">Failed to upload file: %1$s</string>
+    <string name="failed_to_create_barbershop">Failed to create barbershop: %1$s</string>
+    <string name="failed_to_add_model">Failed to add model: %1$s</string>
+    <string name="successfully_add_model_to_barbershop">Successfully Add Model to Barbershop</string>
+    <string name="failed_to_add_addon_service">Failed to add addOn Service: %1$s</string>
+    <string name="successfully_add_addon_service_to_barbershop">Successfully Add AddOn Service to Barbershop</string>
+    <string name="no_add_on_added">No Add On Added?</string>
+    <string name="are_you_sure_you_don_t_want_to_add_an_addon_service">Are you sure you don\'t want to add an addOn service?</string>
+    <string name="add_addon_service_to_your_barbershop">Add AddOn Service to your Barbershop?</string>
+    <string name="types_of_addon_service_will_be_added_to_your_barbershop_make_sure_it_s_appropriate_you_cannot_return_to_this_page_after_continuing">Types of AddOn Service will be added to your barbershop, make sure it\'s appropriate! You cannot return to this page after continuing!</string>
+    <string name="username">Username</string>
+    <string name="failed_to_get_data_barber">Failed to get data Barber %1$s</string>
+    <string name="delete_notification_button">Delete Notification</string>
+
+    <string name="notification_empty">Notification empty</string>
+    <string name="favorite_barbershop">Favorite Barbershop</string>
+    <string name="add_model">Add Model</string>
+    <string name="delete">Delete</string>
+    <string name="barber_focus_location">Barber Focus Location</string>
+    <string name="map" translatable="false">Map</string>
+    <string name="_5" translatable="false">(%1$s / 5)</string>
+
+    <string name="barbershop_successfully_removed_from_favourites">Barbershop successfully removed from Favourites</string>
+    <string name="barbershop_successfully_added_to_favourites">Barbershop successfully added to Favourites</string>
+    <string name="style_parsing_failed">Style parsing failed.</string>
+    <string name="can_t_find_style_error">"Can't find style. Error: %1$s "</string>
+
+    <string name="take_a_picture_from_the_gallery">Take a picture from the gallery</string>
+    <string name="switch_camera">Switch Camera</string>
+
+    <string name="language_successfully_changed">Language Successfully Changed</string>
+    <string name="please_restart_the_app_to_change_the_language">Please restart the app to change the language</string>
+
+
+    <string name="order_completed_send_feedback_form_to_customer">Order completed, send feedback form to customer</string>
+    <string name="feedback_sent_successfully">Feedback sent successfully</string>
+    <string name="order_canceled_send_reason_to_customer">Order canceled, send reason to customer</string>
+    <string name="reason_sent_successfully">Reason sent successfully</string>
+
+
+    <string name="rate_your_haircut">Rate Your Haircut:</string>
+    <string name="tell_us_more">Tell Us More:</string>
+
+
+    <string name="data_must_not_be_the_same_as_existing">Data must not be the same as existing</string>
+
+    <string name="add_image_model_below_click_image_to_replace">Add Image Model Below, click image to replace</string>
+    <string name="input_price2">Input Price</string>
+    <string name="input_addon2">Input Add On Service</string>
+
+
+    <string name="account_information">Account Information</string>
+    <string name="location">Location</string>
+
+    <string name="failed_to_delete_model">Failed to delete model %1$s, %2$s</string>
+    <string name="model_successfully_deleted">%1$s model successfully deleted</string>
+    <string name="successfully_added_the_model">Successfully added the model</string>
+    <string name="model_not_found">Model not found</string>
+
+    <string name="add_addon_service">Add AddOn Service</string>
+
+    <string name="failed_to_delete_addon">Failed to delete AddOn %1$s, %2$s</string>
+    <string name="addon_successfully_deleted">%1$s AddOn successfully deleted</string>
+    <string name="successfully_added_the_addon">Successfully added the AddOn</string>
+    <string name="addon_not_found">AddOn not found</string>
+
+    <string name="are_you_sure_you_want_to_remove_the_model">Are you sure you want to remove the model?</string>
+
+    <string name="are_you_sure_you_want_to_remove_the_addon">Are you sure you want to remove the addOn?</string>
+
+
+    <string name="data_not_found_make_sure_your_location_is_switched_on">Data not found, make sure your location is switched on</string>
 
 
 </resources>

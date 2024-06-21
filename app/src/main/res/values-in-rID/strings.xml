@@ -8,7 +8,6 @@
     <string name="loading">Memuat...</string>
 
 
-
     <!--  activity_choose_user.xml  -->
     <string name="customerTittle" translatable="false">CUSTOMER</string>
     <string name="barberTittle" translatable="false">BARBER</string>
@@ -25,7 +24,7 @@
     <string name="resend_email">Kirim Ulang Verifikasi Email</string>
     <string name="or_login_with">Atau Masuk Dengan</string> <!--  activity_sign_up.xml  -->
     <string name="forgot_password">Tidak ingat kata sandi</string>
-    <string name="button_login">Gabung</string>  <!--  activity_on_boarding.xml  -->
+    <string name="button_login">Masuk</string>  <!--  activity_on_boarding.xml  -->
     <string name="google_logo">google_logo</string> <!--  activity_sign_up.xml  -->
     <string name="facebook_logo">facebook_logo</string> <!--  activity_sign_up.xml  -->
     <string name="apple_logo">apple_logo</string> <!--  activity_sign_up.xml  -->
@@ -42,6 +41,7 @@
     <string name="onboarding3">Hemat waktu</string>
     <string name="onboardingDesc3">Amankan janji temu Anda dalam beberapa ketukan dan manfaatkan hari Anda sebaik-baiknya</string>
     <string name="button_sign_up">Mendaftar</string>
+    <string name="language_button">Bahasa Indonesia</string>
 
 
     <!--  activity_register_barber.xml  -->
@@ -55,7 +55,7 @@
     <string name="hint_coordinate">Dapatkan koordinat dari Maps</string>
     <string name="telephone">Nomor telepon</string>
     <string name="hint_telephone" translatable="false">+62XXXXXXXXX</string>
-    <string name="photo_barber">Foto Tempat Potong Rambut/Salon</string>
+    <string name="photo_barber">Foto Tempat Pangkas Rambut</string>
     <string name="hint_photo_barber">Unggah Gambar Anda</string>
     <string name="button_continue">Melanjutkan</string>
 
@@ -81,30 +81,30 @@
     <!--  fragment_menu_home.xml  -->
     <string name="find_barbershop">Temukan tempat pangkas rambut</string>
     <string name="your_location">Lokasimu</string>
-    <string name="current_location">Lokasi saat ini</string>
+    <string name="current_location">Telusuri lokasi Anda saat ini...</string>
     <string name="favorite">Favorit</string>
-    <string name="notification">Pemberitahuan</string>
+    <string name="notification">Notifikasi</string>
 
 
     <!--  fragment_menu_profile.xml  -->
     <string name="button_logout">Keluar</string>
-    <string name="permission_request_granted">Permintaan izin dikabulkan</string>
+    <string name="permission_request_granted">Permintaan izin diterima</string>
     <string name="permission_request_denied">Permintaan izin ditolak</string>
-    <string name="customer_name">Nama belakang</string>
-    <string name="customer_email">misalnya nama\@gmail.com</string>
+    <string name="customer_name">Nama...</string>
+    <string name="customer_email">Email...</string>
     <string name="my_account">Akun saya</string>
     <string name="customer_number">+62XXXXXXXXX</string>
     <string name="edit_profile">Sunting profil</string>
     <string name="my_orders">pesananku</string>
-    <string name="barbershop_favorite">Tempat Pangkas Rambut Favorit</string>
-    <string name="change_language">Ganti BAHASA</string>
+    <string name="barbershop_favorite">Barbershop Favorit</string>
+    <string name="change_language">Ganti Bahasa</string>
     <string name="themes">Tema</string>
     <string name="privacy_and_security">Privasi dan Keamanan</string>
 
 
     <!--  bottom_menu.xml  -->
-    <string name="menu_home">Rumah</string>
-    <string name="menu_history">Sejarah</string>
+    <string name="menu_home">Beranda</string>
+    <string name="menu_history">Riwayat</string>
     <string name="menu_profile">Akun saya</string>
 
 
@@ -191,7 +191,7 @@
 
 
     <!--  activity_camera.xml  -->
-    <string name="get_the_picture_button">Dapatkan Tombol Gambar</string>
+    <string name="get_the_picture_button">Ambil Gambar</string>
     <string name="back_from_camera">Kembali Dari Kamera</string>
     <string name="flashlight">Senter</string>
 
@@ -201,7 +201,7 @@
     <string name="fail_to_take_picture">Gagal mengambil gambar.</string>
     <string name="straight">Lurus</string>
     <string name="curly">Keriting</string>
-    <string name="wavy">Bergelombang</string>
+    <string name="wavy">Gelombang</string>
     <string name="please_select_hair_model_first">Silakan pilih model rambut terlebih dahulu</string>
     <string name="no_media_selected">Tidak Ada Media yang Dipilih</string>
 
@@ -226,6 +226,8 @@
     <string name="queue_now">Antrian Saat Ini</string>
     <string name="button_order">Memesan</string>
     <string name="reviews">Ulasan</string>
+    <string name="addbarbershoptofavorite">TambahkanBarbershop Ke Favorit</string>
+
 
     <!--  ImageClassifierHelper  -->
     <string name="image_classifier_failed">gagal untuk mengklasifikasikan</string>
@@ -241,11 +243,11 @@
 
     <!--  activity_rating.xml  -->
     <string name="review">Tinjauan</string>
-    <string name="back_button">Tombol kembali</string>
+    <string name="back_button">Kembali</string>
 
     <!--  item_review.xml  -->
     <string name="model">Model:</string>
-    <string name="addons">Tambahan:</string>
+    <string name="addons">Layanan:</string>
 
     <!--  RatingActivity.kt  -->
     <string name="rating">Peringkat %1$s+</string>
@@ -284,7 +286,7 @@
     <string name="choose_model">Pilih Model</string>
 
     <!--  MenuOrdersFragment.kt  -->
-    <string name="history">Sejarah</string>
+    <string name="history">Riwayat</string>
     <string name="on_going">Sedang berlangsung</string>
 
     <!--  item_model_barber.xml  -->
@@ -304,6 +306,194 @@
 
     <!--  Service  -->
     <string name="tittle_foreground_notification">Antrian Saat Ini</string>
+    <string name="exit_queue">Anda Keluar dari Antrian</string>
+    <string name="remaining_1">Antrian yang Tersisa : %1$s. Antrean Anda %2$s dan posisi saat ini %3$s. Segera ke barbershop!!!</string>
+    <string name="remaining_0">Antrian yang Tersisa : %1$s. Antrean Anda %2$s dan posisi saat ini %3$s. Beritahu Tukang Cukur segera bahwa Anda sudah berada di tempat!!!</string>
+    <string name="remaining_all_queue">Antrian yang Tersisa : %1$s. Antrean Anda %2$s dan posisi saat ini %3$s</string>
+    <string name="enter_queue">Masuk ke Antrian</string>
 
+    <!--  OrderPagerFragment.kt  -->
+    <string name="ongoing_empty">Sedang Berjalan Kosong</string>
+    <string name="history_empty">Riwayat Kosong</string>
+
+    <!--  MenuProfileFragment.kt  -->
+    <string name="logging_alert_title">Keluar dari Akun\?</string>
+    <string name="logout_alert_message">Data Riwayat, Notifikasi dan Favorit Anda akan dihapus jika Anda logout.</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+
+
+    <!--  item_favorite_barber  -->
+    <string name="delete_to_favorite">Hapus Ke Favorit</string>
+
+    <!--  activity_favorite.xml  -->
+    <string name="favorite_barbershop_is_empty">Barbershop Favorit kosong</string>
+
+    <!--  activity_change_language  -->
+    <string name="language">Bahasa</string>
+    <string name="select_language">Pilih bahasa</string>
+    <string name="indonesia">bahasa Indonesia</string>
+    <string name="english">Bahasa inggris</string>
+    <string name="save_changes">Simpan perubahan</string>
+
+    <!--  activity_change_themes  -->
+    <string name="select_theme">Pilih tema</string>
+    <string name="dark">Gelap</string>
+    <string name="light">Cerah</string>
+
+    <!-- activity_change_model -->
+    <string name="change_model_title">Ubah Model</string>
+
+    <!-- activity_change_price -->
+    <string name="change_price_title">Ubah Add On dan Harga</string>
+
+    <!--  fragment_menu_profile_barbershop.xml  -->
+    <string name="barbershop_account">Akun Barbershop</string>
+    <string name="edit_profile_barbershop">Sunting profil</string>
+    <string name="change_model">Ubah Model</string>
+    <string name="change_addon_price">Ubah Layanan Tambahan</string>
+    <string name="privacy_and_security_barbershop">Privasi dan Keamanan</string>
+    <string name="change_language_barbershop">Ganti Bahasa</string>
+    <string name="themes_barbershop">Tema</string>
+
+    <!-- activity_input_price -->
+    <string name="input_price">Masukan Add On dan Harga</string>
+    <string name="service_price">Harga Layanan</string>
+    <string name="hint_service_price">Nominal Masukan</string>
+    <string name="add_on">Layanan</string>
+    <string name="button_save_changes">Simpan perubahan</string>
+
+    <!-- activity_edit_data_barbershop -->
+    <string name="personal_data_barbershop">Sunting Data</string>
+
+    <!-- activity_edit_model -->
+    <string name="edit_model">Sunting Model</string>
+    <string name="hint_model_name">Nama Model Baru</string>
+    <string name="hint_price">Harga</string>
+    <string name="price">Harga</string>
+    <string name="model_name">Nama model</string>
+    <string name="logo">Logo</string>
+
+    <!--  activity_input_model  -->
+    <string name="input_model">Tambahkan Model</string>
+    <string name="model_price">Harga Model</string>
+
+    <!--  activity_input_addon  -->
+    <string name="input_addon">Tambahkan Layanan Tambahan</string>
+
+    <!--  dialog_decline_order  -->
+    <string name="reason">Alasan pembatalan pesanan</string>
+    <string name="customer_is_not_on_the_spot">Pelanggan tidak ada di tempat</string>
+    <string name="other">Lainnya</string>
+    <string name="barbershop_wants_to_close">Barbershop mau tutup</string>
+    <string name="oke">Oke</string>
+
+
+    <string name="no_one_has_booked_make_sure_you_have_opened_a_barbershop">Belum ada yang booking, pastikan sudah buka pangkas rambut</string>
+    <string name="please_fill_the_reason">Silakan isi alasannya</string>
+
+    <!--  dialog_review  -->
+    <string name="give_your_ratings">Berikan Ulasan Anda</string>
+    <string name="rate_dialog">Ulasan</string>
+
+    <!--  MenuHomeCustomerFragment  -->
+    <string name="please_provide_a_rating">Harap berikan peringkat</string>
+
+    <!--  dialog_canceled  -->
+    <string name="you_were_taken_out_of_the_queue_by_barbershop">Anda dikeluarkan dari antrian oleh Barbershop!!</string>
+    <string name="reason_for_being_removed_from_the_queue">Alasan dikeluarkan dari antrian:</string>
+
+    <!--  BarbershopActivity  -->
+    <string name="barbershop_is_closed">Tempat pangkas rambut tutup</string>
+    <string name="open">Membuka</string>
+    <string name="closed">tertutup</string>
+    <string name="you_cannot_leave_before_completing_the_order">Anda tidak dapat keluar sebelum menyelesaikan Pesanan</string>
+    <string name="you_are_currently_in_the_queue_check_the_order_menu_and_cancel_for_another_order">Anda sedang dalam antrian, periksa menu pesanan dan batalkan untuk pesanan lainnya.</string>
+    <string name="please_wait_until_the_price_is_calculated">Mohon Tunggu Sampai harga dihitung</string>
+    <string name="button_add_addon">Tombol Tambah AddOn</string>
+    <string name="there_are_no_add_ons_in_this_barbershop">Tidak ada AddOn di barbershop ini</string>
+    <string name="booking_successfully">Pemesanan berhasil</string>
+    <string name="booking_failed">Pemesanan gagal: %1$s</string>
+    <string name="your_haircut_is_starting_now">%1$s, potong rambut Anda dimulai sekarang.</string>
+    <string name="you_are_next_in_line_for_a_haircut">%1$s, Anda berikutnya yang akan potong rambut.</string>
+    <string name="please_fill_in_all_fields">Silakan isi semua kolom</string>
+    <string name="register_a_barbershop">Daftarkan tempat pangkas rambut\?</string>
+    <string name="your_barber_will_be_listed_here_soon_check_the_information_you_provide_and_make_sure_it_s_correct_you_cannot_return_to_this_page_after_continuing">Tukang cukur Anda akan segera terdaftar di sini, periksa informasi yang Anda berikan dan pastikan benar! Anda tidak dapat kembali ke halaman ini setelah melanjutkan!</string>
+    <string name="success_register_barber">Sukses Daftar Tukang Cukur</string>
+    <string name="you_have_selected_images">Anda telah memilih %1$s gambar</string>
+    <string name="please_add_at_least_one_model">Harap tambahkan setidaknya satu model</string>
+    <string name="add_model_to_your_barbershop">Tambahkan Model ke Barbershop Anda\?</string>
+    <string name="types_of_models_will_be_added_to_your_barbershop_make_sure_it_s_appropriate_you_cannot_return_to_this_page_after_continuing">Jenis model akan ditambahkan ke barbershop Anda, pastikan sesuai! Anda tidak dapat kembali ke halaman ini setelah melanjutkan!</string>
+    <string name="you_can_only_select_up_to_3_images">Anda hanya dapat memilih maksimal 3 gambar</string>
+    <string name="successfully_register_barber_account">Berhasil Mendaftarkan Akun Barber</string>
+    <string name="failed_to_register_database_error">Gagal Mendaftar, kesalahan basis data: %1$s</string>
+    <string name="failed_to_upload_file">Gagal mengunggah berkas: %1$s</string>
+    <string name="failed_to_create_barbershop">Gagal membuat tempat pangkas rambut: %1$s</string>
+    <string name="failed_to_add_model">Gagal menambahkan model: %1$s</string>
+    <string name="successfully_add_model_to_barbershop">Berhasil Menambahkan Model ke Barbershop</string>
+    <string name="failed_to_add_addon_service">Gagal menambahkan Layanan addOn: %1$s</string>
+    <string name="successfully_add_addon_service_to_barbershop">Berhasil Menambahkan Layanan AddOn ke Barbershop</string>
+    <string name="no_add_on_added">Tidak Ada Layanan yang Ditambahkan\?</string>
+    <string name="are_you_sure_you_don_t_want_to_add_an_addon_service">Apakah Anda yakin tidak ingin menambahkan layanan tambahan\?</string>
+    <string name="add_addon_service_to_your_barbershop">Tambahkan Layanan Tambahan ke Barbershop Anda?</string>
+    <string name="types_of_addon_service_will_be_added_to_your_barbershop_make_sure_it_s_appropriate_you_cannot_return_to_this_page_after_continuing">Jenis Layanan AddOn yang akan ditambahkan ke barbershop Anda, pastikan sesuai! Anda tidak dapat kembali ke halaman ini setelah melanjutkan!</string>
+    <string name="username">Nama belakang</string>
+    <string name="failed_to_get_data_barber">Gagal mendapatkan data Tukang Cukur %1$s</string>
+    <string name="delete_notification_button">Hapus Notifikasi</string>
+
+    <string name="notification_empty">Notifikasi kosong</string>
+    <string name="favorite_barbershop">Barbershop Favorit</string>
+    <string name="add_model">Tambah Model</string>
+    <string name="delete">Hapus</string>
+    <string name="barber_focus_location">Fokus Lokasi Barbershop</string>
+
+    <string name="barbershop_successfully_removed_from_favourites">Barbershop berhasil dihapus dari Favorit</string>
+    <string name="barbershop_successfully_added_to_favourites">Barbershop berhasil ditambahkan ke Favorit</string>
+    <string name="style_parsing_failed">Penguraian tampilan gagal</string>
+    <string name="can_t_find_style_error">"Tidak dapat menemukan gaya. Kesalahan: %1$s "</string>
+
+    <string name="take_a_picture_from_the_gallery">Ambil gambar dari galeri</string>
+    <string name="switch_camera">Beralih Kamera</string>
+
+    <string name="language_successfully_changed">Bahasa Berhasil di Rubah</string>
+    <string name="please_restart_the_app_to_change_the_language">Silahkan restart aplikasi untuk mengubah bahasa</string>
+
+
+    <string name="order_completed_send_feedback_form_to_customer">Pesanan selesai, mengirim formulir umpan balik ke pelanggan</string>
+    <string name="feedback_sent_successfully">Umpan balik berhasil dikirim</string>
+    <string name="order_canceled_send_reason_to_customer">Pesanan dibatalkan, kirim alasannya ke pelanggan</string>
+    <string name="reason_sent_successfully">Alasan berhasil dikirim</string>
+
+
+    <string name="rate_your_haircut">Beri Nilai Potongan Rambut Anda:</string>
+    <string name="tell_us_more">Beritahu Kami Lebih Lanjut:</string>
+
+
+    <string name="data_must_not_be_the_same_as_existing">Data tidak boleh sama dengan yang sudah ada</string>
+
+    <string name="add_image_model_below_click_image_to_replace">Tambahkan Gambar Model Di bawah ini, klik gambar untuk mengganti</string>
+    <string name="input_price2">Masukan Harga</string>
+    <string name="input_addon2">Masukan Layanan</string>
+
+    <string name="account_information">Informasi Akun</string>
+    <string name="location">Lokasi...</string>
+
+    <string name="failed_to_delete_model">Gagal menghapus model %1$s, %2$s</string>
+    <string name="model_successfully_deleted">Model %1$s berhasil dihapus</string>
+    <string name="successfully_added_the_model">Berhasil menambahkan model</string>
+    <string name="model_not_found">Model tidak ditemukan</string>
+
+    <string name="add_addon_service">Tambahkan Layanan Tambahan</string>
+
+    <string name="failed_to_delete_addon">Gagal menghapus layanan %1$s, %2$s</string>
+    <string name="addon_successfully_deleted">Layanan %1$s berhasil di hapus</string>
+    <string name="successfully_added_the_addon">Berhasil menambahkan layanan</string>
+    <string name="addon_not_found">Layanan tidak ditemukan</string>
+
+    <string name="are_you_sure_you_want_to_remove_the_model">Apakah Anda yakin ingin menghapus model ini?</string>
+
+    <string name="are_you_sure_you_want_to_remove_the_addon">Apakah Anda yakin ingin menghapus Layanan ini?</string>
+
+    <string name="data_not_found_make_sure_your_location_is_switched_on">Data tidak ditemukan, pastikan lokasi anda sudah dinyalakan</string>
 
 </resources>

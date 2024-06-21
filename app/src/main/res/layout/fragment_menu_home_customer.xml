@@ -2,9 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.MenuHomeCustomerFragment">
+    tools:context=".ui.fragment.customer.MenuHomeCustomerFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
                 app:lottie_loop="true" />
 
             <TextView
+                style="@style/TVLoad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/LottieAV"
@@ -40,63 +42,103 @@
                 android:layout_alignParentEnd="true"
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
-                android:text="@string/loading"
-                android:textColor="@color/brown" />
+                android:text="@string/loading" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/LLBackgroundTop"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="83dp"
-            android:background="@drawable/bg_top"
-            android:elevation="1dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
+            android:background="@android:color/transparent"
+            android:elevation="4dp"
+            android:translationZ="4dp"
+            app:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.search.SearchBar
-                style="@style/fontSearchBar"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:layout_gravity="center_vertical"
-                android:hint="@string/find_barbershop" />
+            <LinearLayout
+                android:id="@+id/LLBackgroundTop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_top"
+                android:elevation="5dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/btnFavorite"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/favorite"
-                android:padding="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/menu_favorite"
-                android:scaleType="centerInside"
-                android:layout_gravity="center_vertical"/>
+                <com.google.android.material.search.SearchBar
+                    android:id="@+id/SBSearchBarber"
+                    style="@style/fontSearchBar"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:hint="@string/find_barbershop" />
 
-            <ImageButton
-                android:id="@+id/btnNotification"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/notification"
-                android:padding="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/menu_notification"
-                android:scaleType="centerInside"
-                android:layout_gravity="center_vertical"/>
+                <ImageButton
+                    android:id="@+id/btnFavorite"
+                    style="@style/ImageButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/favorite"
+                    android:padding="8dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/menu_favorite" />
 
-        </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btnNotification"
+                    style="@style/ImageButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/notification"
+                    android:padding="8dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/menu_notification" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/SVSearchBarber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/find_barbershop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RVBarber2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fitsSystemWindows="true"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/SVSearchBarber"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_barber" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/location"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="-20dp"
+            android:elevation="1dp"
             android:paddingTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/RVBarber"
-            app:layout_constraintTop_toBottomOf="@+id/LLBackgroundTop"
-            android:background="@color/white">
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
             <LinearLayout
                 android:id="@+id/LLLocation"
@@ -135,20 +177,21 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="3dp"
+            android:elevation="2dp"
             android:layout_marginTop="90dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintTop_toBottomOf="@+id/LLBackgroundTop"
-            tools:layout_editor_absoluteX="1dp" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RVBarber"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fitsSystemWindows="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_barber" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

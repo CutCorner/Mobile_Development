@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.ChooseUserActivity">
@@ -46,6 +47,8 @@
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:theme="@android:style/ThemeOverlay.Material.Dark"
             app:cardCornerRadius="50dp"
             app:cardElevation="1dp">
 
@@ -84,6 +87,8 @@
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:theme="@android:style/ThemeOverlay.Material.Dark"
             app:cardCornerRadius="50dp"
             app:cardElevation="1dp">
 
@@ -103,10 +108,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_login"
         android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:text="@string/button_choose"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:theme="@android:style/ThemeOverlay.Material.Dark"
         android:transitionName="button"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"

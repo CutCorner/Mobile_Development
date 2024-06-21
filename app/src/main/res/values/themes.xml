@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:windowSplashScreenBackground" tools:targetApi="s">#00000000</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
@@ -36,11 +36,6 @@
 
     <style name="backgroundTop">
         <item name="android:tint">@color/brown</item>
-    </style>
-
-    <style name="fontSearchBar">
-        <item name="android:fontFamily">@font/plus_jakarta_sans</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="CustomIndicator">
@@ -79,6 +74,80 @@
     <style name="MyInactiveBottomNavigation" parent="TextAppearance.MaterialComponents.Caption">
         <item name="fontFamily">@font/montserrat_semibold</item>
         <item name="android:textSize">11sp</item>
+    </style>
+
+    <!--  fragment_menu_home_customer.xml  -->
+    <style name="location" >
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="fontSearchBar">
+        <item name="android:fontFamily">@font/plus_jakarta_sans</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+    <!--  RecyclerView  -->
+    <style name="CardView" >
+        <item name="cardBackgroundColor">@color/gray3</item>
+    </style>
+
+    <!--  Menu Bottom Navigation  -->
+    <style name="NavBottomMenu">
+        <item name="android:background">@color/white</item>
+        <item name="itemTextColor">@color/brown</item>
+        <item name="itemIconTint">@color/brown</item>
+    </style>
+
+    <!--  Lottie  -->
+    <style name="TVLoad">
+        <item name="android:textColor">@color/brown</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <!--  ImageButton  -->
+    <style name="ImageButton">
+        <item name="tint">@color/white</item>
+    </style>
+
+    <!--  Background Layout  -->
+    <style name="backgroundViewGroup">
+        <item name="android:background">@color/bright_bg</item>
+    </style>
+    
+    <!--  Forward  -->
+    <style name="ForwardImageView">
+        <item name="tint">@color/dark_content2</item>
+    </style>
+
+    <!--  Top Bar  -->
+    <style name="ToolBar">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!--  Background Drawable  -->
+    <style name="BgDrawable">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+    <!--  Icon Tint on EditText  -->
+    <style name="DrawableIcon">
+        <item name="android:drawableTint">@color/black</item>
+    </style>
+
+    <!--  Icon Tint other  -->
+    <style name="IconTint">
+        <item name="android:tint">@color/black</item>
+    </style>
+
+    <!--  DropDownArrow EditText  -->
+    <style name="DropDownArrow">
+        <item name="spinner_arrow_tint">@color/black</item>
+    </style>
+
+    <style name="fontColor">
+        <item name="android:textColor">@color/text_black</item>
     </style>
 
 

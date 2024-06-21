@@ -7,32 +7,35 @@ data class BarberData (
     val id: String,
     val name: String,
     val logo: String,
-    val rate: Double,
+    val rate: Double?,
     val lat: Double,
     val lon: Double,
-    val location: String
+    val location: String,
+    val image: List<Image>,
+    val model: List<Model>,
+    val rating: List<Rating>
 )
 
 data class Image (
     val id: String,
-    val picture: List<String>
+    val picture: String
 )
 
 @Parcelize
 data class Model (
     val id: String,
-    val name: List<String>,
-    val image: List<String>,
-    val price: List<Double>,
+    val name: String,
+    val image: String,
+    val price: Double,
 ): Parcelable
 
 data class Rating (
     val id: String,
-    val name: List<String>,
-    val review: List<String>,
-    val ratingScore: List<Double>,
-    val date: List<String>,
-    val model: List<String>,
-    val addOns: List<String>,
-    val image: List<String>
+    val name: String,
+    val review: String,
+    val ratingScore: Double,
+    val date: String,
+    val model: String,
+    val addOns: String,
+    val image: String
 )

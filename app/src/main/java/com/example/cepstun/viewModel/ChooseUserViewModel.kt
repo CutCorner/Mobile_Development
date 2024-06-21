@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.cepstun.R
 import com.example.cepstun.data.RepositoryDatabase
 import com.example.cepstun.ui.activity.MainActivity
+import com.example.cepstun.ui.activity.barbershop.RegisterBarberActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
@@ -43,9 +44,16 @@ class ChooseUserViewModel(
     fun uploadToDatabase(userType: String) {
         viewModelScope.launch {
             if (repositoryDatabase.uploadToDatabase(userType)){
-                Intent(context, MainActivity::class.java). also {
-                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    context.startActivity(it)
+                if (userType == "customer") {
+                    Intent(context, MainActivity::class.java). also {
+                        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        context.startActivity(it)
+                    }
+                } else {
+                    Intent(context, RegisterBarberActivity::class.java). also {
+                        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        context.startActivity(it)
+                    }
                 }
                 _showToast.value = context.getString(R.string.saved)
             } else {

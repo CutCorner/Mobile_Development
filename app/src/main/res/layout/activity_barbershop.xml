@@ -2,13 +2,48 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.BarbershopActivity">
+    tools:context=".ui.activity.customer.BarbershopActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/PBLoad"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:background="@android:color/transparent"
+            android:elevation="2dp"
+            android:visibility="gone"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/LottieAV"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_lottie"
+                map:lottie_autoPlay="true"
+                map:lottie_fileName="logo_test.json"
+                map:lottie_loop="true" />
+
+            <TextView
+                style="@style/TVLoad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/LottieAV"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:text="@string/loading" />
+        </RelativeLayout>
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/MVmap"
@@ -27,30 +62,56 @@
             android:background="@drawable/bg_top"
             map:layout_constraintTop_toTopOf="parent">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/MCVOpened"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="2dp"
+                android:visibility="gone"
+                map:cardBackgroundColor="@color/red"
+                map:cardElevation="2dp"
+                map:layout_constraintEnd_toEndOf="@+id/cardView3"
+                map:layout_constraintTop_toTopOf="@+id/cardView3">
+
+                <TextView
+                    android:id="@+id/TVOpened"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:padding="10dp"
+                    android:textSize="16sp"
+                    tools:text="Closed" />
+            </com.google.android.material.card.MaterialCardView>
+
 
             <TextView
                 android:id="@+id/TVTittleBarber"
-                android:layout_width="match_parent"
+                style="@style/fontColor"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="25dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/montserrat_bold"
+                android:maxLines="2"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                android:maxLines="2"
-                android:ellipsize="end"
+                map:layout_constraintEnd_toEndOf="parent"
+                map:layout_constraintStart_toStartOf="parent"
                 map:layout_constraintTop_toTopOf="parent"
                 tools:text="Broadway Barbershop" />
 
             <TextView
                 android:id="@+id/TVLocationBarber"
+                style="@style/fontColor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:maxLines="2"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat_medium"
+                android:maxLines="2"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 map:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +119,21 @@
                 map:layout_constraintTop_toBottomOf="@+id/TVTittleBarber"
                 tools:text="Jl Tunjungan No. 09 Surabaya" />
 
+
+            <ImageButton
+                android:id="@+id/IBFavorite"
+                style="@style/DrawableIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/addbarbershoptofavorite"
+                android:padding="10dp"
+                android:src="@drawable/favorite_filled"
+                map:layout_constraintBottom_toBottomOf="@+id/LLRate"
+                map:layout_constraintEnd_toEndOf="parent"
+                map:layout_constraintTop_toTopOf="@+id/LLRate"
+                tools:ignore="ImageContrastCheck" />
 
             <LinearLayout
                 android:id="@+id/LLRate"
@@ -84,6 +160,7 @@
 
                 <TextView
                     android:id="@+id/TVRate"
+                    style="@style/fontColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -103,20 +180,10 @@
                 android:id="@+id/cardView3"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
+                android:elevation="1dp"
                 map:cardCornerRadius="20dp"
+                map:cardElevation="1dp"
                 map:layout_constraintBottom_toBottomOf="parent">
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/IVImage"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:contentDescription="@string/image_of_barber"-->
-<!--                    android:outlineProvider="bounds"-->
-<!--                    android:scaleType="centerCrop"-->
-<!--                    android:src="@drawable/example_barber"
-                    map:iss_image_radius="20dp"
-                    map:iss_image_padding="10dp"
-                    map:iss_image_margin="10dp"/>-->
 
                 <com.denzcoskun.imageslider.ImageSlider
                     android:id="@+id/ISImage"
@@ -125,8 +192,7 @@
                     map:iss_auto_cycle="false"
                     map:iss_placeholder="@drawable/logo_placeholder"
                     map:iss_selected_dot="@drawable/selected_dot"
-                    map:iss_unselected_dot="@drawable/default_unselected_dot"
-                    />
+                    map:iss_unselected_dot="@drawable/default_unselected_dot" />
 
             </androidx.cardview.widget.CardView>
 
@@ -137,6 +203,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/CLQueue"
+        style="@style/BgDrawable"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:background="@drawable/bg_bottom"
@@ -146,9 +213,6 @@
         map:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         map:layout_constraintBottom_toBottomOf="parent">
 
-<!--
-              -->
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/BOrder"
             android:layout_width="200dp"
@@ -156,10 +220,12 @@
             android:layout_marginTop="35dp"
             android:background="@drawable/bg_login"
             android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:text="@string/button_order"
             android:textAlignment="center"
             android:textColor="@color/white"
+            android:theme="@android:style/ThemeOverlay.Material.Dark"
             android:transitionName="button"
             map:backgroundTint="@null"
             map:layout_constraintEnd_toEndOf="parent"
@@ -169,23 +235,23 @@
 
         <TextView
             android:id="@+id/TVTittleQueue"
+            style="@style/fontColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/queue_now"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="16sp"
             map:layout_constraintTop_toBottomOf="@+id/BOrder"
             tools:layout_editor_absoluteX="0dp" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/CVQueue"
+            style="@style/CardView"
             android:layout_width="85dp"
             android:layout_height="88dp"
             android:foregroundGravity="center"
-            map:cardBackgroundColor="@color/white"
             map:cardCornerRadius="20dp"
             map:cardElevation="10dp"
             map:layout_constraintBottom_toBottomOf="parent"
@@ -195,6 +261,7 @@
 
             <TextView
                 android:id="@+id/TVQueue"
+                style="@style/fontColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

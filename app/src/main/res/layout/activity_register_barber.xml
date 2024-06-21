@@ -3,244 +3,341 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.RegisterBarberActivity">
+    tools:context=".ui.activity.barbershop.RegisterBarberActivity">
 
-    <TextView
-        android:id="@+id/TVRegisterBarberTittle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="@string/register_barber"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/TVTittleName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:text="@string/name"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TVRegisterBarberTittle" />
-
-    <com.example.cepstun.cv.CustomEditText
-        android:id="@+id/ETEmail"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:autofillHints="name"
-        android:background="@drawable/bg_et"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/plus_jakarta_sans"
-        android:hint="@string/hint_name"
-        android:imeOptions="actionNext"
-        android:inputType="textPersonName"
-        android:maxLength="25"
-        android:paddingHorizontal="10dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/TVTittleName"
-        app:layout_constraintTop_toBottomOf="@+id/TVTittleName" />
-
-    <TextView
-        android:id="@+id/TVTittleCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:text="@string/category"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/ETEmail"
-        app:layout_constraintTop_toBottomOf="@+id/ETEmail" />
-
-    <com.skydoves.powerspinner.PowerSpinnerView
-        android:id="@+id/textInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_et"
-        android:gravity="start"
-        android:hint="Category"
-        android:padding="10dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/ETEmail"
-        app:layout_constraintStart_toStartOf="@+id/ETEmail"
-        app:layout_constraintTop_toBottomOf="@+id/TVTittleCategory"
-        app:spinner_arrow_gravity="end"
-        app:spinner_arrow_padding="8dp"
-        app:spinner_arrow_tint="@color/black"
-        app:spinner_divider_color="@color/black"
-        app:spinner_divider_show="true"
-        app:spinner_divider_size="0.4dp"
-        app:spinner_item_array="@array/category_barberRegister"
-        app:spinner_item_height="46dp"
-        app:spinner_popup_animation="dropdown"
-        app:spinner_popup_background="@drawable/bg_dropdown"
-        app:spinner_popup_elevation="14dp" />
-
-    <TextView
-        android:id="@+id/TVTittleAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:text="@string/address"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-    <com.example.cepstun.cv.CustomEditText
-        android:id="@+id/ETAddress"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:autofillHints="name"
-        android:background="@drawable/bg_et"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/plus_jakarta_sans"
-        android:hint="@string/hint_address"
-        android:imeOptions="actionNext"
-        android:inputType="textPostalAddress"
-        android:maxLength="25"
-        android:paddingHorizontal="10dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/TVTittleName"
-        app:layout_constraintTop_toBottomOf="@+id/TVTittleAddress" />
-
-    <TextView
-        android:id="@+id/TVTittleCoordinate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:text="@string/coordinate"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ETAddress" />
-
-    <com.example.cepstun.cv.CustomEditText
-        android:id="@+id/ETCoordinate"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:autofillHints="name"
-        android:background="@drawable/bg_et"
-        android:clickable="false"
-        android:focusable="false"
-        android:drawableEnd="@drawable/ic_location"
-        android:focusableInTouchMode="false"
-        android:fontFamily="@font/plus_jakarta_sans"
-        android:hint="@string/hint_coordinate"
-        android:inputType="textPersonName"
-        android:maxLength="25"
-        android:paddingHorizontal="10dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/TVTittleName"
-        app:layout_constraintTop_toBottomOf="@+id/TVTittleCoordinate" />
-
-    <TextView
-        android:id="@+id/TVTittleTelephone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:text="@string/telephone"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ETCoordinate" />
-
-    <com.example.cepstun.cv.CustomEditText
-        android:id="@+id/ETTelephone"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:autofillHints="name"
-        android:background="@drawable/bg_et"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/plus_jakarta_sans"
-        android:hint="@string/hint_telephone"
-        android:imeOptions="actionNext"
-        android:inputType="phone"
-        android:maxLength="25"
-        android:paddingHorizontal="10dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/TVTittleName"
-        app:layout_constraintTop_toBottomOf="@+id/TVTittleTelephone" />
-
-    <TextView
-        android:id="@+id/TVTittlePhotoBarber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:text="@string/photo_barber"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ETTelephone" />
-
-    <com.example.cepstun.cv.CustomEditText
-        android:id="@+id/ETPhotoBarber"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:autofillHints="name"
-        android:background="@drawable/bg_et"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/plus_jakarta_sans"
-        android:hint="@string/hint_photo_barber"
-        android:inputType="textPersonName"
-        android:maxLength="25"
-        android:paddingHorizontal="10dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/TVTittleName"
-        app:layout_constraintTop_toBottomOf="@+id/TVTittlePhotoBarber" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/BContinue"
-        android:layout_width="355dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/bg_login"
-        android:enabled="false"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:text="@string/button_continue"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
+    <RelativeLayout
+        android:id="@+id/PBLoad"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@android:color/transparent"
+        android:elevation="2dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/LottieAV"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_lottie"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="logo_test.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            style="@style/TVLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/LottieAV"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/loading" />
+    </RelativeLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/bg_top"
+            android:elevation="4dp"
+            android:minHeight="?attr/actionBarSize">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/register_barber"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="20sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/TVTittleLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:text="@string/logo"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CVLogo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_vertical"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TVTittleLogo">
+
+                <ImageView
+                    android:id="@+id/IVLogoBarber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo_placeholder" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/TVTittleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:text="@string/name"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CVLogo" />
+
+            <com.example.cepstun.cv.CustomEditText
+                android:id="@+id/ETName"
+                style="@style/DrawableIcon"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:autofillHints="name"
+                android:background="@drawable/bg_et"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:hint="@string/hint_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:maxLength="50"
+                android:paddingHorizontal="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/TVTittleName"
+                app:layout_constraintTop_toBottomOf="@+id/TVTittleName" />
+
+            <TextView
+                android:id="@+id/TVTittleAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:text="@string/address"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETName" />
+
+            <com.example.cepstun.cv.CustomEditText
+                android:id="@+id/ETAddress"
+                style="@style/DrawableIcon"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:autofillHints="postalAddress"
+                android:background="@drawable/bg_et"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:hint="@string/hint_address"
+                android:imeOptions="actionDone"
+                android:inputType="textPostalAddress"
+                android:maxLength="100"
+                android:paddingHorizontal="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/TVTittleName"
+                app:layout_constraintTop_toBottomOf="@+id/TVTittleAddress" />
+
+            <TextView
+                android:id="@+id/TVTittleCoordinate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:text="@string/coordinate"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETAddress" />
+
+            <com.example.cepstun.cv.CustomEditText
+                android:id="@+id/ETCoordinate"
+                style="@style/DrawableIcon"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/bg_et"
+                android:clickable="false"
+                android:drawableEnd="@drawable/ic_location"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:hint="@string/hint_coordinate"
+                android:maxLength="100"
+                android:paddingHorizontal="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/TVTittleName"
+                app:layout_constraintTop_toBottomOf="@+id/TVTittleCoordinate" />
+
+            <TextView
+                android:id="@+id/TVTittleTelephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:text="@string/telephone"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETCoordinate" />
+
+            <com.example.cepstun.cv.CustomEditText
+                android:id="@+id/ETTelephone"
+                style="@style/DrawableIcon"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:autofillHints="phone"
+                android:background="@drawable/bg_et"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:hint="@string/hint_telephone"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLength="15"
+                android:paddingHorizontal="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/TVTittleName"
+                app:layout_constraintTop_toBottomOf="@+id/TVTittleTelephone" />
+
+            <TextView
+                android:id="@+id/TVTittlePhotoBarber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:text="@string/photo_barber"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETTelephone" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ETPhotoBarber"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/bg_et"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:theme="@android:style/ThemeOverlay.Material.Dark"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/TVTittleName"
+                app:layout_constraintTop_toBottomOf="@+id/TVTittlePhotoBarber"
+                app:strokeColor="@color/gray2">
+
+
+                <TextView
+                    android:id="@+id/TVHintPhotoBarber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:text="@string/hint_photo_barber"
+                    android:textColor="@color/gray5"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    style="@style/IconTint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_add" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RVImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETPhotoBarber"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_image" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/BContinue"
+                android:layout_width="355dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_login"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/button_continue"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:theme="@android:style/ThemeOverlay.Material.Dark"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/RVImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

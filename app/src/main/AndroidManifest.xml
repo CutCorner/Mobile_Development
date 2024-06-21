@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
@@ -35,50 +34,77 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cepstun"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.activity.customer.NotificationActivity"
+            android:exported="false" />
+
         <service
             android:name=".service.QueueService"
             android:enabled="true"
             android:foregroundServiceType="specialUse"
-            android:permission="@string/tittle_foreground_notification">
+            android:permission="Current Queue">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="explanation_for_special_use" />
         </service>
+
         <activity
-            android:name=".ui.activity.BarberLocationActivity"
-            android:exported="false"
-            android:label="@string/title_activity_barber_location" />
+            android:name=".ui.activity.customer.BarberLocationActivity"
+            android:exported="false" />
         <activity
-            android:name=".ui.activity.CheckoutActivity"
+            android:name=".ui.activity.barbershop.ChangeModelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.ChangeLanguageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.ChangeThemesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.barbershop.ChangeAddOnActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.barbershop.EditDataBarbershopActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.customer.CheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.customer.FavoriteActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.PrivacySecurityActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.PersonalDataActivity"
+            android:name=".ui.activity.customer.PersonalDataActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.ChooseModelActivity"
+            android:name=".ui.activity.customer.ChooseModelActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.RatingActivity"
+            android:name=".ui.activity.customer.RatingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.BarbershopActivity"
-            android:exported="false"
-            android:label="@string/title_activity_barbershop" />
-        <activity
-            android:name=".ui.activity.AIRecomendationActivity"
+            android:name=".ui.activity.customer.BarbershopActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.CameraActivity"
+            android:name=".ui.activity.customer.AIRecommendationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.customer.CameraActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.OnBoardingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.RegisterBarberActivity"
-            android:exported="true" />
+            android:name=".ui.activity.barbershop.InputModelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.barbershop.InputAddonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.barbershop.RegisterBarberActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="false" />
@@ -103,12 +129,12 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="{$MAPS_API_KEY}" /> <!-- Activity for Location Picker -->
+            android:value="${MAPS_API_KEY}" /> <!-- Activity for Location Picker -->
         <activity
             android:name="com.adevinta.leku.LocationPickerActivity"
             android:exported="true"
             android:label="@string/leku_title_activity_location_picker"
-            android:parentActivityName=".ui.activity.RegisterBarberActivity"
+            android:parentActivityName=".ui.activity.barbershop.RegisterBarberActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -120,7 +146,7 @@
                 android:resource="@xml/leku_searchable" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.RegisterBarberActivity" />
+                android:value=".ui.activity.barbershop.RegisterBarberActivity" />
         </activity> <!-- Activity for Facebook -->
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -134,7 +160,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/fb_login_protocol_scheme" />
+                <data android:scheme="fb1234" />
             </intent-filter>
         </activity> <!-- Activity for Edit Image upload -->
         <activity

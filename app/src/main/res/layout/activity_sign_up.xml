@@ -3,9 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.SignUpActivity">
+
+    <RelativeLayout
+        android:id="@+id/PBLoad"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@android:color/transparent"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/LottieAV"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_lottie"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="logo_test.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            style="@style/TVLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/LottieAV"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/loading" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/IVLogo2"
@@ -69,6 +104,44 @@
         app:layout_constraintTop_toBottomOf="@+id/TVTittleEmail"
         tools:alpha="100" />
 
+<!--    <TextView-->
+<!--        android:id="@+id/TVTittleName"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:alpha="0"-->
+<!--        android:fontFamily="@font/plus_jakarta_sans_bold"-->
+<!--        android:text="@string/name"-->
+<!--        android:textSize="16sp"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/ETPassword2"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ETPassword2"-->
+<!--        tools:alpha="100" />-->
+
+<!--    <com.example.cepstun.cv.CustomEditText-->
+<!--        android:id="@+id/ETName"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:alpha="0"-->
+<!--        android:autofillHints="username"-->
+<!--        android:background="@drawable/bg_et"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        android:fontFamily="@font/plus_jakarta_sans"-->
+<!--        android:hint="@string/username"-->
+<!--        android:imeOptions="actionNext"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:maxLength="50"-->
+<!--        android:paddingHorizontal="10dp"-->
+<!--        android:textSize="14sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/TVLoginTittle"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/TVTittleEmail"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/TVTittleName"-->
+<!--        tools:alpha="100" />-->
+
     <TextView
         android:id="@+id/TVTittlePassword"
         android:layout_width="wrap_content"
@@ -84,6 +157,7 @@
 
     <com.example.cepstun.cv.CustomEditText
         android:id="@+id/ETPassword"
+        style="@style/DrawableIcon"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
@@ -120,6 +194,7 @@
 
     <com.example.cepstun.cv.CustomEditText
         android:id="@+id/ETPassword2"
+        style="@style/DrawableIcon"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
@@ -148,13 +223,15 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_login"
         android:enabled="false"
-        android:gravity="center"
-        android:foregroundGravity="center"
         android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:foregroundGravity="center"
+        android:gravity="center"
         android:text="@string/button_register"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:theme="@android:style/ThemeOverlay.Material.Dark"
         android:transitionName="button"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@+id/TVAnotherLogin"
@@ -179,8 +256,8 @@
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/bg_divider"
         app:layout_constraintBottom_toBottomOf="@+id/TVAnotherLogin"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/TVAnotherLogin"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/TVAnotherLogin"
         tools:layout_editor_absoluteX="1dp" />
 
@@ -188,12 +265,12 @@
         android:id="@+id/divider2"
         android:layout_width="0dp"
         android:layout_height="3dp"
-        app:layout_constraintStart_toEndOf="@+id/TVAnotherLogin"
-        android:background="@drawable/bg_divider"
         android:layout_marginHorizontal="20dp"
+        android:background="@drawable/bg_divider"
         android:rotationY="180"
         app:layout_constraintBottom_toBottomOf="@+id/TVAnotherLogin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TVAnotherLogin"
         app:layout_constraintTop_toTopOf="@+id/TVAnotherLogin" />
 
     <GridLayout
@@ -252,7 +329,7 @@
                 android:id="@+id/LoginFacebook"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView

@@ -3,10 +3,8 @@ package com.example.cepstun.ui.activity
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,7 +33,6 @@ import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -61,13 +58,10 @@ class SignUpActivity : AppCompatActivity() {
 
         callbackManager = CallbackManager.Factory.create()
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.tittle_dialog_Loading))
-        builder.setMessage(getString(R.string.desc_dialog_SignUp))
-        builder.setCancelable(false)
-        val dialog = builder.create()
+        val load = binding.PBLoad
+        val lottie = binding.LottieAV
 
-        level = intent.getStringExtra(USER_LEVEL) ?: "Customer"
+        level = intent.getStringExtra(USER_LEVEL) ?: ""
 
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -79,6 +73,7 @@ class SignUpActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         with(binding){
+
             BRegister.backgroundTintList = ContextCompat.getColorStateList(this@SignUpActivity, R.color.gray2)
 
             ETEmail.doAfterTextChanged { text ->
@@ -100,11 +95,13 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             BRegister.setOnClickListener {
-                dialog.show()
+                lottie.playAnimation()
+                load.visibility = View.VISIBLE
                 lifecycleScope.launch {
                     if (!isInternetAvailable()) {
                         showNoInternetDialog()
-                        dialog.dismiss()
+                        lottie.cancelAnimation()
+                        load.visibility = View.GONE
                     } else {
                         viewModel.registerEmailPassword(ETEmail.text.toString().trim(), ETPassword.text.toString().trim(), level)
                     }
@@ -117,11 +114,13 @@ class SignUpActivity : AppCompatActivity() {
 
 
             MCVLoginGoogle.setOnClickListener{
-                dialog.show()
+                lottie.playAnimation()
+                load.visibility = View.VISIBLE
                 lifecycleScope.launch {
                     if (!isInternetAvailable()) {
                         showNoInternetDialog()
-                        dialog.dismiss()
+                        lottie.cancelAnimation()
+                        load.visibility = View.GONE
                     } else {
                         resultLauncher.launch(googleSignInClient.signInIntent)
                     }
@@ -129,9 +128,13 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             MCVLoginFacebook.setOnClickListener {
+                lottie.playAnimation()
+                load.visibility = View.VISIBLE
                 lifecycleScope.launch {
                     if (!isInternetAvailable()) {
                         showNoInternetDialog()
+                        lottie.cancelAnimation()
+                        load.visibility = View.GONE
                     } else {
                         LoginFacebook.performClick()
                     }
@@ -143,12 +146,14 @@ class SignUpActivity : AppCompatActivity() {
                 callbackManager,
                 object : FacebookCallback<LoginResult> {
                     override fun onSuccess(result: LoginResult) {
-                        dialog.dismiss()
+                        lottie.cancelAnimation()
+                        load.visibility = View.GONE
                         handleFacebookAccessToken(result.accessToken)
                     }
 
                     override fun onCancel() {
-                        dialog.dismiss()
+                        lottie.cancelAnimation()
+                        load.visibility = View.GONE
                         Toast.makeText(
                             this@SignUpActivity,
                             "Login Facebook Canceled",
@@ -157,7 +162,8 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     override fun onError(error: FacebookException) {
-                        dialog.dismiss()
+                        lottie.cancelAnimation()
+                        load.visibility = View.GONE
                         Toast.makeText(
                             this@SignUpActivity,
                             "Login Facebook Failed: ${error.message}",
@@ -170,32 +176,35 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
-        viewModel.showProgressDialog.observe(this){
-            if (!it){
-                dialog.dismiss()
+        viewModel.isLoading.observe(this){
+            if (it){
+                lottie.playAnimation()
+                load.visibility = View.VISIBLE
             } else {
-                dialog.show()
+                lottie.cancelAnimation()
+                load.visibility = View.GONE
             }
         }
 
-        viewModel.showToast.observe(this){
+        viewModel.message.observe(this){
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
     }
 
     private suspend fun isInternetAvailable(): Boolean = withContext(Dispatchers.IO) {
-        val runtime = Runtime.getRuntime()
-        return@withContext try {
-            val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
-            val exitValue = ipProcess.waitFor()
-            exitValue == 0
-        } catch (e: IOException) {
-            e.printStackTrace()
-            false
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-            false
-        }
+//        val runtime = Runtime.getRuntime()
+//        return@withContext try {
+//            val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
+//            val exitValue = ipProcess.waitFor()
+//            exitValue == 0
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//            false
+//        } catch (e: InterruptedException) {
+//            e.printStackTrace()
+//            false
+//        }
+        return@withContext true
     }
 
     private fun showNoInternetDialog() {

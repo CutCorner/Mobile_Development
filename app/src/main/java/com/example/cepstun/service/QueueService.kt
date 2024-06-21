@@ -5,25 +5,24 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.ContentResolver
-import android.content.ContentResolver.SCHEME_ANDROID_RESOURCE
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.media.AudioAttributes
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import com.example.cepstun.R
 import com.example.cepstun.data.RepositoryDatabase
 import com.example.cepstun.data.RepositoryHistory
-import com.example.cepstun.data.local.room.CustomerDatabase
-import com.example.cepstun.ui.activity.BarberLocationActivity
+import com.example.cepstun.data.RepositorySharedPreference
+import com.example.cepstun.data.di.dataStore
+import com.example.cepstun.data.local.room.barbershop.BarbershopDatabase
+import com.example.cepstun.data.local.room.customer.CustomerDatabase
+import com.example.cepstun.ui.activity.customer.BarberLocationActivity
 import com.example.cepstun.viewModel.BarberLocationViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
@@ -34,13 +33,14 @@ class QueueService : LifecycleService() {
     private lateinit var viewModel: BarberLocationViewModel
     private lateinit var database: RepositoryDatabase
     private lateinit var history: RepositoryHistory
+    private lateinit var preference: RepositorySharedPreference
 
     private lateinit var yourQueue: String
     private lateinit var barberId: String
 
     private var mediaPlayer2: MediaPlayer? = null
 
-    var stop : Boolean = false
+    private var stop : Boolean = false
     private var isReady2: Boolean = false
 
     companion object {
@@ -57,8 +57,12 @@ class QueueService : LifecycleService() {
         database = RepositoryDatabase.getInstance(Firebase.database)
         val room = CustomerDatabase.getInstance(this)
         val histCus = room.historyCustomerDao()
-        history = RepositoryHistory.getInstance(histCus)
-        viewModel = BarberLocationViewModel(history, database, application)
+        val room2 = BarbershopDatabase.getInstance(this)
+        val histBar = room2.historyBarbershopDao()
+        val dataStore = this.dataStore
+        preference = RepositorySharedPreference.getInstance(dataStore)
+        history = RepositoryHistory.getInstance(histCus, histBar)
+        viewModel = BarberLocationViewModel(history, database, preference, application)
 
         init()
     }
@@ -117,144 +121,90 @@ class QueueService : LifecycleService() {
             yourQueue = intent.getStringExtra(YOUR_QUEUE)!!
         }
 
-        var notification = buildNotification("Masuk Dalam Antrian")
+        var notification = buildNotification(getString(R.string.enter_queue))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            Log.d("Start Forground", "Untuk Android diatas Upside Down")
             startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
         } else {
-            Log.d("Start Forground", "Untuk Android dibawahnya Upside Down")
             startForeground(NOTIFICATION_ID, notification)
         }
 
         viewModel.observeQueue(barberId, yourQueue.toInt())
 
         viewModel.combinedQueueData.observeForever { (currentQueue, remainingQueue) ->
-            Log.d("QueueService", "observe berjalan berapa kali??")
 
             if (currentQueue == -1){
                 stopSoundNextQueue()
                 stop = true
                 notification = buildNotification(
-                    "Anda Keluar Antrian"
+                    getString(R.string.exit_queue)
                 )
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
                     stopForeground(STOP_FOREGROUND_DETACH)
                 } else {
+                    @Suppress("DEPRECATION")
                     stopForeground(true)
                 }
                 stopSelf()
-//                stopSound()
+            } else if (remainingQueue == 1){
+                if (!stop){
+                    startSoundNextQueue(remainingQueue)
+                } else {
+                    stopSoundNextQueue()
+                }
+                notification = buildNotification(
+                    getString(R.string.remaining_1, remainingQueue.toString(), yourQueue, currentQueue.toString())
+                )
+            } else if (remainingQueue == 0){
+
+                notification = buildNotification(
+                    getString(R.string.remaining_0, 0.toString(), yourQueue, currentQueue.toString())
+                )
+
             } else {
 
                 notification = buildNotification(
-                   "Sisa Antrian : ${remainingQueue}. Antrian anda $yourQueue dan posisi sekarang $currentQueue"
+                    getString(R.string.remaining_all_queue, remainingQueue.toString(), yourQueue, currentQueue.toString())
                 )
 
-                if (remainingQueue == 1){
-                    if (!stop){
-                        startSoundNextQueue(remainingQueue)
-                    } else {
-                        stopSoundNextQueue()
-                    }
-                    notification = buildNotification(
-                        "Sisa Antrian : ${remainingQueue}. Antrian anda $yourQueue dan posisi sekarang $currentQueue. Segera ke tempat pangkas!!"
-                    )
-                }
             }
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                Log.d("Start Forground", "Untuk Android diatas Upside Down")
                 startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
             } else {
-                Log.d("Start Forground", "Untuk Android dibawahnya Upside Down")
                 startForeground(NOTIFICATION_ID, notification)
             }
 
         }
         return START_STICKY
     }
+
     fun startSoundNextQueue(remainingQueue: Int){
-//        if (remainingQueue == 1 && !stop && mediaPlayer2?.isPlaying == false) {
         if (remainingQueue == 1 && !stop ) {
             if (mediaPlayer2?.isPlaying == true) {
-//                mediaPlayer2?.stop()
                 mediaPlayer2?.pause()
-//                mediaPlayer2?.reset()
             } else if (!isReady2){
                 mediaPlayer2?.prepareAsync()
             } else {
-//                mediaPlayer2?.reset()
                 mediaPlayer2?.start()
             }
         }
-        Log.d("QueueService", "start Sound 2 terpangggil")
     }
 
-    fun stopSoundNextQueue() {
+    private fun stopSoundNextQueue() {
         if (mediaPlayer2?.isPlaying == true){
             mediaPlayer2?.pause()
         }
-//        mediaPlayer2?.stop()
-//        mediaPlayer2?.reset()
-//        isReady2 = false
-        Log.d("QueueService", "stop Sound 2 terpangggil")
     }
 
     fun stopSound(){
-        Log.d("QueueService", "stop Sound2 Terpanggil dari Barber")
         stop = true
         if (mediaPlayer2?.isPlaying == true){
             mediaPlayer2?.pause()
         }
-//        mediaPlayer2?.reset()
-//        isReady2 = false
     }
 
-//    private fun buildNotification(message: String): Notification {
-//        val notificationIntent = Intent(this, BarberLocationActivity::class.java)
-//        val pendingFlags: Int = if (Build.VERSION.SDK_INT >= 23) {
-//            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-//        } else {
-//            PendingIntent.FLAG_UPDATE_CURRENT
-//        }
-//        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, pendingFlags)
-//
-////        val customSoundUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.cut_corner_scissors)
-//        val customSoundUri = Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${packageName}/${R.raw.cut_corner_scissors}")
-//
-//        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setContentTitle(getString(R.string.tittle_foreground_notification))
-//            .setContentText(message)
-////            .setOnlyAlertOnce(true)
-//            .setSound(customSoundUri)
-//            .setSmallIcon(R.drawable.logo_icon)
-//            .setContentIntent(pendingIntent)
-//
-//        val audioAttributes = AudioAttributes.Builder()
-//            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-//            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-//            .build()
-//
-//        val mNotificationManager =
-//            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-//            notificationBuilder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
-//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-//            val channel = NotificationChannel(
-//                CHANNEL_ID,
-//                CHANNEL_NAME,
-//                NotificationManager.IMPORTANCE_DEFAULT
-//            )
-//            channel.description = CHANNEL_NAME
-//            channel.enableVibration(true)
-//            channel.setSound(customSoundUri, audioAttributes)
-//            notificationBuilder.setChannelId(CHANNEL_ID)
-//            mNotificationManager.createNotificationChannel(channel)
-//        }
-//
-//        return notificationBuilder.build()
-//    }
-
+    @SuppressLint("ObsoleteSdkInt")
     private fun buildNotification(message: String): Notification {
         val notificationIntent = Intent(this, BarberLocationActivity::class.java)
         val pendingFlags: Int = if (Build.VERSION.SDK_INT >= 23) {
@@ -264,8 +214,6 @@ class QueueService : LifecycleService() {
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, pendingFlags)
 
-//        val customSoundUri = Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${packageName}/${R.raw.cut_corner_scissors}")
-
         val notificationTitle = resources.getString(R.string.tittle_foreground_notification)
         val notificationIcon = R.drawable.logo_icon_cir
 
@@ -274,14 +222,8 @@ class QueueService : LifecycleService() {
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(notificationTitle)
             .setContentText(message)
-//            .setSound(customSoundUri)
             .setSmallIcon(notificationIcon)
             .setContentIntent(pendingIntent)
-
-//        val audioAttributes = AudioAttributes.Builder()
-//            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-//            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-//            .build()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             notificationBuilder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
@@ -294,8 +236,6 @@ class QueueService : LifecycleService() {
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             channel.description = CHANNEL_NAME
-//            channel.enableVibration(true)
-//            channel.setSound(customSoundUri, audioAttributes)
             notificationBuilder.setChannelId(CHANNEL_ID)
             mNotificationManager.createNotificationChannel(channel)
         }
@@ -309,7 +249,6 @@ class QueueService : LifecycleService() {
         mediaPlayer2?.stop()
         mediaPlayer2?.release()
         mediaPlayer2 = null
-        Log.d("Service", "Service Stoped")
         super.onDestroy()
     }
 

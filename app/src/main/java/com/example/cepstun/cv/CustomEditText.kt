@@ -91,7 +91,8 @@ class CustomEditText @JvmOverloads constructor(
 
                                 error = if (isPhoneFormatValid) null else context.getString(R.string.number_format_invalid)
                             }
-                        } else -> Log.d("inputType apa ya selain diatas","$inputType") // for check, delete if not used
+                        }
+//                        else -> Log.d("inputType apa ya selain diatas","$inputType") // for check, delete if not used
                     }
             }
             override fun afterTextChanged(s: Editable) {
