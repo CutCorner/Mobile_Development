@@ -6,11 +6,11 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/CardView"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="15dp"
         android:layout_height="100dp"
         android:layout_marginVertical="5dp"
-        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,8 +67,7 @@
                     android:isIndicator="true"
                     android:numStars="5"
                     android:progressBackgroundTint="@color/gray5"
-                    android:progressTint="@color/golden"
-                    android:rating="1.8" />
+                    android:progressTint="@color/golden" />
 
                 <TextView
                     android:id="@+id/TVRate"

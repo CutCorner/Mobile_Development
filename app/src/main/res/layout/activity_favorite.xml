@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.FavoriteActivity">
+    tools:context=".ui.activity.customer.FavoriteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -16,46 +17,36 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/ToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
             android:elevation="4dp"
             android:minHeight="?attr/actionBarSize">
 
             <ImageButton
                 android:id="@+id/IBBack"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                style="@style/ForwardImageView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="30dp"
-                android:background="@drawable/default_unselected_dot"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/back_button"
-                android:padding="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="14dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_back" />
+                android:src="@drawable/ic_back"
+                android:theme="@android:style/ThemeOverlay.Material.Dark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="Favorite Barbershop"
-                android:textColor="@color/black"
+                android:text="@string/favorite_barbershop"
                 android:textSize="20sp" />
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavoriteUsers"
@@ -66,13 +57,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        tools:listitem="@layout/item_barber" />
+        tools:listitem="@layout/item_favorite_barber" />
 
     <TextView
         android:id="@+id/textEmpty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Favorite Barbershop is empty"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/favorite_barbershop_is_empty"
+        android:textSize="14sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

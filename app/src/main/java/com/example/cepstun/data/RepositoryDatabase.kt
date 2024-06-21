@@ -37,8 +37,8 @@ class RepositoryDatabase private constructor(private val database: FirebaseDatab
                 fname = user.displayName.toString(),
                 level = userType,
                 photo = photoUrl,
-                email = user.email.toString(),
-                phone = user.phoneNumber.toString()
+                email = user.providerData[1].email,
+                phone = user.providerData[1].phoneNumber
             )
             return try {
                 database.getReference("users")

@@ -9,11 +9,20 @@
     <color name="gray5">#ACACAC</color>
     <color name="gray6">#484C52</color>
     <color name="pink">#F89AEE</color>
-    <color name="yellow">#F7CE45</color>
+    <color name="yellow">#E8C243</color>
     <color name="golden">#EA830A</color>
     <color name="red">#FF0000</color>
     <color name="maroon">#A91D3A</color>
     <color name="green">#00FF00</color>
+
+    <color name="text_black">#313131</color>
+    <color name="text_white">#bfbfbf</color>
+
+    <color name="dark_content">#1b1b1b</color>
+    <color name="dark_content2">#1e1e1e</color>
+    <color name="dark_bg">#242424</color>
+
+    <color name="bright_bg">#FBFBFB</color>
 
 
 
@@ -26,5 +35,6 @@
 
 <!--    Primary on this app-->
     <color name="brown">#483228</color>
+    <color name="brown_bright">#AF8370</color>
 
 </resources>

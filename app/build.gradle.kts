@@ -22,6 +22,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 //        buildConfigField("String", "DEFAULT_WEB_CLIENT_ID", "\"201893687769-sr07ofrp9v95uek9u5md1dcr3qudto1c.apps.googleusercontent.com\"")
         buildConfigField("String", "BASE_URL_CURRENCY", "\"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/\"")
+        /* Ini yang udah deploy */
+        buildConfigField("String", "BASE_URL_BARBER", "\"https://cutcorner-426006.de.r.appspot.com/\"")
+        buildConfigField ("String", "SITE_URL", "\"cut-corner-bangkit-24.appspot.com\"")
+        buildConfigField ("String", "SITE_STORAGE", "\"https://firebasestorage.googleapis.com\"")
+
+        /* Ini punya Vika */
+//        buildConfigField("String", "BASE_URL_BARBER", "\"https://mlmodel-service-ifssgw3gba-et.a.run.app\"")
+        /* Ini punya Eka */
+//        buildConfigField("String", "BASE_URL_BARBER", "\"https://29cc-103-3-220-187.ngrok-free.app\"")
     }
 
     buildTypes {
@@ -143,8 +152,9 @@ dependencies {
     implementation(libs.androidx.camera.view)
 
     // for implementation room
-    implementation("androidx.room:room-runtime:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     // data store
     implementation(libs.androidx.datastore.preferences)
@@ -158,4 +168,5 @@ dependencies {
 
     // switcher
     implementation(libs.switcher)
+
 }

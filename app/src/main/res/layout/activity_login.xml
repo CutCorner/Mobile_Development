@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.LoginActivity">
@@ -30,6 +31,7 @@
             app:lottie_loop="true" />
 
         <TextView
+            style="@style/TVLoad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/LottieAV"
@@ -37,19 +39,18 @@
             android:layout_alignParentEnd="true"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
-            android:text="@string/loading"
-            android:textColor="@color/brown" />
+            android:text="@string/loading" />
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/IVLogo2"
         style="@style/logo_onboarding"
         android:layout_width="0dp"
-        android:transitionName="logo2"
         android:layout_height="143dp"
         android:layout_marginTop="23dp"
         android:contentDescription="@string/logo2"
         android:src="@drawable/logo"
+        android:transitionName="logo2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -87,13 +88,13 @@
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:alpha="0"
-        android:imeOptions="actionNext"
         android:autofillHints="emailAddress"
         android:background="@drawable/bg_et"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/plus_jakarta_sans"
         android:hint="@string/hint_email"
+        android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         android:maxLength="50"
         android:paddingHorizontal="10dp"
@@ -118,6 +119,7 @@
         tools:alpha="100" />
 
     <com.example.cepstun.cv.CustomEditText
+        style="@style/DrawableIcon"
         android:id="@+id/ETPassword"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -125,13 +127,13 @@
         android:alpha="0"
         android:autofillHints="password"
         android:background="@drawable/bg_et"
-        android:imeOptions="actionDone"
         android:clickable="true"
         android:drawableEnd="@drawable/visible_off"
         android:ems="20"
         android:focusable="true"
         android:fontFamily="@font/plus_jakarta_sans"
         android:hint="@string/password"
+        android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:longClickable="false"
         android:maxLength="20"
@@ -151,6 +153,7 @@
         android:alpha="0"
         android:padding="10dp"
         android:text="@string/forgot_password"
+        android:textColor="@color/yellow"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/ETPassword"
         app:layout_constraintTop_toBottomOf="@+id/ETPassword"
@@ -164,6 +167,7 @@
         android:alpha="0"
         android:padding="10dp"
         android:text="@string/resend_email"
+        android:textColor="@color/yellow"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/ETPassword"
         app:layout_constraintTop_toBottomOf="@+id/ETPassword"
@@ -175,13 +179,15 @@
         android:layout_height="44dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_login"
-        android:transitionName="button"
         android:enabled="false"
         android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/button_login"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:theme="@android:style/ThemeOverlay.Material.Dark"
+        android:transitionName="button"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@+id/TVAnotherLogin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -216,10 +222,10 @@
         android:layout_height="3dp"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/bg_divider"
-        app:layout_constraintStart_toEndOf="@+id/TVAnotherLogin"
         android:rotationY="180"
         app:layout_constraintBottom_toBottomOf="@+id/TVAnotherLogin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TVAnotherLogin"
         app:layout_constraintTop_toTopOf="@+id/TVAnotherLogin" />
 
     <GridLayout
@@ -278,7 +284,7 @@
                 android:id="@+id/LoginFacebook"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView

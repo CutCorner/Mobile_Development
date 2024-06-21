@@ -2,9 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.MenuHomeBarberFragment">
+    tools:context=".ui.fragment.barbershop.MenuHomeBarberFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
                 app:lottie_loop="true" />
 
             <TextView
+                style="@style/fontColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/LottieAV"
@@ -40,14 +42,13 @@
                 android:layout_alignParentEnd="true"
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
-                android:text="@string/loading"
-                android:textColor="@color/brown" />
+                android:text="@string/loading" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/LLBackgroundTop"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg_top"
             android:elevation="1dp"
             android:orientation="horizontal"
@@ -65,10 +66,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:ellipsize="end"
+                    android:layout_marginTop="15dp"
                     android:fontFamily="@font/montserrat_bold"
                     android:maxLines="2"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     tools:text="Broadway Barbershop" />
 
                 <TextView
@@ -79,8 +81,9 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/montserrat_medium"
                     android:maxLines="1"
+                    android:layout_marginBottom="15dp"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:text="Jl Tunjungan No. 09 Surabaya" />
             </LinearLayout>
 
@@ -97,18 +100,36 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
+            android:id="@+id/RVListCustomer"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="-20dp"
+            android:clipToPadding="false"
             android:fitsSystemWindows="true"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LLBackgroundTop"
-            tools:listitem="@layout/item_barber" />
+            tools:listitem="@layout/item_customer" />
+
+        <TextView
+            android:id="@+id/TVEmpty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LLBackgroundTop"
+            tools:text="Empty Message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </FrameLayout>

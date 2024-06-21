@@ -3,51 +3,90 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    style="@style/backgroundViewGroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.CheckoutActivity">
+    tools:context=".ui.activity.customer.CheckoutActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/LLBackgroundTop"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/bg_top"
-        android:elevation="1dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/IBBack"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="35dp"
-            android:background="@drawable/default_unselected_dot"
-            android:contentDescription="@string/back_button"
-            android:padding="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/bg_top"
+            android:elevation="4dp"
+            android:minHeight="?attr/actionBarSize">
+
+            <ImageButton
+                android:id="@+id/IBBack"
+                style="@style/ImageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="35dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/back_button"
+                android:padding="14dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/TVBarberName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:text="Barber Name" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/PBLoad"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@android:color/transparent"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/LottieAV"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_lottie"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="logo_test.json"
+            app:lottie_loop="true" />
 
         <TextView
-            android:id="@+id/TVBarberName"
-            android:layout_width="0dp"
+            style="@style/TVLoad"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:ellipsize="end"
+            android:layout_below="@id/LottieAV"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:fontFamily="@font/montserrat_bold"
-            android:maxLines="1"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/IBBack"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Barbershop" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:gravity="center"
+            android:text="@string/loading" />
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/CVHairModel"
@@ -57,7 +96,7 @@
         app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LLBackgroundTop">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <ImageView
             android:id="@+id/IVHairModel"
@@ -69,6 +108,7 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
@@ -90,15 +130,6 @@
             tools:text="Undercut" />
 
         <TextView
-            android:id="@+id/TVCurrency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semibold"
-            android:text="@string/rp"
-            android:textAlignment="center"
-            android:textSize="15sp" />
-
-        <TextView
             android:id="@+id/TVPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,6 +139,70 @@
             tools:text="20000" />
 
     </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/brown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="@string/add_on"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="?android:attr/listDivider"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/RVAddOn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RVAddOn"
+        android:layout_width="match_parent"
+        android:paddingVertical="20dp"
+        android:clipToPadding="false"
+        android:layout_marginTop="10dp"
+        android:fitsSystemWindows="true"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/LLTotal"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_addon" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="?android:attr/listDivider"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RVAddOn" />
+
+    <TextView
+        android:id="@+id/TVEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/there_are_no_add_ons_in_this_barbershop"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/RVAddOn"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
 
     <LinearLayout
@@ -136,16 +231,6 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/TVCurrency2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/rp"
-                android:textAlignment="center"
-                android:textSize="14sp" />
-
-            <TextView
                 android:id="@+id/TVSubtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -169,16 +254,6 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/TVCurrency3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/rp"
-                android:textAlignment="center"
-                android:textSize="14sp" />
-
-            <TextView
                 android:id="@+id/TVAdminFee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -190,7 +265,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="30dp"
             android:orientation="horizontal">
 
             <TextView
@@ -199,16 +274,6 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="@string/total"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/TVCurrency4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="@string/rp"
-                android:textAlignment="center"
                 android:textSize="16sp" />
 
             <TextView
@@ -223,15 +288,19 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/BCheckout"
             android:layout_width="240dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:background="@drawable/bg_login"
+            android:clickable="true"
+            android:focusable="true"
             android:fontFamily="@font/montserrat_bold"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/button_book_now"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:theme="@android:style/ThemeOverlay.Material.Dark"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toTopOf="@+id/TVAnotherLogin"
             app:layout_constraintEnd_toEndOf="parent"

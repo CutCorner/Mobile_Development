@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -16,11 +17,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.cepstun.R
 import com.example.cepstun.databinding.ActivityMainBinding
-import com.example.cepstun.ui.fragment.MenuHistoryFragment
-import com.example.cepstun.ui.fragment.MenuHomeBarberFragment
-import com.example.cepstun.ui.fragment.MenuHomeCustomerFragment
-import com.example.cepstun.ui.fragment.MenuCustomerOrdersFragment
-import com.example.cepstun.ui.fragment.MenuProfileFragment
+import com.example.cepstun.ui.fragment.barbershop.MenuHistoryBarberFragment
+import com.example.cepstun.ui.fragment.barbershop.MenuHomeBarberFragment
+import com.example.cepstun.ui.fragment.customer.MenuHomeCustomerFragment
+import com.example.cepstun.ui.fragment.customer.MenuCustomerOrdersFragment
+import com.example.cepstun.ui.fragment.barbershop.MenuProfileBarbershopFragment
+import com.example.cepstun.ui.fragment.customer.MenuProfileCustomerFragment
 import com.example.cepstun.viewModel.MainViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -42,6 +44,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("onCreate", "Berapa kali di panggil??")
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -69,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                                 true
                             }
                             R.id.nav_profile -> {
-                                replaceFragment(MenuProfileFragment())
+                                replaceFragment(MenuProfileCustomerFragment())
                                 true
                             }
                             else -> false
@@ -87,11 +91,11 @@ class MainActivity : AppCompatActivity() {
                                 true
                             }
                             R.id.nav_history -> {
-                                replaceFragment(MenuHistoryFragment())
+                                replaceFragment(MenuHistoryBarberFragment())
                                 true
                             }
                             R.id.nav_profile -> {
-                                replaceFragment(MenuProfileFragment())
+                                replaceFragment(MenuProfileBarbershopFragment())
                                 true
                             }
                             else -> false
@@ -109,9 +113,14 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.isLoading.observe(this) {
             val load = binding.PBLoad
-            load.visibility = if (it) View.VISIBLE else View.GONE
             val lottie = binding.LottieAV
-            if (it) lottie.playAnimation() else lottie.cancelAnimation()
+            if (it) {
+                load.visibility = View.VISIBLE
+                lottie.playAnimation()
+            } else {
+                load.visibility = View.GONE
+                lottie.cancelAnimation()
+            }
         }
 
         settingStatusBar()
@@ -159,6 +168,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun cekUserLoginAndLevel() {
+        Log.d("Cek user login and level", "Berapa kali di panggil??")
         viewModel.cekUserLoginAndLevel()
     }
 

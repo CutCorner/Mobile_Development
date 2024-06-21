@@ -3,7 +3,7 @@
     <style name="Base.Theme.Cepstun" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/dark_content</item>
     </style>
 
     <style name="logo_onboarding">
@@ -15,6 +15,87 @@
     </style>
 
     <style name="bottom_sheet">
-        <item name="android:backgroundTint">@color/gray5</item>
+        <item name="android:backgroundTint">@color/dark_bg</item>
     </style>
+
+    <!--  fragment_menu_home_customer.xml  -->
+    <style name="location" >
+        <item name="android:background">@color/dark_content</item>
+    </style>
+
+    <style name="MyCardView2" parent="Widget.MaterialComponents.CardView">
+        <item name="strokeColor">@color/brown</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardBackgroundColor">@color/dark_content</item>
+    </style>
+
+    <style name="fontSearchBar">
+        <item name="android:fontFamily">@font/plus_jakarta_sans</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/dark_content2</item>
+    </style>
+
+    <!--  RecyclerView  -->
+    <style name="CardView" >
+        <item name="cardBackgroundColor">@color/dark_content</item>
+    </style>
+
+    <!--  Menu Bottom Navigation  -->
+    <style name="NavBottomMenu">
+        <item name="android:background">@color/dark_content</item>
+        <item name="itemTextColor">@color/brown_bright</item>
+        <item name="itemIconTint">@color/brown_bright</item>
+    </style>
+
+    <!--  Lottie  -->
+    <style name="TVLoad">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <!--  ImageButton  -->
+    <style name="ImageButton">
+        <item name="tint">@color/gray</item>
+    </style>
+
+    <!--  Bacground Layout  -->
+    <style name="backgroundViewGroup">
+        <item name="android:background">@color/dark_bg</item>
+    </style>
+
+    <!--  Forward  -->
+    <style name="ForwardImageView">
+        <item name="tint">@color/gray</item>
+    </style>
+
+    <!--  Top Bar  -->
+    <style name="ToolBar">
+        <item name="android:background">@color/dark_content</item>
+    </style>
+
+    <!--  Background Drawable  -->
+    <style name="BgDrawable">
+        <item name="android:backgroundTint">@color/dark_bg</item>
+    </style>
+
+    <!--  Icon Tint on EditText  -->
+    <style name="DrawableIcon">
+        <item name="android:drawableTint">@color/gray</item>
+    </style>
+
+    <!--  Icon Tint other  -->
+    <style name="IconTint">
+        <item name="android:tint">@color/gray</item>
+    </style>
+
+    <!--  DropDownArrow EditText  -->
+    <style name="DropDownArrow">
+        <item name="spinner_arrow_tint">@color/gray</item>
+    </style>
+
+    <style name="fontColor">
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
 </resources>
