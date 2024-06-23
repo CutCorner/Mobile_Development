@@ -15,6 +15,7 @@ import com.example.cepstun.databinding.ActivityCheckoutBinding
 import com.example.cepstun.utils.getAdminFee
 import com.example.cepstun.utils.withCurrencyFormat
 import com.example.cepstun.ui.adapter.customer.AddOnAdapterCheckout
+import com.example.cepstun.utils.getFullImageUrl
 import com.example.cepstun.viewModel.CheckoutViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
 import kotlinx.coroutines.launch
@@ -67,7 +68,7 @@ class CheckoutActivity : AppCompatActivity() {
                 price = it?.price.toString()
                 TVModelName.text = it?.name
                 Glide.with(this@CheckoutActivity)
-                    .load(it?.image)
+                    .load(it?.image?.getFullImageUrl())
                     .into(IVHairModel)
             }
 

@@ -51,7 +51,7 @@ class RegisterBarberViewModel (
         viewModelScope.launch {
             val token = "Bearer ${barber.getIdToken(true).await().token}"
             try {
-                val response = barberApi.createBarbershop(token, nameBarber, lat, lon, location, logoBarber, listImageBarberFiles)
+                val response = barberApi.createBarbershop(token, nameBarber, lat, lon, location, phone, logoBarber, listImageBarberFiles)
                 if (response.status == true) {
                     _message.value = response.message
                     when (val storageResult = storage.uploadFile(logoBarber, barberId)) {
@@ -84,7 +84,6 @@ class RegisterBarberViewModel (
                 } else {
                     _message.value =
                         context.getString(R.string.failed_to_create_barbershop, response.message)
-                    Log.d("Response status false", response.message.toString())
                 }
             } catch (e: retrofit2.HttpException){
                 _isLoading.value = false
@@ -93,7 +92,6 @@ class RegisterBarberViewModel (
             } catch (e: Exception){
                 _isLoading.value = false
                 _message.value = context.getString(R.string.failed_to_create_barbershop, e.message)
-                Log.d("catch", e.message.toString())
             }
         }
     }

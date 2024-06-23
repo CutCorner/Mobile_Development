@@ -67,7 +67,6 @@ class RegisterBarberActivity : AppCompatActivity() {
             ) == PackageManager.PERMISSION_GRANTED
         }
 
-    @SuppressLint("SetTextI18n")
     private val lekuActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             try {
@@ -75,7 +74,14 @@ class RegisterBarberActivity : AppCompatActivity() {
                     val data = result.data
                     lat = data?.getDoubleExtra(LATITUDE, 0.0)
                     lon = data?.getDoubleExtra(LONGITUDE, 0.0)
-                    binding.ETCoordinate.setText("$lat,$lon")
+                    binding.ETCoordinate.setText(
+                        getString(
+                            R.string.map_coordinate,
+                            lat.toString(),
+                            lon.toString()
+                        )
+//                        "$lat,$lon"
+                    )
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

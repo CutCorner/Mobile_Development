@@ -88,32 +88,38 @@ class CheckoutViewModel (
     }
 
     fun getAddOn(barberId: String){
+        _isLoading.value = true
         // get API
-//        viewModelScope.launch {
-//            val response = barberApi.getDetailBarberShop(barberId)
-//            if (!response.result?.addons.isNullOrEmpty()){
-//                _addOns.value = response.result?.addons?.map {
-//                    AddOn(
-//                        name = it.name.toString(),
-//                        price = it.price?.toInt() ?: 0
-//                    )
-//                }
-//            }
-//        }
+        viewModelScope.launch {
+            val response = barberApi.getDetailBarberShop(barberId)
+            _nameBarber.value = response.result?.name.toString()
+            if (!response.result?.addons.isNullOrEmpty()){
+                _addOns.value = response.result?.addons?.map {
+                    AddOn(
+                        name = it.name.toString(),
+                        price = it.price?.toInt() ?: 0
+                    )
+                }
+                _isLoading.value = false
+            } else {
+                _addOns.value = emptyList()
+                _isLoading.value = false
+            }
+        }
 
         // get List dummy
-        val addOnsDummy = listOf(
-            AddOn("AddOn A", 5000),
-            AddOn("AddOn B", 10000),
-            AddOn("AddOn C", 15000),
-            AddOn("AddOn D", 20000),
-            AddOn("AddOn E", 25000)
-        )
-        _addOns.value = addOnsDummy
-
-        BarberDataList.barberDataValue.find { it.id == barberId }?.let {
-            _nameBarber.value = it.name
-        }
+//        val addOnsDummy = listOf(
+//            AddOn("AddOn A", 5000),
+//            AddOn("AddOn B", 10000),
+//            AddOn("AddOn C", 15000),
+//            AddOn("AddOn D", 20000),
+//            AddOn("AddOn E", 25000)
+//        )
+//        _addOns.value = addOnsDummy
+//
+//        BarberDataList.barberDataValue.find { it.id == barberId }?.let {
+//            _nameBarber.value = it.name
+//        }
 
     }
 

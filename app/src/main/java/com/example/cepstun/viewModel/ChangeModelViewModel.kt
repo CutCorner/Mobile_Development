@@ -2,7 +2,6 @@ package com.example.cepstun.viewModel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,8 +10,6 @@ import com.example.cepstun.R
 import com.example.cepstun.data.RepositoryAuth
 import com.example.cepstun.data.RepositoryBarberApi
 import com.example.cepstun.data.local.AddModel
-import com.example.cepstun.data.local.ListOrder
-import com.example.cepstun.data.remote.dataClass.DeleteModelRequest
 import com.example.cepstun.data.remote.response.barber.ResultData
 import com.example.cepstun.utils.reduceFileImage
 import com.example.cepstun.utils.uriToFile
@@ -70,12 +67,11 @@ class ChangeModelViewModel (
         if (barber != null){
             viewModelScope.launch {
                 val token = "Bearer ${barber.getIdToken(true).await()?.token}"
-                val request = DeleteModelRequest(name)
                 _barberData.value?.let { barberData ->
                     if (barberData.store.isNotEmpty()) {
                         val barberId = barberData.store[0].barberId
                         try {
-                            val response = barberApi.deleteModelBarber(barberId, token, request)
+                            val response = barberApi.deleteModelBarber(barberId, token, name)
                             if (!response.status) {
                                 _isLoading.value = false
                                 _message.value = context.getString(
@@ -83,7 +79,6 @@ class ChangeModelViewModel (
                                     name,
                                     response.message
                                 )
-                                Log.d("response false", "deleteModel: ${response.message}")
                             } else{
                                 _isLoading.value = false
                                 _message.value =
@@ -93,11 +88,9 @@ class ChangeModelViewModel (
                         } catch (e: retrofit2.HttpException){
                             _isLoading.value = false
                             _message.value = e.message
-                            Log.d("retrofit2.HttpException", "deleteModel: ${e.message}")
                         } catch (e: Exception){
                             _isLoading.value = false
                             _message.value = e.message
-                            Log.d("Exception", "deleteModel: ${e.message}")
                         }
                     }
                 }

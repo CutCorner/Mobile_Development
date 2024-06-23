@@ -5,6 +5,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
@@ -12,22 +14,25 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.RatingBar
-import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.cepstun.R
 import com.example.cepstun.databinding.FragmentMenuHomeCustomerBinding
 import com.example.cepstun.ui.activity.customer.BarbershopActivity
@@ -35,7 +40,6 @@ import com.example.cepstun.ui.activity.customer.BarbershopActivity.Companion.ID_
 import com.example.cepstun.ui.activity.customer.FavoriteActivity
 import com.example.cepstun.ui.activity.customer.NotificationActivity
 import com.example.cepstun.ui.adapter.customer.BarberAdapter
-import com.example.cepstun.ui.adapter.customer.BarberSearchAdapter
 import com.example.cepstun.utils.showToast
 import com.example.cepstun.viewModel.MenuHomeCustomerViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
@@ -51,10 +55,10 @@ class MenuHomeCustomerFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var recyclerView2: RecyclerView
 
     private lateinit var adapter: BarberAdapter
-    private lateinit var adapter2: BarberSearchAdapter
+
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private val viewModel: MenuHomeCustomerViewModel by viewModels {
         ViewModelFactory.getInstance(this.requireContext())
@@ -100,8 +104,10 @@ class MenuHomeCustomerFragment : Fragment() {
             ) requestPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
         }
 
+        swipeRefreshLayout = binding.SRLRefresh
+        recyclerView = binding.RVBarber
+
         adapter = BarberAdapter()
-        adapter2 = BarberSearchAdapter()
 
         viewModel.getMessage()
 
@@ -200,41 +206,60 @@ class MenuHomeCustomerFragment : Fragment() {
             }
 
             btnNotification.setOnClickListener {
-                Intent(requireContext(), NotificationActivity::class.java).also {intent->
+                Intent(requireContext(), NotificationActivity::class.java).also { intent->
                     startActivity(intent)
                 }
             }
 
-            SVSearchBarber.setupWithSearchBar(SBSearchBarber)
-            SVSearchBarber
-                .editText
-                .setOnEditorActionListener { textView, actionId, event ->
-                    recyclerView2 = RVBarber2
-                    viewModel.findBarbershop(SVSearchBarber.text.toString())
-                    viewModel.listBarber2.observe(viewLifecycleOwner) { barberData ->
-                        adapter2.submitList(barberData)
-                        recyclerView2.adapter = adapter2
-                        setRecyclerList()
-                    }
-                    false
-                }
 
-            binding.SVSearchBarber.editText?.addTextChangedListener(object : TextWatcher {
+            SVSearchBarber.editText.setTextColor(getColor(requireContext(), R.color.white))
+            SVSearchBarber.editText.setHintTextColor(getColor(requireContext(), R.color.gray5))
+            SVSearchBarber.editText.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                     // Do nothing
                 }
 
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    // Do nothing
+                    if (s.toString().isEmpty()){
+                        viewModel.getListBarber()
+                        viewModel.listBarber.observe(viewLifecycleOwner) { barberData ->
+                            adapter.submitList(barberData)
+                            RVBarber.visibility = View.VISIBLE
+                            TVEmpty.visibility = View.GONE
+                        }
+                    } else {
+                        viewModel.findBarbershop(SVSearchBarber.text.toString())
+                        viewModel.listBarber2.observe(viewLifecycleOwner) { barberData ->
+                            if (barberData.isNullOrEmpty()){
+                                RVBarber.visibility = View.GONE
+                                TVEmpty.visibility = View.VISIBLE
+                            } else {
+                                TVEmpty.visibility = View.GONE
+                                RVBarber.visibility = View.VISIBLE
+                                adapter.submitList(barberData)
+                            }
+                        }
+                    }
                 }
 
                 override fun afterTextChanged(s: Editable) {
-                    binding.RVBarber2.visibility = if (s.toString().isNullOrEmpty()) View.GONE else View.VISIBLE
+
                 }
             })
+
+
         }
 
-        recyclerView = binding.RVBarber
+        swipeRefreshLayout.setOnRefreshListener {
+            checkLocationSettingsAndRetrieveLocation()
+            viewModel.getListBarber()
+            viewModel.listBarber.observe(viewLifecycleOwner) { barberData ->
+                swipeRefreshLayout.isRefreshing = false
+                adapter.submitList(barberData)
+                recyclerView.adapter = adapter
+            }
+        }
+
 
         viewModel.getListBarber()
         viewModel.listBarber.observe(viewLifecycleOwner) { barberData ->
@@ -262,28 +287,6 @@ class MenuHomeCustomerFragment : Fragment() {
         val lottie = binding.LottieAV
 
         adapter.setOnItemClickCallback(object : BarberAdapter.OnBarberClickListener {
-
-            override fun onBarberClick(barberId: String) {
-                lottie.playAnimation()
-                load.visibility = View.VISIBLE
-                val queue = viewModel.getQueue()
-                if (queue.barberID != "" && queue.yourQueue != "") {
-                    lottie.cancelAnimation()
-                    load.visibility = View.GONE
-                    Toast.makeText(requireContext(),
-                        getString(R.string.you_are_currently_in_the_queue_check_the_order_menu_and_cancel_for_another_order), Toast.LENGTH_SHORT).show()
-                } else {
-                    lottie.cancelAnimation()
-                    load.visibility = View.GONE
-                    Intent(requireContext(), BarbershopActivity::class.java).also { intent ->
-                        intent.putExtra(ID_BARBER, barberId)
-                        startActivity(intent)
-                    }
-                }
-            }
-        })
-
-        adapter2.setOnItemClickCallback(object : BarberSearchAdapter.OnBarberClickListener {
 
             override fun onBarberClick(barberId: String) {
                 lottie.playAnimation()

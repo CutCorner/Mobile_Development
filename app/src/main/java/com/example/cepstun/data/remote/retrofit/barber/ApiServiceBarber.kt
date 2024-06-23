@@ -1,8 +1,6 @@
 package com.example.cepstun.data.remote.retrofit.barber
 
 import com.example.cepstun.data.remote.dataClass.AddOnRequest
-import com.example.cepstun.data.remote.dataClass.DeleteAddOnRequest
-import com.example.cepstun.data.remote.dataClass.DeleteModelRequest
 import com.example.cepstun.data.remote.dataClass.RegisterRequest
 import com.example.cepstun.data.remote.response.barber.ResponseAccountBarber
 import com.example.cepstun.data.remote.response.barber.ResponseAddAddOn
@@ -22,6 +20,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
@@ -50,6 +49,9 @@ interface ApiServiceBarber {
 
         @Part("location")
         location: RequestBody,
+
+        @Part("phone")
+        phone: RequestBody,
 
         @Part logo: MultipartBody.Part,
 
@@ -131,7 +133,7 @@ interface ApiServiceBarber {
 
 
 
-    @DELETE("api/admin/delete_list_model")
+    @DELETE("api/admin/delete_list_model/")
     suspend fun deleteModel(
         @Header("Authorization")
         token: String,
@@ -139,7 +141,9 @@ interface ApiServiceBarber {
         @Header("BarberId")
         barberId: String,
 
-        @Body deleteModelRequest: DeleteModelRequest
+        @Query("name")
+        name: String
+
     ): ResponseDeleteModel
 
     @DELETE("api/admin/delete_addon")
@@ -150,8 +154,40 @@ interface ApiServiceBarber {
         @Header("BarberId")
         barberId: String,
 
-        @Body deleteAddOnRequest: DeleteAddOnRequest
+        @Query("name")
+        name: String
     ): ResponseDeleteAddOn
 
+
+    @Multipart
+    @PATCH("api/admin/update_store_barber")
+    suspend fun updateStoreBarber(
+        @Header("Authorization")
+        token: String,
+
+        @Header("BarberId")
+        barberId: String,
+
+        @Part("store_name")
+        storeName: RequestBody,
+
+        @Part("lat")
+        lat: RequestBody,
+
+        @Part("long")
+        long: RequestBody,
+
+        @Part("location")
+        location: RequestBody,
+
+        @Part("phone")
+        phone: RequestBody,
+
+        @Part logo: MultipartBody.Part,
+
+        @Part thumbnail: List<MultipartBody.Part>
+    ): ResponseAddBarber
+
+    @
 
 }

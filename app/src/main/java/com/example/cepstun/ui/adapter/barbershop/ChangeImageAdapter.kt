@@ -7,17 +7,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.cepstun.R
+import com.example.cepstun.data.remote.dataClass.ImageItem
 import com.example.cepstun.databinding.ItemImageBinding
+import com.example.cepstun.utils.getFullImageUrl
 
-class AddImageAdapter(private val onImageRemove: (Uri) -> Unit) :
-    ListAdapter<Uri, AddImageAdapter.ImageViewHolder>(UriDiffCallback) {
+class ChangeImageAdapter(private val onImageRemove: (ImageItem) -> Unit) :
+    ListAdapter<ImageItem, ChangeImageAdapter.ImageViewHolder>(ImageItemDiffCallback) {
 
-    object UriDiffCallback : DiffUtil.ItemCallback<Uri>() {
-        override fun areItemsTheSame(oldItem: Uri, newItem: Uri): Boolean {
+    object ImageItemDiffCallback : DiffUtil.ItemCallback<ImageItem>() {
+        override fun areItemsTheSame(oldItem: ImageItem, newItem: ImageItem): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Uri, newItem: Uri): Boolean {
+        override fun areContentsTheSame(oldItem: ImageItem, newItem: ImageItem): Boolean {
             return oldItem == newItem
         }
     }
@@ -33,11 +36,17 @@ class AddImageAdapter(private val onImageRemove: (Uri) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val uri = getItem(position)
-        holder.imageView.setImageURI(uri)
+        val item = getItem(position)
+        val uri = when (item) {
+            is ImageItem.UriImage -> item.uri
+            is ImageItem.UrlImage -> Uri.parse(item.url.getFullImageUrl())
+        }
+        Glide.with(holder.imageView.context)
+            .load(uri)
+            .placeholder(R.drawable.logo_placeholder)
+            .into(holder.imageView)
         holder.removeButton.setOnClickListener {
-            onImageRemove(uri)
+            onImageRemove(item)
         }
     }
-
 }

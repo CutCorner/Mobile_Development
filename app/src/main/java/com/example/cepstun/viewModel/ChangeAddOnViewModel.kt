@@ -10,7 +10,6 @@ import com.example.cepstun.R
 import com.example.cepstun.data.RepositoryAuth
 import com.example.cepstun.data.RepositoryBarberApi
 import com.example.cepstun.data.local.AddAddOn
-import com.example.cepstun.data.remote.dataClass.DeleteAddOnRequest
 import com.example.cepstun.data.remote.response.barber.ResultData
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -66,12 +65,11 @@ class ChangeAddOnViewModel (
         if (barber != null){
             viewModelScope.launch {
                 val token = "Bearer ${barber.getIdToken(true).await()?.token}"
-                val request = DeleteAddOnRequest(name)
                 _barberData.value?.let { barberData ->
                     if (barberData.store.isNotEmpty()) {
                         val barberId = barberData.store[0].barberId
                         try {
-                            val response = barberApi.deleteAddOnBarber(barberId, token, request)
+                            val response = barberApi.deleteAddOnBarber(barberId, token, name)
                             if (!response.status) {
                                 _isLoading.value = false
                                 _message.value = context.getString(

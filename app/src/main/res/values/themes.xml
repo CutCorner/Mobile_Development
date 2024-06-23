@@ -95,7 +95,7 @@
 
     <!--  Menu Bottom Navigation  -->
     <style name="NavBottomMenu">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@drawable/bg_nav_bottom</item>
         <item name="itemTextColor">@color/brown</item>
         <item name="itemIconTint">@color/brown</item>
     </style>
@@ -123,7 +123,7 @@
 
     <!--  Top Bar  -->
     <style name="ToolBar">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@drawable/bg_nav_top</item>
     </style>
 
     <!--  Background Drawable  -->

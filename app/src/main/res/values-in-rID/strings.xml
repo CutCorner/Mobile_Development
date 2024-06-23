@@ -364,7 +364,7 @@
     <string name="button_save_changes">Simpan perubahan</string>
 
     <!-- activity_edit_data_barbershop -->
-    <string name="personal_data_barbershop">Sunting Data</string>
+    <string name="personal_data_barbershop">Rubah Data Tempat Cukur</string>
 
     <!-- activity_edit_model -->
     <string name="edit_model">Sunting Model</string>
@@ -495,5 +495,7 @@
     <string name="are_you_sure_you_want_to_remove_the_addon">Apakah Anda yakin ingin menghapus Layanan ini?</string>
 
     <string name="data_not_found_make_sure_your_location_is_switched_on">Data tidak ditemukan, pastikan lokasi anda sudah dinyalakan</string>
+
+    <string name="didn_t_find_the_barbershop_you_were_looking_for">Tidak menemukan tempat barber yang Anda cari</string>
 
 </resources>

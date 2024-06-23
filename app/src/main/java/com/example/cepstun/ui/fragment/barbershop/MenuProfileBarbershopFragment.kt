@@ -18,7 +18,9 @@ import com.example.cepstun.ui.activity.ChangeThemesActivity
 import com.example.cepstun.ui.activity.PrivacySecurityActivity
 import com.example.cepstun.ui.activity.barbershop.ChangeModelActivity
 import com.example.cepstun.ui.activity.barbershop.ChangeAddOnActivity
+import com.example.cepstun.ui.activity.barbershop.EditDataBarbershopActivity
 import com.example.cepstun.utils.getFullImageUrl
+import com.example.cepstun.viewModel.EditDataBarbershopViewModel
 import com.example.cepstun.viewModel.MenuProfileBarberViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
 
@@ -57,6 +59,12 @@ class MenuProfileBarbershopFragment : Fragment() {
                     .placeholder(R.drawable.logo_placeholder)
                     .circleCrop()
                     .into(CIVProfile)
+            }
+
+            IBEditProfile.setOnClickListener {
+                Intent(requireContext(), EditDataBarbershopActivity::class.java).also {
+                    startActivity(it)
+                }
             }
 
             BTChangeModel.setOnClickListener {

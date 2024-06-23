@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.example.cepstun.databinding.ActivityBarbershopBinding
 import com.example.cepstun.utils.convertColorToHue
 import com.example.cepstun.utils.convertDpToPixel
+import com.example.cepstun.utils.getFullImageUrl
 import com.example.cepstun.viewModel.BarbershopViewModel
 import com.example.cepstun.viewModel.ViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -103,9 +104,11 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
             })
         }
 
-        barberId = intent.extras?.getString(ID_BARBER)!!
+        if (intent.extras != null){
+            barberId = intent.extras?.getString(ID_BARBER).toString()
+        }
 
-        viewModel.cekBarberQueueAndOpened(barberId)
+//        viewModel.cekBarberQueueAndOpened(barberId)
 
         binding.apply {
 
@@ -128,7 +131,7 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
                 val imageList = ArrayList<SlideModel>()
 
                 for (image in it.image) {
-                    imageList.add(SlideModel(image.picture, ScaleTypes.CENTER_CROP))
+                    imageList.add(SlideModel(image.picture.getFullImageUrl(), ScaleTypes.CENTER_CROP))
                 }
 
                 imageSlider = ISImage
@@ -144,7 +147,6 @@ class BarbershopActivity : AppCompatActivity(), OnMapReadyCallback {
                     startActivity(intent)
                 }
             }
-
 
 
             mMapView = MVmap

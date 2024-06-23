@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 data class BarberData (
     val id: String,
+    val barberId: String,
     val name: String,
     val logo: String,
     val rate: Double?,

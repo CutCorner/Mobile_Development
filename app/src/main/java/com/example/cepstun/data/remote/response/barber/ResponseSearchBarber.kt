@@ -52,6 +52,9 @@ data class Data(
     @field:SerializedName("location")
     val location: String,
 
+    @field:SerializedName("phone")
+    val phone: String,
+
     @field:SerializedName("thumbnailBarber")
     val thumbnailBarber: List<ThumbnailBarberSearch>
 )

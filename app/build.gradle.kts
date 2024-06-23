@@ -31,6 +31,7 @@ android {
 //        buildConfigField("String", "BASE_URL_BARBER", "\"https://mlmodel-service-ifssgw3gba-et.a.run.app\"")
         /* Ini punya Eka */
 //        buildConfigField("String", "BASE_URL_BARBER", "\"https://29cc-103-3-220-187.ngrok-free.app\"")
+//        buildConfigField("String", "BASE_URL_BARBER", "\"https://b190-103-3-222-71.ngrok-free.app\"")
     }
 
     buildTypes {
@@ -168,5 +169,8 @@ dependencies {
 
     // switcher
     implementation(libs.switcher)
+
+    // Swipe Refresh Layout
+    implementation (libs.swiperefreshlayout)
 
 }
