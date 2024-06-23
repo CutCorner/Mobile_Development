@@ -11,6 +11,7 @@ import com.example.cepstun.R
 import com.example.cepstun.data.local.entity.customer.FavoriteCustomer
 import com.example.cepstun.databinding.ItemFavoriteBarberBinding
 import com.example.cepstun.ui.activity.customer.BarbershopActivity
+import com.example.cepstun.utils.getFullImageUrl
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 class FavoriteAdapter : ListAdapter<FavoriteCustomer, FavoriteAdapter.FavoriteViewHolder>(
@@ -35,7 +36,7 @@ class FavoriteAdapter : ListAdapter<FavoriteCustomer, FavoriteAdapter.FavoriteVi
         val data = getItem(position)
 
         Glide.with(holder.itemView.context)
-            .load(data.logoBarber)
+            .load(data.logoBarber.getFullImageUrl())
             .centerCrop()
             .placeholder(R.drawable.logo_placeholder)
             .into(holder.logoBarber)

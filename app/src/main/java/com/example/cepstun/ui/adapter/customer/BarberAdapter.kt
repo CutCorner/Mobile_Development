@@ -46,7 +46,7 @@ class BarberAdapter : ListAdapter<BarberData, BarberAdapter.BarberViewHolder>(Ba
             .into(holder.barberLogo)
 
         holder.itemView.setOnClickListener {
-            onItemClickCallback?.onBarberClick(data.id)
+            onItemClickCallback?.onBarberClick(data.barberId)
         }
     }
 

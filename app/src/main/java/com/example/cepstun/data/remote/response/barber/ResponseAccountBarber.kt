@@ -58,11 +58,17 @@ data class StoreData (
     @field:SerializedName("location")
     val location: String,
 
+    @field:SerializedName("phone")
+    val phone: String,
+
     @field:SerializedName("model")
     val model: List<ModelAccount>,
 
     @field:SerializedName("addons")
-    val addons: List<AddonsAccount>
+    val addons: List<AddonsAccount>,
+
+    @field:SerializedName("thumbnail")
+    val thumbnail: List<ThumbnailAccount>? = null
 )
 
 data class ModelAccount(
@@ -94,4 +100,15 @@ data class AddonsAccount(
 
     @field:SerializedName("price")
     val price: Double? = null,
+)
+
+data class ThumbnailAccount (
+    @field:SerializedName("id")
+    val id: Int? = null,
+
+    @field:SerializedName("barberId")
+    val barberId: String? = null,
+
+    @field:SerializedName("img_src")
+    val imgSrc: String? = null
 )

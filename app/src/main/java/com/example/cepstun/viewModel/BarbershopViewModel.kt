@@ -151,54 +151,69 @@ class BarbershopViewModel (
     val themeSetting: LiveData<Boolean?> = setting.getThemeSetting().asLiveData()
 
     fun getDetailBarbershop(barberId: String){
+        _isLoading.value = true
         // get API
-//        viewModelScope.launch {
-//            val response = barberApi.getDetailBarberShop(barberId)
-//            val response2 = barberApi.getReviewBarber(barberId)
-//            if (response.result != null && !response2.result.isNullOrEmpty()){
-//                response.result.let {
-//                    _barberData.value = BarberData(
-//                        id = it.id.toString(),
-//                        name = it.name.toString(),
-//                        logo = it.imgSrc.toString(),
-//                        image = it.thumbnailBarber!!.map { thumb ->
-//                            Image(
-//                                id = thumb.id.toString(),
-//                                picture = thumb.imgSrc.toString()
-//                            )
-//                        },
-//                        lat = it.lat ?: 0.0,
-//                        lon = it.long ?: 0.0,
-//                        location = it.location.toString(),
-//                        model = it.modelsHairs!!.map { model->
-//                            Model(
-//                                id = model.id.toString(),
-//                                name = model.name.toString(),
-//                                price = model.price ?: 0.0,
-//                                image = model.imgSrc.toString()
-//                            )
-//                        },
-//                        rate = response2.result.map {score-> score.rating }.average(),
-//                        rating = response2.result.map {rating->
-//                            Rating(
-//                                id = rating.id_order,
-//                                name = rating.user,
-//                                image = rating.user_picture ?: "",
-//                                ratingScore = rating.rating,
-//                                review = rating.comment,
-//                                model = rating.model,
-//                                addOns = rating.addon,
-//                                date = rating.date,
-//                            )
-//                        }
-//                    )
-//                }
-//            }
-//        }
+        viewModelScope.launch {
+            val response = barberApi.getDetailBarberShop(barberId)
+            val response2 = barberApi.getReviewBarber(barberId)
+            if (response.result != null){
+                response.result.let {
+                    _barberData.value = BarberData(
+                        id = it.owner.toString(),
+                        barberId = it.barberId.toString(),
+                        name = it.name.toString(),
+                        logo = it.imgSrc.toString(),
+                        image = it.thumbnailBarber!!.map { thumb ->
+                            Image(
+                                id = thumb.id.toString(),
+                                picture = thumb.imgSrc.toString()
+                            )
+                        },
+                        lat = it.lat ?: 0.0,
+                        lon = it.long ?: 0.0,
+                        location = it.location.toString(),
+                        model = it.modelsHairs!!.map { model->
+                            Model(
+                                id = model.id.toString(),
+                                name = model.name.toString(),
+                                price = model.price ?: 0.0,
+                                image = model.imgSrc.toString()
+                            )
+                        },
+
+                        rate = response2.result?.map { score-> score.rating }?.average() ?: 0.0,
+                        rating = response2.result?.map { rating->
+                            Rating(
+                                id = rating.id_order,
+                                name = rating.user,
+                                image = rating.user_picture ?: "",
+                                ratingScore = rating.rating,
+                                review = rating.comment,
+                                model = rating.model,
+                                addOns = rating.addon,
+                                date = rating.date,
+                            )
+                        } ?: listOf(Rating(
+                            id = "",
+                            name = "",
+                            image = "",
+                            ratingScore = 0.0,
+                            review = "",
+                            model = "",
+                            addOns = "",
+                            date = "",
+                        ))
+                    )
+                    cekBarberQueueAndOpened(it.owner.toString())
+                    _isLoading.value = false
+                }
+            }
+        }
+
 
         // get List dummy
-        BarberDataList.barberDataValue.filter {it.id == barberId}.map {
-            _barberData.value = it
-        }
+//        BarberDataList.barberDataValue.filter {it.id == barberId}.map {
+//            _barberData.value = it
+//        }
     }
 }

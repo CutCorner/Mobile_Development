@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.cepstun.R
 import com.example.cepstun.data.local.Model
 import com.example.cepstun.databinding.ItemModelBarberBinding
+import com.example.cepstun.utils.getFullImageUrl
 import com.example.cepstun.utils.withCurrencyFormat
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +37,7 @@ class ModelBarberAdapter : ListAdapter<Model, ModelBarberAdapter.ModelViewHolder
         val model = getItem(position)
         holder.modelName.text = model.name
         Glide.with(holder.itemView.context)
-            .load(model.image)
+            .load(model.image.getFullImageUrl())
             .centerCrop()
             .placeholder(R.drawable.logo_placeholder)
             .into(holder.modelImage)

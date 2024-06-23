@@ -1,8 +1,6 @@
 package com.example.cepstun.data
 
 import com.example.cepstun.data.remote.dataClass.AddOnRequest
-import com.example.cepstun.data.remote.dataClass.DeleteAddOnRequest
-import com.example.cepstun.data.remote.dataClass.DeleteModelRequest
 import com.example.cepstun.data.remote.dataClass.RegisterRequest
 import com.example.cepstun.data.remote.response.barber.ResponseAccountBarber
 import com.example.cepstun.data.remote.response.barber.ResponseAddAddOn
@@ -30,17 +28,18 @@ class RepositoryBarberApi private constructor(private val apiService: ApiService
         return apiService.registerBarber(registerRequest)
     }
 
-    suspend fun createBarbershop(token: String, nameBarber: String, lat: Double, lon: Double, location: String, logoBarber: File, listImageBarberFiles: List<File>): ResponseAddBarber {
+    suspend fun createBarbershop(token: String, nameBarber: String, lat: Double, lon: Double, location: String, phone: String, logoBarber: File, listImageBarberFiles: List<File>): ResponseAddBarber {
         val storeName = nameBarber.toRequestBody("text/plain".toMediaType())
         val latPart = lat.toString().toRequestBody("text/plain".toMediaType())
         val longPart = lon.toString().toRequestBody("text/plain".toMediaType())
         val locationPart = location.toRequestBody("text/plain".toMediaType())
-        val logoPart = MultipartBody.Part.createFormData("logo", "logo.jpg", logoBarber.asRequestBody("image/jpg".toMediaTypeOrNull()))
+        val phonePart = phone.toRequestBody("text/plain".toMediaType())
+        val logoPart = MultipartBody.Part.createFormData("logo", logoBarber.name, logoBarber.asRequestBody("image/jpg".toMediaTypeOrNull()))
         val thumbnailParts = listImageBarberFiles.map {
-            MultipartBody.Part.createFormData("thumbnail", "thumbnail.jpg", it.asRequestBody("image/jpg".toMediaTypeOrNull()))
+            MultipartBody.Part.createFormData("thumbnail", it.name, it.asRequestBody("image/jpg".toMediaTypeOrNull()))
         }
 
-        return apiService.createStoreBarber(token, storeName, latPart, longPart, locationPart, logoPart, thumbnailParts)
+        return apiService.createStoreBarber(token, storeName, latPart, longPart, locationPart, phonePart, logoPart, thumbnailParts)
     }
 
     suspend fun addModel(barberId: String, token: String, name: String, price: Double, image: File): ResponseAddModelBarber {
@@ -80,12 +79,28 @@ class RepositoryBarberApi private constructor(private val apiService: ApiService
         return apiService.searchBarberStore(name, 1, 5)
     }
 
-    suspend fun deleteModelBarber(idBarber: String, token: String, name: DeleteModelRequest): ResponseDeleteModel{
+    suspend fun deleteModelBarber(idBarber: String, token: String, name: String): ResponseDeleteModel{
         return apiService.deleteModel(token, idBarber, name)
     }
 
-    suspend fun deleteAddOnBarber(idBarber: String, token: String, name: DeleteAddOnRequest): ResponseDeleteAddOn{
+    suspend fun deleteAddOnBarber(idBarber: String, token: String, name: String): ResponseDeleteAddOn{
         return apiService.deleteAddOn(token, idBarber, name)
+    }
+
+    suspend fun updateBarbershop(token: String, idBarber: String, nameBarber: String, lat: Double, lon: Double, location: String, phone: String, logoBarber: File, listImageBarberFiles: List<File>): ResponseAddBarber {
+        val storeName = nameBarber.toRequestBody("text/plain".toMediaType())
+        val latPart = lat.toString().toRequestBody("text/plain".toMediaType())
+        val longPart = lon.toString().toRequestBody("text/plain".toMediaType())
+        val locationPart = location.toRequestBody("text/plain".toMediaType())
+        val phonePart = phone.toRequestBody("text/plain".toMediaType())
+        val logoPart = MultipartBody.Part.createFormData(
+            "logo", logoBarber.name, logoBarber.asRequestBody("image/jpg".toMediaTypeOrNull())
+        )
+        val thumbnailParts = listImageBarberFiles.map {
+            MultipartBody.Part.createFormData("thumbnail", it.name, it.asRequestBody("image/jpg".toMediaTypeOrNull()))
+        }
+
+        return apiService.updateStoreBarber(token, idBarber, storeName, latPart, longPart, locationPart, phonePart, logoPart, thumbnailParts)
     }
 
     companion object {

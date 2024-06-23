@@ -18,6 +18,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import android.net.Uri
 import android.provider.Settings
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -77,6 +78,17 @@ class ChooseModelActivity : AppCompatActivity() {
                 onBackPressedDispatcher.onBackPressed()
             }
 
+            viewModel.isLoading.observe(this@ChooseModelActivity) {
+                val load = PBLoad
+                val lottie = LottieAV
+                if (it) {
+                    load.visibility = View.VISIBLE
+                    lottie.playAnimation()
+                } else {
+                    load.visibility = View.GONE
+                    lottie.cancelAnimation()
+                }
+            }
 
         }
 

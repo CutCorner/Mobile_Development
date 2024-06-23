@@ -38,6 +38,9 @@ data class ResultDetailBarber (
     @field:SerializedName("location")
     val location: String? = null,
 
+    @field:SerializedName("phone")
+    val phone: String? = null,
+
     @field:SerializedName("addons")
     val addons: List<AddOn>? = null,
 

@@ -26,13 +26,13 @@
             <ImageButton
                 android:id="@+id/IBBack"
                 style="@style/ForwardImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="30dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/back_button"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
+                android:padding="14dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_back"
                 android:theme="@android:style/ThemeOverlay.Material.Dark" />
@@ -48,6 +48,40 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:id="@+id/PBLoad"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@android:color/transparent"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/LottieAV"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_lottie"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="logo_test.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            style="@style/TVLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/LottieAV"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/loading" />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -58,22 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/PBLoad"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/bg_lottie"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="logo_test.json"
-                app:lottie_loop="true" />
-
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/CIVProfileUser"
+                android:id="@+id/CIVLogoBarber"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginTop="30dp"
@@ -92,8 +112,8 @@
                 android:contentDescription="@string/edit_photo_profile"
                 android:padding="10dp"
                 android:src="@drawable/ic_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/CIVProfileUser"
-                app:layout_constraintEnd_toEndOf="@+id/CIVProfileUser" />
+                app:layout_constraintBottom_toBottomOf="@+id/CIVLogoBarber"
+                app:layout_constraintEnd_toEndOf="@+id/CIVLogoBarber" />
 
             <TextView
                 android:id="@+id/TVTittleName"
@@ -108,7 +128,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/IBEditPhoto" />
 
             <com.example.cepstun.cv.CustomEditText
-                android:id="@+id/ETEmail"
+                android:id="@+id/ETName"
+                style="@style/DrawableIcon"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -117,11 +138,11 @@
                 android:background="@drawable/bg_et"
                 android:clickable="true"
                 android:focusable="true"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/plus_jakarta_sans"
                 android:hint="@string/hint_name"
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName"
-                android:maxLength="25"
+                android:maxLength="50"
                 android:paddingHorizontal="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -139,23 +160,24 @@
                 android:text="@string/address"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ETEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/ETName" />
 
             <com.example.cepstun.cv.CustomEditText
                 android:id="@+id/ETAddress"
+                style="@style/DrawableIcon"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
-                android:autofillHints="name"
+                android:autofillHints="postalAddress"
                 android:background="@drawable/bg_et"
                 android:clickable="true"
                 android:focusable="true"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/plus_jakarta_sans"
                 android:hint="@string/hint_address"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="textPostalAddress"
-                android:maxLength="25"
+                android:maxLength="100"
                 android:paddingHorizontal="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -177,20 +199,19 @@
 
             <com.example.cepstun.cv.CustomEditText
                 android:id="@+id/ETCoordinate"
+                style="@style/DrawableIcon"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
-                android:autofillHints="name"
                 android:background="@drawable/bg_et"
                 android:clickable="false"
                 android:drawableEnd="@drawable/ic_location"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/plus_jakarta_sans"
                 android:hint="@string/hint_coordinate"
-                android:inputType="textPersonName"
-                android:maxLength="25"
+                android:maxLength="100"
                 android:paddingHorizontal="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -212,19 +233,20 @@
 
             <com.example.cepstun.cv.CustomEditText
                 android:id="@+id/ETTelephone"
+                style="@style/DrawableIcon"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
-                android:autofillHints="name"
+                android:autofillHints="phone"
                 android:background="@drawable/bg_et"
                 android:clickable="true"
                 android:focusable="true"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/plus_jakarta_sans"
                 android:hint="@string/hint_telephone"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
-                android:maxLength="25"
+                android:maxLength="15"
                 android:paddingHorizontal="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -232,11 +254,76 @@
                 app:layout_constraintStart_toStartOf="@+id/TVTittleName"
                 app:layout_constraintTop_toBottomOf="@+id/TVTittleTelephone" />
 
+            <TextView
+                android:id="@+id/TVTittlePhotoBarber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:text="@string/photo_barber"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETTelephone" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ETPhotoBarber"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/bg_et"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:theme="@android:style/ThemeOverlay.Material.Dark"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/TVTittleName"
+                app:layout_constraintTop_toBottomOf="@+id/TVTittlePhotoBarber"
+                app:strokeColor="@color/gray2">
+
+
+                <TextView
+                    android:id="@+id/TVHintPhotoBarber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:text="@string/hint_photo_barber"
+                    android:textColor="@color/gray5"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    style="@style/IconTint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_add" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RVImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETPhotoBarber"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_image" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/BSave"
                 android:layout_width="355dp"
                 android:layout_height="44dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_login"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/button_save"
@@ -244,9 +331,10 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ETTelephone" />
+                app:layout_constraintTop_toBottomOf="@+id/RVImage" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

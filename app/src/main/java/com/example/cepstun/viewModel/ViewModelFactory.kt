@@ -86,6 +86,9 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(RegisterBarberViewModel::class.java) -> {
                 RegisterBarberViewModel(repositoryAuth, repositoryDatabase, repositoryStorage, repositoryBarberApi, application) as T
             }
+            modelClass.isAssignableFrom(EditDataBarbershopViewModel::class.java) -> {
+                EditDataBarbershopViewModel(repositoryAuth, repositoryDatabase, repositoryStorage, repositoryBarberApi, application) as T
+            }
             modelClass.isAssignableFrom(InputModelViewModel::class.java) -> {
                 InputModelViewModel(repositoryAuth, repositoryBarberApi, application) as T
             }

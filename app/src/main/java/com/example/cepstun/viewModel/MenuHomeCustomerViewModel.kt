@@ -22,12 +22,14 @@ import com.example.cepstun.data.local.Image
 import com.example.cepstun.data.local.entity.customer.HistoryCustomer
 import com.example.cepstun.data.local.entity.customer.NotificationCustomer
 import com.example.cepstun.utils.getCurrentDate
+import com.example.cepstun.utils.getFullImageUrl
 import com.example.cepstun.utils.getStringAddress
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -60,8 +62,8 @@ class MenuHomeCustomerViewModel(
     private val _listBarber = MutableLiveData<List<BarberData>>()
     val listBarber: LiveData<List<BarberData>> = _listBarber
 
-    private val _listBarber2 = MutableLiveData<List<BarberData>>()
-    val listBarber2: LiveData<List<BarberData>> = _listBarber2
+    private val _listBarber2 = MutableLiveData<List<BarberData>?>()
+    val listBarber2: LiveData<List<BarberData>?> = _listBarber2
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -251,9 +253,10 @@ class MenuHomeCustomerViewModel(
                 if (response.result.data.isNotEmpty()){
                     val barberDataList = response.result.data.map {
                         BarberData(
-                            id = it.barberId,
+                            id = it.owner,
+                            barberId = it.barberId,
                             name = it.name,
-                            logo = it.imgSrc,
+                            logo = it.imgSrc.getFullImageUrl(),
                             rate = null,
                             lat = it.lat,
                             lon = it.long,
@@ -266,16 +269,25 @@ class MenuHomeCustomerViewModel(
                     _listBarber2.value = barberDataList
                     _isLoading.value = false
                 } else{
+                    _listBarber2.value = null
                     _isLoading.value = false
                     _message.value =
-                        context.getString(R.string.data_not_found_make_sure_your_location_is_switched_on)
+                        context.getString(R.string.didn_t_find_the_barbershop_you_were_looking_for)
                 }
             } catch (e: retrofit2.HttpException){
                 _isLoading.value = false
-                _message.value = e.message
+                _listBarber2.value = null
+
+//                val errorJsonString = e.response()?.errorBody()?.string()
+//                val jsonObject = JsonParser.parseString(errorJsonString).asJsonObject
+//                val message = jsonObject.get("message").asString
+//
+//                _message.value = message
             } catch (e: Exception){
                 _isLoading.value = false
                 _message.value = e.message
+                _listBarber2.value = null
+
             }
         }
     }

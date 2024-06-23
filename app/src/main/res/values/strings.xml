@@ -364,7 +364,7 @@
     <string name="button_save_changes">Save changes</string>
 
     <!-- activity_edit_data_barbershop -->
-    <string name="personal_data_barbershop">Edit Data</string>
+    <string name="personal_data_barbershop">Edit Data Barbershop</string>
 
     <!-- activity_edit_model -->
     <string name="edit_model">Edit Model</string>
@@ -502,6 +502,9 @@
 
 
     <string name="data_not_found_make_sure_your_location_is_switched_on">Data not found, make sure your location is switched on</string>
+    <string name="map_coordinate" translatable="false">%1$s, %2$s</string>
+
+    <string name="didn_t_find_the_barbershop_you_were_looking_for">Didn\'t find the barbershop you were looking for</string>
 
 
 </resources>

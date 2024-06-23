@@ -8,15 +8,19 @@ import android.graphics.Matrix
 import android.location.Geocoder
 import android.net.Uri
 import android.util.DisplayMetrics
+import android.util.Log
 import androidx.exifinterface.media.ExifInterface
+import com.bumptech.glide.Glide
 import com.example.cepstun.BuildConfig
 import com.example.cepstun.R
 import com.example.cepstun.data.RepositorySharedPreference
 import com.example.cepstun.data.dataStore
 import com.example.cepstun.data.remote.retrofit.currency.ApiConfigCurrency
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -202,3 +206,18 @@ fun String.getFullImageUrl(): String {
     return "${siteStorage}/v0/b/${siteUrl}/o/${this}?alt=media"
 }
 
+// to download image and get uri
+suspend fun downloadImage(url: String, context: Context): Uri? = withContext(Dispatchers.IO) {
+    val future = Glide.with(context)
+        .asFile()
+        .load(url)
+        .submit()
+
+    return@withContext try {
+        val file = future.get()
+        Uri.fromFile(file)
+    } catch (e: Exception) {
+        Log.e("DownloadImageError", "Error downloading image: ${e.message}")
+        null
+    }
+}
